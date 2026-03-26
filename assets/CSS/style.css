@@ -35,3 +35,23 @@ body {
             0 0 30px 10px rgba(255,180,30,0.7),
             0 0 50px 18px rgba(255,140,0,0.3);
 }
+
+.trail-star {
+    position:fixed;
+    pointer-events:none;
+    z-index:9996;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    animation:starFade var(--dur,.6s) ease forwards;
+}
+@keyframes starFade {
+    0%   { opacity:1;   transform:translate(-50%,-50%) scale(1) rotate(0deg); }
+    100% { opacity:0;   transform:translate(-50%,-50%) scale(0) rotate(180deg); }
+}
+
+.trail-star.star4 {
+    background:transparent;
+    border-radius:0;
+    clip-path:polygon(50% 0%,55% 45%,100% 50%,55% 55%,50% 100%,45% 55%,0% 50%,45% 45%);
+    background:gold;
+}
