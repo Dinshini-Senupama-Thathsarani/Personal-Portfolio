@@ -76,3 +76,13 @@ canvas {
     pointer-events:none;
     z-index:2;
 }
+
+#hair-zone {
+    position:absolute;
+    right:0%;
+    top:15%;
+    width:58%;
+    height:85%;
+    z-index:5;
+    cursor:none;
+}
