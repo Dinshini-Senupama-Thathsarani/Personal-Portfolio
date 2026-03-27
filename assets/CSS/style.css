@@ -328,3 +328,7 @@ canvas {
         max-width: 92vw;
     }
 }
+
+h2 {
+    color: aqua;
+}
