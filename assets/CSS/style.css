@@ -4,6 +4,16 @@
     box-sizing: border-box;
 }
 
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #e8e4f0;
+}
+
 .gatePage {
     height: 100vh;
     overflow: hidden;
@@ -342,9 +352,6 @@ canvas {
 
 
 
-html {
-    scroll-behavior: smooth;
-}
 
 
 
@@ -968,4 +975,22 @@ footer {
     .footer-updated {
         font-size: 0.78rem;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
