@@ -41,6 +41,196 @@
 
 
 
+
+
+
+
+
+<section class="about-section">
+    <div class="about-container">
+
+        <div class="profile-side">
+            <div class="profile-circle-container">
+                <div class="profile-circle">
+                    <img src="assets/lib/images/professionalpic.jpeg" alt="Dinshini Senupama">
+                </div>
+            </div>
+            <div class="profile-label">
+                <span>Software Engineering Student at</span>
+                <img src="assets/lib/icons/img.png" alt="IJSE" class="ijse-logo-img">
+            </div>
+        </div>
+
+        <div class="about-content">
+            <h2 class="about-header">Who I Am</h2>
+
+            <div class="about-text">
+                <p>
+                    I'm Dinshini Senupama, a passionate Web Developer and UI/UX Designer who blends creativity with clean, purposeful design. I love transforming ideas into meaningful digital experiences that feel intuitive, elegant, and engaging. With a strong foundation in HTML, CSS, JavaScript, and Figma, I focus on building responsive, user-centered websites and thoughtful interfaces that are both functional and visually compelling. I believe great design isn't just about appearance — it's about clarity, usability, and purpose. Driven by curiosity and continuous growth, I'm always learning, experimenting, and refining my skills to create digital spaces that are not only beautiful but impactful.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+
+
+<section class="code">
+
+    <div class="career-section">
+
+        <h2 class="career-title">My Career Goals</h2>
+
+        <div class="code-card">
+
+            <!Top bar>
+            <div class="code-card-bar">
+                <div class="code-dots">
+                    <span></span><span></span><span></span>
+                </div>
+                <span class="code-card-filename">DinshiniPortfolioTimeline.java</span>
+                <div class="code-btn-group">
+                    <button class="btn-copy" id="btnCopy" onclick="copyCode()">Copy to Clipboard</button>
+                    <button class="btn-run"  id="btnRun"  onclick="runCode()">▶ Run Program</button>
+                </div>
+            </div>
+
+            <! Scrollable code >
+            <div class="code-body">
+<pre id="codeBlock"><span class="cm">package portfolio; // &lt;-- change this to your actual package name</span>
+
+<span class="kw">import</span> java.util.ArrayList;
+
+<span class="kw">class</span> <span class="cl">TimelineEvent</span> {
+    <span class="cl">String</span> yearOrGoal;
+    <span class="cl">String</span> title;
+    <span class="cl">String</span> description;
+
+    <span class="kw">public</span> <span class="cl">TimelineEvent</span>(<span class="cl">String</span> yearOrGoal, <span class="cl">String</span> title, <span class="cl">String</span> description) {
+        <span class="kw">this</span>.yearOrGoal   = yearOrGoal;
+        <span class="kw">this</span>.title        = title;
+        <span class="kw">this</span>.description  = description;
+    }
+
+    <span class="kw">public void</span> <span class="mt">display</span>() {
+        System.out.<span class="mt">println</span>(<span class="st">"--------------------------------------------"</span>);
+        System.out.<span class="mt">println</span>(<span class="st">"📅 "</span> + yearOrGoal);
+        System.out.<span class="mt">println</span>(<span class="st">"   "</span> + title);
+        System.out.<span class="mt">println</span>(<span class="st">"   "</span> + description);
+    }
+}
+
+<span class="kw">public class</span> <span class="cl">DinshiniPortfolioTimeline</span> {
+    <span class="kw">public static void</span> <span class="mt">main</span>(<span class="cl">String</span>[] args) {
+        System.out.<span class="mt">println</span>(<span class="st">"\n✨ Dinshini Senupama – My Journey ✨\n"</span>);
+        ArrayList&lt;<span class="cl">TimelineEvent</span>&gt; timeline = <span class="kw">new</span> ArrayList&lt;&gt;();
+
+        <span class="cm">// Educational milestones</span>
+        timeline.<span class="mt">add</span>(<span class="kw">new</span> <span class="cl">TimelineEvent</span>(
+            <span class="st">"2024"</span>,
+            <span class="st">"GCE Advanced Level – Biology Stream"</span>,
+            <span class="st">"Developed strong analytical thinking and scientific problem-solving skills."</span>
+        ));
+
+        timeline.<span class="mt">add</span>(<span class="kw">new</span> <span class="cl">TimelineEvent</span>(
+            <span class="st">"2025 – Present"</span>,
+            <span class="st">"Undergraduate in Information Technology"</span>,
+            <span class="st">"Building expertise in programming, web development, and UI/UX design."</span>
+        ));
+
+        <span class="cm">// Career goals</span>
+        timeline.<span class="mt">add</span>(<span class="kw">new</span> <span class="cl">TimelineEvent</span>(
+            <span class="st">"Short-Term Goal"</span>,
+            <span class="st">"Professional Web Developer"</span>,
+            <span class="st">"Create responsive, user-centered digital applications."</span>
+        ));
+
+        timeline.<span class="mt">add</span>(<span class="kw">new</span> <span class="cl">TimelineEvent</span>(
+            <span class="st">"Long-Term Goal"</span>,
+            <span class="st">"Creative Tech Innovator"</span>,
+            <span class="st">"Blend creativity and technology to design meaningful experiences."</span>
+        ));
+
+        <span class="cm">// Display full timeline</span>
+        <span class="kw">for</span> (<span class="cl">TimelineEvent</span> event : timeline) {
+            event.<span class="mt">display</span>();
+        }
+
+        System.out.<span class="mt">println</span>(<span class="st">"--------------------------------------------"</span>);
+    }
+}</pre>
+            </div>
+
+
+            <div class="code-output" id="codeOutput">
+                <div class="output-label">▶ Output</div>
+                <div class="output-text" id="outputText"></div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+<section class="journey-section">
+    <div class="journey-container">
+        <div>
+            <h2 class="journey-header">And when I am 000.....</h2>
+        </div>
+
+
+        <div class="comic-wrapper">
+            <div class="card-stack">
+                <div class="journey-card" style="--bg-img: url('assets/lib/images/pic1.jpg');">
+                    <div class="card-label"><span>Exploring the Uncharted</span></div>
+                    <div class="card-image-overlay"></div>
+                </div>
+                <div class="journey-card" style="--bg-img: url('assets/lib/images/pic2.jpg');">
+                    <div class="card-label"><span>Pieces of My Soul</span></div>
+                    <div class="card-image-overlay"></div>
+                </div>
+                <div class="journey-card" style="--bg-img: url('assets/lib/images/pic3.jpg');">
+                    <div class="card-label"><span>Expressions Unspoken</span></div>
+                    <div class="card-image-overlay"></div>
+                </div>
+                <div class="journey-card" style="--bg-img: url('assets/lib/images/pic4.jpg');">
+                    <div class="card-label"><span>The Art of Discipline</span></div>
+                    <div class="card-image-overlay"></div>
+                </div>
+                <div class="journey-card" style="--bg-img: url('assets/lib/images/pic5.jpg');">
+                    <div class="card-label"><span>What Keeps Me Inspired</span></div>
+                    <div class="card-image-overlay"></div>
+                </div>
+                <div class="journey-card" style="--bg-img: url('assets/lib/images/pic6.jpg');">
+                    <div class="card-label"><span>Beyond the Screen</span></div>
+                    <div class="card-image-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
 <section class="about-hero" id="about">
 
 
@@ -87,37 +277,6 @@
 </section>
 
 
-
-
-
-
-<section class="about-section">
-    <div class="about-container">
-
-        <div class="profile-side">
-            <div class="profile-circle-container">
-                <div class="profile-circle">
-                    <img src="assets/lib/images/professionalpic.jpeg" alt="Dinshini Senupama">
-                </div>
-            </div>
-            <div class="profile-label">
-                <span>Software Engineering Student at</span>
-                <img src="assets/lib/icons/img.png" alt="IJSE" class="ijse-logo-img">
-            </div>
-        </div>
-
-        <div class="about-content">
-            <h2 class="about-header">Who I Am</h2>
-
-            <div class="about-text">
-                <p>
-                    I'm Dinshini Senupama, a passionate Web Developer and UI/UX Designer who blends creativity with clean, purposeful design. I love transforming ideas into meaningful digital experiences that feel intuitive, elegant, and engaging. With a strong foundation in HTML, CSS, JavaScript, and Figma, I focus on building responsive, user-centered websites and thoughtful interfaces that are both functional and visually compelling. I believe great design isn't just about appearance — it's about clarity, usability, and purpose. Driven by curiosity and continuous growth, I'm always learning, experimenting, and refining my skills to create digital spaces that are not only beautiful but impactful.
-                </p>
-            </div>
-        </div>
-
-    </div>
-</section>
 
 
 
@@ -209,6 +368,128 @@
         <span>Developed by DINSHINI</span>
     </div>
 </footer>
+
+
+
+
+
+<script>
+    /* ── Copy to Clipboard ── */
+    function copyCode() {
+        const raw = `package portfolio;
+
+import java.util.ArrayList;
+
+class TimelineEvent {
+    String yearOrGoal;
+    String title;
+    String description;
+
+    public TimelineEvent(String yearOrGoal, String title, String description) {
+        this.yearOrGoal  = yearOrGoal;
+        this.title       = title;
+        this.description = description;
+    }
+
+    public void display() {
+        System.out.println("--------------------------------------------");
+        System.out.println("📅 " + yearOrGoal);
+        System.out.println("   " + title);
+        System.out.println("   " + description);
+    }
+}
+
+public class DinshiniPortfolioTimeline {
+    public static void main(String[] args) {
+        System.out.println("\\n✨ Dinshini Senupama – My Journey ✨\\n");
+        ArrayList<TimelineEvent> timeline = new ArrayList<>();
+
+        // Educational milestones
+        timeline.add(new TimelineEvent(
+            "2024",
+            "GCE Advanced Level – Biology Stream",
+            "Developed strong analytical thinking and scientific problem-solving skills."
+        ));
+
+        timeline.add(new TimelineEvent(
+            "2025 – Present",
+            "Undergraduate in Information Technology",
+            "Building expertise in programming, web development, and UI/UX design."
+        ));
+
+        // Career goals
+        timeline.add(new TimelineEvent(
+            "Short-Term Goal",
+            "Professional Web Developer",
+            "Create responsive, user-centered digital applications."
+        ));
+
+        timeline.add(new TimelineEvent(
+            "Long-Term Goal",
+            "Creative Tech Innovator",
+            "Blend creativity and technology to design meaningful experiences."
+        ));
+
+        // Display full timeline
+        for (TimelineEvent event : timeline) {
+            event.display();
+        }
+
+        System.out.println("--------------------------------------------");
+    }
+}`;
+
+        navigator.clipboard.writeText(raw).then(() => {
+            const btn = document.getElementById('btnCopy');
+            btn.textContent = '✓ Copied!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.textContent = 'Copy to Clipboard';
+                btn.classList.remove('copied');
+            }, 2000);
+        });
+    }
+
+    /* ── Run Program (simulate output) ── */
+    function runCode() {
+        const output = document.getElementById('codeOutput');
+        const text   = document.getElementById('outputText');
+        const btn    = document.getElementById('btnRun');
+
+        btn.textContent = '⏳ Running...';
+        btn.disabled = true;
+
+        setTimeout(() => {
+            text.textContent =
+                `✨ Dinshini Senupama – My Journey ✨
+
+--------------------------------------------
+📅 2024
+   GCE Advanced Level – Biology Stream
+   Developed strong analytical thinking and scientific problem-solving skills.
+--------------------------------------------
+📅 2025 – Present
+   Undergraduate in Information Technology
+   Building expertise in programming, web development, and UI/UX design.
+--------------------------------------------
+📅 Short-Term Goal
+   Professional Web Developer
+   Create responsive, user-centered digital applications.
+--------------------------------------------
+📅 Long-Term Goal
+   Creative Tech Innovator
+   Blend creativity and technology to design meaningful experiences.
+--------------------------------------------`;
+
+            output.classList.add('show');
+            btn.textContent = '▶ Run Program';
+            btn.disabled = false;
+
+            // Scroll to output
+            output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 800);
+    }
+</script>
 
 </body>
 </html>
