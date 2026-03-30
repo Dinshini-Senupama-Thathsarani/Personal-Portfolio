@@ -93,8 +93,6 @@
 
 
 
-
-
 <section class="cta-section" id="cta-trigger">
     <div class="character-container">
         <img src="assets/lib/images/wow.png" alt="Rapunzel">
@@ -103,11 +101,10 @@
     <div class="text-content">
         <h2 class="cta-title" id="typing-text"></h2>
         <div class="email-wrapper" id="email-fade">
-            <a href="mailto:hello@dinshini.com" class="email-link">Email me</a>
+            <a href="mailto:dinshinisenupama737@gmail.com" class="email-link">Email me</a>
         </div>
     </div>
 </section>
-
 
 
 
@@ -223,6 +220,64 @@
         questionArea.style.display = 'none';
         successMsg.style.display = 'block';
     }
+
+
+
+
+
+
+
+        const textElement = document.getElementById('typing-text');
+        const emailWrapper = document.getElementById('email-fade');
+        const section = document.getElementById('cta-trigger');
+        const content = "Let’s build the ‘WOW’ together";
+        let index = 0;
+        let hasStarted = false;
+
+        function type() {
+        if (index < content.length) {
+        textElement.innerHTML = content.slice(0, index + 1) + '<span class="cursor"></span>';
+        index++;
+        setTimeout(type, 100);
+    } else {
+        textElement.innerHTML = content;
+        emailWrapper.style.opacity = '1';
+        createSparkles(30);
+    }
+    }
+
+
+        function createSparkles(num) {
+        for (let i = 0; i < num; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+
+
+        const size = Math.random() * 6 + 2 + 'px';
+        sparkle.style.width = size;
+        sparkle.style.height = size;
+        sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.setProperty('--duration', Math.random() * 2 + 1 + 's');
+
+        section.appendChild(sparkle);
+    }
+    }
+
+
+        const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasStarted) {
+                hasStarted = true;
+                type();
+                createSparkles(15);
+            }
+        });
+    }, { threshold: 0.5 });
+
+        observer.observe(section);
+
+
 </script>
 
 

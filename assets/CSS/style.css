@@ -2046,3 +2046,124 @@ footer {
     to { opacity: 1; transform: translateY(0); }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+.cta-section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 5%;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+
+.character-container {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 28vw;
+    min-width: 250px;
+    z-index: 5;
+    line-height: 0;
+    animation: floatUpDown 3s ease-in-out infinite;
+}
+
+.character-container img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(10px -5px 20px rgba(0,0,0,0.1));
+}
+
+@keyframes floatUpDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+
+.text-content {
+    text-align: center;
+    z-index: 20;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-style: italic;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    min-height: 1.2em;
+    line-height: 1.1;
+}
+
+.cursor {
+    border-right: 3px solid #1a1a1a;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink { 50% { border-color: transparent; } }
+
+/* 3. EMAIL WRAPPER */
+.email-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.email-link {
+    font-weight: 700;
+    color: #000;
+    text-decoration: none;
+    border-bottom: 2px solid #000;
+    font-size: 1.2rem;
+}
+
+/* 4. SPARKLES
+.sparkle {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2;
+    animation: twinkle var(--duration) ease-in-out infinite;
+}*/
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+    .character-container {
+        width: 60vw;
+        left: 0;
+        bottom: 0;
+        z-index: 5;
+    }
+    .text-content {
+        margin-top: -150px;
+        margin-left: 100px;
+        margin-bottom: 200px;
+        padding: 0 20px;
+        z-index: 20;
+    }
+    .email-wrapper {
+        justify-content: center;
+        padding-right: 0;
+    }
+}
