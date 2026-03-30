@@ -264,3 +264,21 @@ hairZone.addEventListener('touchstart', e => {
     e.preventDefault();
     handleTouch(e.touches[0].clientX, e.touches[0].clientY);
 }, { passive: false });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -66,28 +66,26 @@
 
 
 
+
 <section class="yesNo">
-    <div>
 
-        <div class="feedback-card" id="card">
-            <div id="question-area">
-                <p class="question-text">
-                    Do you like my works? Feel free to express your dissent by selecting 'No'—if you're feeling a little rebellious today.
-                </p>
-                <div class="btn-container">
-                    <button class="btn btn-yes" onclick="showSuccess()">yes</button>
-                    <button class="btn" id="btn-no">no</button>
-                </div>
-            </div>
-
-            <div id="success-msg">
-                I knew we were on the same wavelength! 😂✨
+    <div class="feedback-card" id="card">
+        <div id="question-area">
+            <p class="question-text">
+                Do you like my works? Feel free to express your dissent by selecting 'No'—if you're feeling a little rebellious today.
+            </p>
+            <div class="btn-container">
+                <button class="btn btn-yes" onclick="showSuccess()">yes</button>
+                <button class="btn" id="btn-no">no</button>
             </div>
         </div>
 
+        <div id="success-msg">
+            I knew we were on the same wavelength! 😂✨
+        </div>
     </div>
-</section>
 
+</section>
 
 
 
@@ -177,6 +175,38 @@
         <span>Developed by DINSHINI</span>
     </div>
 </footer>
+
+
+
+
+<script>
+    const noBtn = document.getElementById('btn-no');
+    const questionArea = document.getElementById('question-area');
+    const successMsg = document.getElementById('success-msg');
+    const card = document.getElementById('card');
+
+    // 1. No button dodging logic
+    noBtn.addEventListener('mouseover', () => {
+
+        const maxX = card.clientWidth - noBtn.clientWidth - 40;
+        const maxY = card.clientHeight - noBtn.clientHeight - 40;
+
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+        noBtn.style.position = 'absolute';
+    });
+
+    // 2. Yes button click logic
+    function showSuccess() {
+        questionArea.style.display = 'none';
+        successMsg.style.display = 'block';
+    }
+</script>
+
+
 
 </body>
 </html>

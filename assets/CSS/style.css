@@ -1954,3 +1954,94 @@ footer {
     .title { font-size: 2.5rem; }
     .image-box { width: 200px; }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+.yesNo {
+    background-color: #E3C6F0;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    margin: 0;
+}
+
+
+.feedback-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 40px;
+    padding: 50px;
+    width: 700px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(255,255,255,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.question-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+    color: #1a1a1a;
+    line-height: 1.4;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    position: relative;
+    height: 60px;
+}
+
+.btn {
+    padding: 12px 40px;
+    border-radius: 25px;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #c4a1d6;
+    color: #1a1a1a;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.btn-yes:hover {
+    background-color: #b389cb;
+    transform: scale(1.1);
+}
+
+
+#btn-no {
+    position: absolute;
+    left: 55%;
+}
+
+#success-msg {
+    display: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #1a1a1a;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
