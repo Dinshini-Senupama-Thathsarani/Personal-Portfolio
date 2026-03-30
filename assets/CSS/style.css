@@ -2459,3 +2459,174 @@ footer {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600&display=swap');
+
+
+.about-header {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    color: #000;
+    margin-bottom: 20px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    text-align: left;
+}
+
+
+.about-section {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 5%;
+    background-color: #E3C6F0 !important;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.about-container {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.about-content {
+    flex: 1.5;
+    min-width: 400px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.about-header {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    line-height: 1.1;
+    letter-spacing: -2px;
+}
+
+
+.about-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #1a1a1a;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+
+.cursor {
+    border-right: 3px solid #1a1a1a;
+    animation: blink 0.7s infinite;
+    margin-left: 5px;
+}
+@keyframes blink { 50% { border-color: transparent; } }
+
+
+.profile-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 350px;
+}
+
+.profile-circle-container {
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #2D3436;
+    border: 1px solid rgba(0,0,0,0.1);
+    animation: profileFloat 4s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 15px 40px rgba(0,0,0,0.1));
+}
+
+.profile-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+@keyframes profileFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+
+.profile-label {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.ijse-logo-img {
+    height: 22px;
+    width: auto;
+}
+
+
+@media (max-width: 992px) {
+    .about-content {
+        order: 2; /* Mobile unama text eka bottom ekata yanna */
+        text-align: center;
+        flex: 1;
+        margin-top: 40px;
+    }
+
+    .profile-side {
+        order: 1; /* Image top ekata */
+        text-align: center;
+        width: 100%;
+    }
+
+    .profile-circle-container {
+        width: 280px;
+        height: 280px;
+    }
+
+    .about-header {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    .about-text p {
+        text-align: center;
+    }
+
+    .profile-label {
+        justify-content: center;
+    }
+}
