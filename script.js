@@ -1,5 +1,4 @@
-
-const cur = document.getElementById('cursorGatePage'); // ← updated ID
+const cur = document.getElementById('cursorGatePage');
 
 let lastTrailX = 0, lastTrailY = 0;
 let trailCount = 0;
@@ -27,7 +26,7 @@ document.addEventListener('mousemove', e => {
 });
 
 function spawnTrailStar(x, y, type = 'normal') {
-    const star   = document.createElement('div');
+    const star    = document.createElement('div');
     const isStar4 = trailCount % 2 === 0 && type !== 'mini';
     star.className = isStar4 ? 'trail-star star4' : 'trail-star';
 
@@ -56,6 +55,7 @@ function spawnTrailStar(x, y, type = 'normal') {
 }
 
 
+/* ── Canvas glow ── */
 const canvas = document.getElementById('canvas');
 const ctx    = canvas.getContext('2d');
 
@@ -97,15 +97,12 @@ function draw(ts) {
 
     if (total > 0.01) {
         const { x, y, r } = getHairCenter();
-
-
         const g = ctx.createRadialGradient(x, y, 10, x, y, r);
         g.addColorStop(0,   `rgba(255,215,0,${0.28 * total})`);
         g.addColorStop(0.5, `rgba(255,160,30,${0.12 * total})`);
         g.addColorStop(1,   'transparent');
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
 
         if (total > 0.2) {
             const hz = document.getElementById('hair-zone').getBoundingClientRect();
@@ -125,7 +122,6 @@ function draw(ts) {
             }
         }
     }
-
 
     for (let i = ripples.length - 1; i >= 0; i--) {
         const rp  = ripples[i];
@@ -147,6 +143,7 @@ function draw(ts) {
 requestAnimationFrame(draw);
 
 
+/* ── Hair zone hover ── */
 const hairZone = document.getElementById('hair-zone');
 
 hairZone.addEventListener('mouseenter', () => {
@@ -159,90 +156,75 @@ hairZone.addEventListener('mouseleave', () => {
 });
 
 
-let count      = 0;
-let done       = false;
-let apiLoading = false;
-let speechTimer;
-const dots = document.querySelectorAll('.dot');
-
-const fallbacks = [
-    'Oh… someone touched my hair…',
-    'It feels warm… like magic…',
-    'I think I can trust you… the tower opens for you.'
-];
-
+/* ══════════════════════════════════════
+   SINGLE TOUCH → HOME PAGE
+══════════════════════════════════════ */
+let touched  = false;  /* prevent double-fire */
 
 async function handleTouch(x, y) {
-    if (count >= 3 || done || apiLoading) return;
-    apiLoading = true;
+    if (touched) return;
+    touched = true;
 
+    /* 1. Visual feedback */
     glowAmt = 1;
     ripples.push({ x, y, r: 0, alpha: 1 });
     burst(x, y);
 
-    dots[count].classList.add('active');
-    count++;
+    /* Dot lights up */
+    document.querySelector('.dot').classList.add('active');
 
+    /* Image pulse */
     const bg = document.getElementById('bg');
-    bg.style.transform = 'scale(1.04)';
-    setTimeout(() => bg.style.transform = 'scale(1)', 300);
+    bg.style.transform = 'scale(1.06)';
+    setTimeout(() => bg.style.transform = 'scale(1)', 400);
 
-    if (count >= 3) done = true;
-
+    /* 2. Rapunzel speech — try API, fallback instantly */
     showSpeech('✦  ✦  ✦');
 
-    const mood = count === 1 ? 'shy and startled'
-        : count === 2 ? 'enchanted and hopeful'
-            :                'fully enchanted, gate opening';
     try {
         const res  = await fetch('https://api.anthropic.com/v1/messages', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                model: 'claude-sonnet-4-20250514',
-                max_tokens: 60,
-                system: `You are Rapunzel. Someone touched your long magical hair. Reply in fairy-tale voice. ONE sentence, max 12 words. No quotes or asterisks. Mood: ${mood}. If this is the 3rd touch, say something like "I think I can trust you, the tower opens for you."`,
-                messages: [{ role: 'user', content: `Touch ${count} of 3.` }]
+                model      : 'claude-sonnet-4-20250514',
+                max_tokens : 60,
+                system     : 'You are Rapunzel. Someone touched your hair once and the tower gate opens. Reply in fairy-tale voice. ONE sentence, max 12 words. No quotes or asterisks.',
+                messages   : [{ role: 'user', content: 'Hair touched once. Gate opens.' }]
             })
         });
         const data = await res.json();
-        const text = data.content?.[0]?.text?.trim() || fallbacks[count - 1];
+        const text = data.content?.[0]?.text?.trim() || 'The tower opens… welcome, dear visitor.';
         showSpeech(text);
-        if (done) setTimeout(enter, 2200);
     } catch {
-        showSpeech(fallbacks[count - 1]);
-        if (done) setTimeout(enter, 2200);
-    } finally {
-        apiLoading = false;
+        showSpeech('The tower opens… welcome, dear visitor.');
     }
+
+    /* 3. Transition → home.html after 1.8s */
+    setTimeout(enter, 1800);
 }
 
 function showSpeech(text) {
     const el = document.getElementById('speech');
     el.textContent = text === '✦  ✦  ✦' ? text : `"${text}"`;
     el.classList.add('show');
-    clearTimeout(speechTimer);
-    if (text !== '✦  ✦  ✦')
-        speechTimer = setTimeout(() => el.classList.remove('show'), 3800);
 }
-
 
 function burst(x, y) {
     const colors = ['#fff9c0','#ffd700','#ffb830','#ffffff','#f0c060'];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 24; i++) {
         const el  = document.createElement('div');
         el.className = 'sp';
-        const sz  = 3 + Math.random() * 7;
+        const sz  = 3 + Math.random() * 8;
         const ang = Math.random() * Math.PI * 2;
-        const d   = 30 + Math.random() * 80;
-        const dur = 0.5 + Math.random() * 0.6;
+        const d   = 40 + Math.random() * 90;
+        const dur = 0.5 + Math.random() * 0.7;
         el.style.cssText = `
             width:${sz}px; height:${sz}px;
             left:${x}px; top:${y}px;
             background:${colors[Math.floor(Math.random() * colors.length)]};
             box-shadow:0 0 ${sz}px rgba(255,200,60,.5);
             --tx:${Math.cos(ang)*d}px;
-            --ty:${Math.sin(ang)*d - 15}px;
+            --ty:${Math.sin(ang)*d - 20}px;
             --d:${dur}s;
         `;
         document.body.appendChild(el);
@@ -253,13 +235,13 @@ function burst(x, y) {
 function enter() {
     document.getElementById('transition').classList.add('show');
     setTimeout(() => {
-        // HOME PAGE:
         window.location.href = 'home.html';
     }, 2500);
 }
 
 
-hairZone.addEventListener('click', e => handleTouch(e.clientX, e.clientY));
+/* ── Event listeners ── */
+hairZone.addEventListener('click',      e => handleTouch(e.clientX, e.clientY));
 hairZone.addEventListener('touchstart', e => {
     e.preventDefault();
     handleTouch(e.touches[0].clientX, e.touches[0].clientY);
@@ -282,3 +264,132 @@ hairZone.addEventListener('touchstart', e => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ── Copy to Clipboard ── */
+function copyCode() {
+    const raw = `package portfolio;
+
+import java.util.ArrayList;
+
+class TimelineEvent {
+    String yearOrGoal;
+    String title;
+    String description;
+
+    public TimelineEvent(String yearOrGoal, String title, String description) {
+        this.yearOrGoal  = yearOrGoal;
+        this.title       = title;
+        this.description = description;
+    }
+
+    public void display() {
+        System.out.println("--------------------------------------------");
+        System.out.println("📅 " + yearOrGoal);
+        System.out.println("   " + title);
+        System.out.println("   " + description);
+    }
+}
+
+public class DinshiniPortfolioTimeline {
+    public static void main(String[] args) {
+        System.out.println("\\n✨ Dinshini Senupama – My Journey ✨\\n");
+        ArrayList<TimelineEvent> timeline = new ArrayList<>();
+
+        // Educational milestones
+        timeline.add(new TimelineEvent(
+            "2024",
+            "GCE Advanced Level – Biology Stream",
+            "Developed strong analytical thinking and scientific problem-solving skills."
+        ));
+
+        timeline.add(new TimelineEvent(
+            "2025 – Present",
+            "Undergraduate in Information Technology",
+            "Building expertise in programming, web development, and UI/UX design."
+        ));
+
+        // Career goals
+        timeline.add(new TimelineEvent(
+            "Short-Term Goal",
+            "Professional Web Developer",
+            "Create responsive, user-centered digital applications."
+        ));
+
+        timeline.add(new TimelineEvent(
+            "Long-Term Goal",
+            "Creative Tech Innovator",
+            "Blend creativity and technology to design meaningful experiences."
+        ));
+
+        // Display full timeline
+        for (TimelineEvent event : timeline) {
+            event.display();
+        }
+
+        System.out.println("--------------------------------------------");
+    }
+}`;
+
+    navigator.clipboard.writeText(raw).then(() => {
+        const btn = document.getElementById('btnCopy');
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.textContent = 'Copy to Clipboard';
+            btn.classList.remove('copied');
+        }, 2000);
+    });
+}
+
+/* ── Run Program (simulate output) ── */
+function runCode() {
+    const output = document.getElementById('codeOutput');
+    const text   = document.getElementById('outputText');
+    const btn    = document.getElementById('btnRun');
+
+    btn.textContent = '⏳ Running...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+        text.textContent =
+            `✨ Dinshini Senupama – My Journey ✨
+
+--------------------------------------------
+📅 2024
+   GCE Advanced Level – Biology Stream
+   Developed strong analytical thinking and scientific problem-solving skills.
+--------------------------------------------
+📅 2025 – Present
+   Undergraduate in Information Technology
+   Building expertise in programming, web development, and UI/UX design.
+--------------------------------------------
+📅 Short-Term Goal
+   Professional Web Developer
+   Create responsive, user-centered digital applications.
+--------------------------------------------
+📅 Long-Term Goal
+   Creative Tech Innovator
+   Blend creativity and technology to design meaningful experiences.
+--------------------------------------------`;
+
+        output.classList.add('show');
+        btn.textContent = '▶ Run Program';
+        btn.disabled = false;
+
+        // Scroll to output
+        output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 800);
+}
