@@ -277,119 +277,74 @@ hairZone.addEventListener('touchstart', e => {
 
 
 
+(function initHomeTrail() {
+    // Check if we are on the Home Page
+    const isHomePage = document.body.classList.contains('home-page');
+    if (!isHomePage) return; // Home page neththam JS eka methanin nawathිනවා
 
-/* ── Copy to Clipboard ── */
-function copyCode() {
-    const raw = `package portfolio;
+    const cur = document.getElementById('cursor');
+    let lastSpawnX = 0, lastSpawnY = 0;
+    const MIN_DIST = 60;
 
-import java.util.ArrayList;
+    const stickers = [
+        { type: 'img', src: 'assets/lib/icons/rapunzelicon.png', sz: 65, life: 1.8 },
+        { type: 'img', src: 'assets/lib/images/flower.png', sz: 60, life: 1.9 },
+        { type: 'emoji', content: '🌸', sz: 55, life: 1.6 },
+        { type: 'emoji', content: '✨', sz: 45, life: 1.4 }
+    ];
 
-class TimelineEvent {
-    String yearOrGoal;
-    String title;
-    String description;
-
-    public TimelineEvent(String yearOrGoal, String title, String description) {
-        this.yearOrGoal  = yearOrGoal;
-        this.title       = title;
-        this.description = description;
-    }
-
-    public void display() {
-        System.out.println("--------------------------------------------");
-        System.out.println("📅 " + yearOrGoal);
-        System.out.println("   " + title);
-        System.out.println("   " + description);
-    }
-}
-
-public class DinshiniPortfolioTimeline {
-    public static void main(String[] args) {
-        System.out.println("\\n✨ Dinshini Senupama – My Journey ✨\\n");
-        ArrayList<TimelineEvent> timeline = new ArrayList<>();
-
-        // Educational milestones
-        timeline.add(new TimelineEvent(
-            "2024",
-            "GCE Advanced Level – Biology Stream",
-            "Developed strong analytical thinking and scientific problem-solving skills."
-        ));
-
-        timeline.add(new TimelineEvent(
-            "2025 – Present",
-            "Undergraduate in Information Technology",
-            "Building expertise in programming, web development, and UI/UX design."
-        ));
-
-        // Career goals
-        timeline.add(new TimelineEvent(
-            "Short-Term Goal",
-            "Professional Web Developer",
-            "Create responsive, user-centered digital applications."
-        ));
-
-        timeline.add(new TimelineEvent(
-            "Long-Term Goal",
-            "Creative Tech Innovator",
-            "Blend creativity and technology to design meaningful experiences."
-        ));
-
-        // Display full timeline
-        for (TimelineEvent event : timeline) {
-            event.display();
+    document.addEventListener('mousemove', (e) => {
+        if(cur) {
+            cur.style.left = e.clientX + 'px';
+            cur.style.top = e.clientY + 'px';
         }
 
-        System.out.println("--------------------------------------------");
-    }
-}`;
-
-    navigator.clipboard.writeText(raw).then(() => {
-        const btn = document.getElementById('btnCopy');
-        btn.textContent = '✓ Copied!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-            btn.textContent = 'Copy to Clipboard';
-            btn.classList.remove('copied');
-        }, 2000);
+        const dist = Math.hypot(e.clientX - lastSpawnX, e.clientY - lastSpawnY);
+        if (dist > MIN_DIST) {
+            spawnSticker(e.clientX, e.clientY);
+            lastSpawnX = e.clientX;
+            lastSpawnY = e.clientY;
+        }
     });
-}
 
-/* ── Run Program (simulate output) ── */
-function runCode() {
-    const output = document.getElementById('codeOutput');
-    const text   = document.getElementById('outputText');
-    const btn    = document.getElementById('btnRun');
+    function spawnSticker(x, y) {
+        const s = stickers[Math.floor(Math.random() * stickers.length)];
+        const el = document.createElement('div');
+        el.className = 'cursor-sticker';
+        el.style.cssText = `left: ${x}px; top: ${y}px; --sz: ${s.sz}px; --life: ${s.life}s;`;
 
-    btn.textContent = '⏳ Running...';
-    btn.disabled = true;
+        if (s.type === 'img') {
+            const img = document.createElement('img');
+            img.src = s.src;
+            img.onerror = () => { el.innerHTML = '🌸'; };
+            el.appendChild(img);
+        } else {
+            el.innerHTML = `<span style="font-size: ${s.sz * 0.6}px">${s.content}</span>`;
+        }
 
-    setTimeout(() => {
-        text.textContent =
-            `✨ Dinshini Senupama – My Journey ✨
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), s.life * 1000);
+    }
+})();
 
---------------------------------------------
-📅 2024
-   GCE Advanced Level – Biology Stream
-   Developed strong analytical thinking and scientific problem-solving skills.
---------------------------------------------
-📅 2025 – Present
-   Undergraduate in Information Technology
-   Building expertise in programming, web development, and UI/UX design.
---------------------------------------------
-📅 Short-Term Goal
-   Professional Web Developer
-   Create responsive, user-centered digital applications.
---------------------------------------------
-📅 Long-Term Goal
-   Creative Tech Innovator
-   Blend creativity and technology to design meaningful experiences.
---------------------------------------------`;
 
-        output.classList.add('show');
-        btn.textContent = '▶ Run Program';
-        btn.disabled = false;
 
-        // Scroll to output
-        output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 800);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

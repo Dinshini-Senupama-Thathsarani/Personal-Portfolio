@@ -979,9 +979,58 @@ footer {
 
 
 
+
+
+
 /*
    HERO SECTION
  */
+
+
+
+.scrolling-container {
+    width: 100%;
+    background-color: #1a1014;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 100;
+
+
+    margin-top: -40px;
+    box-shadow: 0px -10px 30px rgba(0,0,0,0.1);
+}
+
+.scrolling-content {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scroll-text 25s linear infinite;
+}
+
+.scrolling-content span {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 2vw, 2.0rem);
+    font-weight: 700;
+    color: #ff79c6;
+    text-transform: uppercase;
+    padding-right: 60px;
+    display: inline-block;
+}
+
+
+@keyframes scroll-text {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+
+.scrolling-container + section {
+    margin-top: 0;
+}
+
 
 .hero {
     min-height: 88vh;
@@ -994,6 +1043,7 @@ footer {
     overflow: hidden;
     padding-top: 80px;
 }
+
 
 
 /* Tower image wrapper */
@@ -1490,6 +1540,14 @@ footer {
 
 
 
+
+
+
+
+
+
+
+
 /*
    PROFILE CARD — inside about section
 */
@@ -1674,6 +1732,13 @@ footer {
 .about-divider-v {
     left: 300px !important;
 }
+
+
+
+
+
+
+
 
 
 /* detail */
@@ -2985,3 +3050,18 @@ pre {
         width: 100%;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
