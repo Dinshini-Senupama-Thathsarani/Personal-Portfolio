@@ -3171,3 +3171,156 @@ pre {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  projects_sec */
+.work-section{
+    min-height:100vh;
+    padding:6rem 0 3rem;
+    font-family:'DM Sans',sans-serif;
+    transition:0.6s ease;
+    background:#ede9ff;
+}
+
+/* HEADER */
+.work-header{
+    padding:0 4rem;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:2rem;
+}
+
+.work-title{
+    font-family:'Playfair Display',serif;
+    font-size:3rem;
+}
+
+.work-count{font-size:0.8rem;color:#999;}
+
+/* GRID */
+.work-grid,
+.work-group-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:28px;
+    padding:0 4rem;
+}
+
+/* CARD */
+.work-cell{
+    position:relative;
+    height:380px;
+    cursor:pointer;
+    overflow:hidden;
+    border-radius:20px;
+    transition:all 0.5s ease;
+}
+
+/* featured */
+.work-cell.featured{height:520px;}
+
+/* IMAGE */
+.work-cell-bg{
+    position:absolute;
+    inset:0;
+}
+
+.work-cell-bg img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:blur(4px) grayscale(100%) brightness(0.7);
+    transition:0.7s ease;
+}
+
+/* overlay */
+.work-cell-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.4);
+}
+
+/* NAME */
+.work-cell-name{
+    position:relative;
+    z-index:2;
+    text-transform:uppercase;
+    letter-spacing:0.2em;
+    font-size:0.85rem;
+    padding:1.5rem;
+    color:white;
+}
+
+/* INFO */
+.work-cell-info{
+    position:absolute;
+    bottom:0;
+    padding:2rem;
+    color:#fff;
+    transform:translateY(100%);
+    transition:0.45s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* TAG */
+.work-tag{
+    display:inline-block;
+    font-size:0.65rem;
+    padding:0.3rem 0.8rem;
+    border-radius:20px;
+    margin-bottom:0.6rem;
+    font-weight:600;
+    letter-spacing:0.08em;
+    background:rgba(255,190,50,0.95);
+    color:#1a1014;
+}
+
+/* HOVER */
+.work-cell:hover .work-cell-bg img{
+    transform:scale(1.12);
+    filter:blur(0px) grayscale(20%) brightness(0.95);
+}
+
+.work-cell:hover .work-cell-info{
+    transform:translateY(0);
+}
+
+/* ACTIVE SYSTEM */
+.work-section.active .work-cell{
+    filter:grayscale(85%) brightness(0.6);
+    transform:scale(0.97);
+    opacity:0.7;
+}
+
+.work-cell.active{
+    filter:none!important;
+    transform:scale(1.06);
+    opacity:1;
+    z-index:10;
+}
+
+/* BACKGROUND */
+body[data-theme="blue"]{background:#dbeafe;}
+body[data-theme="pink"]{background:#ffe4e6;}
+body[data-theme="green"]{background:#d1fae5;}
+body[data-theme="purple"]{background:#ede9ff;}
+body[data-theme="orange"]{background:#ffedd5;}
+
+/* GROUP spacing */
+.work-header.group{margin-top:1.5rem;}
+
+/* MOBILE */
+@media(max-width:768px){
+    .work-cell{height:280px;}
+    .work-cell-info{transform:translateY(0);}
+}
