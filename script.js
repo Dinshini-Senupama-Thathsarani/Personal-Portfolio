@@ -508,7 +508,21 @@ function runCode() {
 
 
 
+const cards   = document.querySelectorAll(".work-cell");
+const section = document.querySelector(".work-section");
 
+cards.forEach(card => {
+    card.addEventListener("mouseenter", () => {
+        cards.forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+        section.classList.add("active");
+        document.body.setAttribute("data-theme", card.dataset.color);
+    });
+    card.addEventListener("mouseleave", () => {
+        card.classList.remove("active");
+        section.classList.remove("active");
+    });
+});
 
 
 
