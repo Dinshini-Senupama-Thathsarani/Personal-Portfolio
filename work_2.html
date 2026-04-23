@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <title>work_2</title>
     <link rel="stylesheet" href="assets/CSS/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+
 </head>
+
 <body>
 
 
@@ -51,7 +55,7 @@
         <!-- ① GMS — col 1-2, row 1-2 -->
         <div class="work-cell cell-gms" data-color="blue">
             <div class="work-cell-bg">
-                <img src="https://images.unsplash.com/photo-1581091870627-3c6c7d1c6f8b" loading="eager" alt="Garage">
+                <img src="assets/lib/images/gms.png" loading="eager" alt="Garage">
             </div>
             <div class="work-cell-overlay"></div>
             <div class="work-cell-name">Garage System</div>
@@ -248,8 +252,26 @@
     </div>
 </footer>
 
+<script>
 
 
-<script src="script.js"></script>
+
+    const cards   = document.querySelectorAll(".work-cell");
+    const section = document.querySelector(".work-section");
+
+    cards.forEach(card => {
+        card.addEventListener("mouseenter", () => {
+            cards.forEach(c => c.classList.remove("active"));
+            card.classList.add("active");
+            section.classList.add("active");
+            document.body.setAttribute("data-theme", card.dataset.color);
+        });
+        card.addEventListener("mouseleave", () => {
+            card.classList.remove("active");
+            section.classList.remove("active");
+        });
+    });
+
+</script>
 </body>
 </html>
