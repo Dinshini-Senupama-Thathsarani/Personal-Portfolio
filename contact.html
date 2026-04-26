@@ -34,33 +34,57 @@
 
 
 
-<section class="aboutBody">
+
+
+<section>
 
     <div class="main-container">
-        <section class="info-section">
-            <div class="glass-card">
-                <span class="title-tag">Creative Technologist</span>
-                <h1>Dinshini Senupama</h1>
-                <p>
-                    Blending design thinking with development skills, I create intuitive and visually compelling web experiences. Every project is a balance of creativity, functionality, and meaningful user experience.
-                </p>
-                <div class="skills-container">
-                    <span class="skill-pill">UI/UX</span>
-                    <span class="skill-pill">Web Dev</span>
-                    <span class="skill-pill">Figma</span>
-                </div>
-            </div>
-        </section>
 
         <section class="canvas-section">
             <canvas id="mainCanvas"></canvas>
         </section>
+
+        <section class="chat-section">
+            <div id="chat-popup">
+
+                <div class="chat-header">
+                    <div class="profile-pic" id="profile-pic">
+                        <img src="assets/meeeee.png" alt="Dinshini"
+                             onerror="this.style.display='none'; document.getElementById('pic-fallback').style.display='flex';">
+                        <span id="pic-fallback" style="display:none;">👩‍💻</span>
+                    </div>
+                    <div class="header-info">
+                        <h3>Dinshini Senupama</h3>
+                        <p>Digital Assistant · Ready to help ✨</p>
+                    </div>
+                    <div class="online-dot"></div>
+                </div>
+
+                <div id="messages">
+                    <div class="msg-wrap msg-bot">
+                        <div class="bubble bot-bubble">Welcome! Dinshini is busy coding magic ✨, but I can help you reach her. What's on your mind?</div>
+                    </div>
+                    <div class="msg-wrap msg-bot">
+                        <div class="bubble bot-bubble">Looking to start a project or just want to say hi? I'm here to help! 🚀</div>
+                    </div>
+                </div>
+
+                <div class="quick-options">
+                    <button onclick="sendQuick('Just saying hello! 👋')" class="quick-btn">Say Hello 👋</button>
+                    <button onclick="sendQuick('I have a project idea! 🚀')" class="quick-btn">Project Idea 🚀</button>
+                    <button onclick="sendQuick('I\'d love to collaborate! ✨')" class="quick-btn">Collaborate ✨</button>
+                </div>
+
+                <div class="input-area">
+                    <input id="msg-input" type="text" placeholder="Send a message..." onkeydown="if(event.key==='Enter')sendMsg()">
+                    <button onclick="sendMsg()" id="send-btn">➤</button>
+                </div>
+
+            </div>
+        </section>
+
     </div>
-
 </section>
-
-
-
 
 
 
