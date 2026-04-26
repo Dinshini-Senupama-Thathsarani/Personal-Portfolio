@@ -2,41 +2,233 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>contact</title>
-    <link rel="stylesheet" href="assets/CSS/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary-gold: #ffd773;
+            --secondary-gold: #ffb74d;
+            --midnight-purple: #1e1336;
+            --deep-dark: #050308;
+            --glass-bg: rgba(255,255,255,0.03);
+            --border-glow: rgba(255,215,115,0.15);
+        }
+
+        #contact-hero {
+            background: var(--deep-dark);
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            /* ── පැති දෙක මාරු කරන ප්‍රධාන පේළිය ── */
+            flex-direction: row-reverse;
+        }
+
+        /* ── CANVAS Section (දකුණු පැත්ත) ── */
+        .canvas-section {
+            flex: 1.4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #1e1336 0%, #050308 100%);
+            position: relative;
+            border-left: 1px solid rgba(255,215,115,0.08); /* දකුණට ආ නිසා border එක වමට දැම්මා */
+        }
+
+        canvas {
+            height: 90vh;
+            width: auto;
+            max-width: 95%;
+            filter: drop-shadow(0 0 70px rgba(255,204,51,0.15));
+            border-radius: 12px;
+        }
+
+        /* ── CHAT Section (වම් පැත්ත) ── */
+        .chat-section {
+            flex: 0.9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(160deg, #1a0f2e 0%, #0a0612 100%);
+            padding: 30px 24px;
+        }
+
+        #chat-popup {
+            width: 100%;
+            max-width: 400px;
+            height: 580px;
+            border-radius: 28px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity:0; transform:translateY(20px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+
+        /* HEADER */
+        .chat-header {
+            background: rgba(75,42,102,0.5);
+            padding: 18px 20px;
+            display: flex; align-items: center; gap: 14px;
+            border-bottom: 1px solid rgba(255,215,115,0.12);
+            flex-shrink: 0;
+        }
+
+        .profile-pic {
+            width: 52px; height: 52px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            border: 2px solid var(--primary-gold);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 0 16px rgba(255,215,115,0.3);
+            overflow: hidden; flex-shrink: 0;
+        }
+        .profile-pic img {
+            width: 100%; height: 100%;
+            object-fit: cover; border-radius: 50%;
+        }
+
+        .header-info { flex: 1; }
+        .header-info h3 {
+            margin: 0; font-size: 13.5px; font-weight: 700;
+            color: var(--primary-gold); letter-spacing: 0.8px; text-transform: uppercase;
+        }
+        .header-info p { margin: 3px 0 0; font-size: 11px; color: rgba(180,150,240,0.8); }
+
+        .online-dot {
+            width: 10px; height: 10px; background: #4ade80;
+            border-radius: 50%; box-shadow: 0 0 8px #4ade80; flex-shrink: 0;
+        }
+
+        /* MESSAGES */
+        #messages {
+            flex: 1; overflow-y: auto; padding: 16px;
+            display: flex; flex-direction: column; gap: 11px;
+            scrollbar-width: thin; scrollbar-color: rgba(255,215,115,0.2) transparent;
+        }
+        #messages::-webkit-scrollbar { width: 3px; }
+        #messages::-webkit-scrollbar-thumb { background: rgba(255,215,115,0.2); border-radius:2px; }
+
+        .msg-wrap { display: flex; width: 100%; }
+        .msg-user { justify-content: flex-end; }
+        .msg-bot  { justify-content: flex-start; }
+
+        .bubble {
+            font-size: 13px; padding: 10px 15px; max-width: 86%;
+            line-height: 1.55; color: #fff;
+            border: 1px solid rgba(180,150,240,0.15);
+        }
+        .bot-bubble  { background: rgba(255,255,255,0.08); border-radius: 20px 20px 20px 4px; }
+        .user-bubble { background: rgba(106,76,147,0.45); border-radius: 20px 20px 4px 20px; border-color: rgba(180,160,255,0.3); }
+
+        /* QUICK BUTTONS */
+        .quick-options {
+            padding: 9px 13px; display: flex; gap: 7px; flex-wrap: wrap;
+            border-top: 1px solid rgba(255,255,255,0.05); flex-shrink: 0;
+        }
+        .quick-btn {
+            background: rgba(180,150,240,0.1); border: 1px solid rgba(180,150,240,0.2);
+            color: #b496f0; padding: 6px 13px; border-radius: 20px;
+            font-size: 11.5px; font-family: 'Plus Jakarta Sans', sans-serif;
+            cursor: pointer; transition: 0.25s ease;
+        }
+        .quick-btn:hover { background: rgba(180,150,240,0.25); color:#fff; border-color: var(--primary-gold); transform: translateY(-2px); }
+
+        /* INPUT */
+        .input-area {
+            padding: 12px 14px; display: flex; gap: 10px; align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.25); flex-shrink: 0;
+        }
+        #msg-input {
+            flex: 1; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(180,150,240,0.2); border-radius: 25px;
+            padding: 9px 16px; color: #fff; font-size: 13px;
+            font-family: 'Plus Jakarta Sans', sans-serif; outline: none; transition: 0.3s;
+        }
+        #msg-input::placeholder { color: rgba(255,255,255,0.3); }
+        #msg-input:focus { border-color: var(--primary-gold); background: rgba(255,255,255,0.09); }
+        #send-btn {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: linear-gradient(135deg, #6a4c93, #4b2a66);
+            border: 1px solid rgba(255,215,115,0.2); color: var(--primary-gold);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 14px; transition: 0.3s;
+        }
+        #send-btn:hover { transform: scale(1.12); box-shadow: 0 0 12px rgba(106,76,147,0.6); }
+
+        /* TYPING */
+        .typing-dot { display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--primary-gold); animation:bounce 1s infinite; }
+        .typing-dot:nth-child(2){animation-delay:0.2s;}
+        .typing-dot:nth-child(3){animation-delay:0.4s;}
+        @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            body { overflow-y: auto; }
+            .main-container { flex-direction: column; height: auto; } /* Mobile වලදී යටට යයි */
+            .canvas-section { height: 50vh; border-left: none; border-bottom: 1px solid rgba(255,215,115,0.08); }
+            canvas { height: 46vh; }
+            .chat-section { padding: 24px 16px; }
+            #chat-popup { height: 520px; }
+        }
+
+        /* වම් පැත්තෙ ඉඳන් එන animation එක */
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100px); /* වමට පික්සල් 100ක් ගිහින් පටන් ගන්නේ */
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Chat Popup එකට animation එක apply කිරීම */
+        #chat-popup {
+            width: 100%;
+            max-width: 400px;
+            height: 580px;
+            border-radius: 28px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+
+            /* මෙතන පරණ fadeIn වෙනුවට slideInLeft දාන්න */
+            animation: slideInLeft 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+    </style>
 </head>
 <body>
 
-<header id="heroSection">
-
-
-    <nav class="nav">
-        <div class="nav-leftSide">
-            <img src="assets/lib/icons/rapunzelicon.png" class="ico" alt="theme" width="200px">
-            <a href="home.html" class="logo" style="color: white; text-decoration: none;">DS</a>
-        </div>
-
-        <div>
-            <ul class="nav-center1" style="list-style: none; display: flex; gap: 20px;">
-                <li><a href="home.html" style="color: white; text-decoration: none;">Home</a></li>
-                <li><a href="about.html" style="color: white; text-decoration: none;">About</a></li>
-                <li><a href="work.html" style="color: white; text-decoration: none;">Work</a></li>
-                <li><a href="contact.html" style="color: white; text-decoration: none;">Contact</a></li>
-            </ul>
-        </div>
-
-        <div class="nav-rightSide">
-            <img src="assets/lib/icons/darkMode.png" class="nav-icon" alt="menu">
-        </div>
-    </nav>
-</header>
 
 
 
-
-
-
-<section>
+<section id="contact-hero">
 
     <div class="main-container">
 
@@ -49,7 +241,7 @@
 
                 <div class="chat-header">
                     <div class="profile-pic" id="profile-pic">
-                        <img src="assets/meeeee.png" alt="Dinshini"
+                        <img src="assets/lib/images/WhatsApp%20Image%202026-03-29%20at%2023.29.33.jpeg" alt="Dinshini"
                              onerror="this.style.display='none'; document.getElementById('pic-fallback').style.display='flex';">
                         <span id="pic-fallback" style="display:none;">👩‍💻</span>
                     </div>
@@ -84,131 +276,22 @@
         </section>
 
     </div>
+
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<footer>
-
-    <div class="footer-main">
-
-        <div class="footer-left">
-            <a href="#heroSection" class="footer-logo">
-                <img src="assets/lib/icons/rapunzelicon.png" alt="DS Logo" class="footer-logo-img"/>
-                <span class="footer-logo-text">DS</span>
-            </a>
-        </div>
-
-        <div class="footer-info">
-            <div class="footer-handle">@DINSHINISENUPAMA</div>
-            <div class="footer-tagline">Designed with magic</div>
-            <div class="footer-updated">last updated Feb 2026</div>
-
-            <div class="footer-socials">
-
-                <!-- Gmail -->
-                <a href="#" class="social-icon" aria-label="Gmail">
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9
-                     2-2V6c0-1.1-.9-2-2-2zm0 2-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
-                    </svg>
-                </a>
-
-                <!-- LinkedIn -->
-                <a href="#" class="social-icon" aria-label="LinkedIn">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7H10v-7a6 6
-                     0 0 1 6-6zM2 9h4v12H2zm2-3a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
-                    </svg>
-                </a>
-
-                <!-- Instagram -->
-                <a href="#" class="social-icon" aria-label="Instagram">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2"
-                         stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5"/>
-                        <circle cx="12" cy="12" r="4"/>
-                        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-                    </svg>
-                </a>
-
-            </div>
-        </div>
-
-        <div class="footer-mid">
-            <nav class="footer-nav" aria-label="Footer navigation">
-                <a href="#">Work</a>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
-            </nav>
-            <div class="footer-watermark" aria-hidden="true">DINSHINI SENUPAMA</div>
-        </div>
-
-        <div class="footer-right">
-            <div class="sparkles" aria-hidden="true">
-                <span class="sparkle">✦</span>
-                <span class="sparkle">✦</span>
-                <span class="sparkle">✦</span>
-                <span class="sparkle">✦</span>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="footer-bottom">
-        <div class="footer-bottom-links">
-            <a href="#">Terms &amp; Conditions</a>
-            <a href="#">Privacy Policy</a>
-        </div>
-        <span>Developed by DINSHINI</span>
-    </div>
-</footer>
-
 
 <script type="module">
     const canvas = document.getElementById('mainCanvas');
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
-
     const IMAGE_SOURCE = 'https://images.unsplash.com/photo-1700583173020-624f5f11188c?w=1200';
-
     let originalImageData = null;
     let imgElement = new Image();
     let mouse = { x: 0.5, y: 0.5 };
-    let targetScale = 2.5;
-    let currentScale = 2.5;
+    let targetScale = 2.5, currentScale = 2.5;
 
-    // --- 🏮 Lantern Glow Palette 🏮 ---
     const PALETTE = {
-        highlight: { r: 255, g: 183, b: 77 }, // Vibrant Lantern Orange
-        mid: { r: 77, g: 182, b: 172 },       // Soft Teal/Cyan
-        dark: { r: 20, g: 15, b: 35 }         // Deep Night Purple
+        highlight: { r:255, g:183, b:77 },
+        mid:       { r:77,  g:182, b:172 },
+        dark:      { r:20,  g:15,  b:35  }
     };
 
     window.addEventListener('mousemove', (e) => {
@@ -220,30 +303,20 @@
     function process() {
         if (!originalImageData) return;
         currentScale += (targetScale - currentScale) * 0.08;
-
-        const w = canvas.width;
-        const h = canvas.height;
+        const w = canvas.width, h = canvas.height;
         const output = ctx.createImageData(w, h);
-        const src = originalImageData.data;
-        const dst = output.data;
-
+        const src = originalImageData.data, dst = output.data;
         const brightnessMod = 110 + (mouse.y * 140);
-
         for (let i = 0; i < src.length; i += 4) {
-            let gray = 0.299 * src[i] + 0.587 * src[i+1] + 0.114 * src[i+2];
+            let gray = 0.299*src[i] + 0.587*src[i+1] + 0.114*src[i+2];
             let norm = Math.min(1, Math.max(0, (gray + brightnessMod - 160) / 255));
-
-            const x = (i / 4) % w;
-            const y = Math.floor((i / 4) / w);
-
-            let pattern = Math.sin(x / currentScale) * Math.cos(y / currentScale);
+            const x = (i/4) % w, y = Math.floor((i/4) / w);
+            let pattern = Math.sin(x/currentScale) * Math.cos(y/currentScale);
             let threshold = (pattern + 1) / 2;
-
-            let finalColor = PALETTE.dark;
-            if (norm > threshold) finalColor = PALETTE.highlight;
-            else if (norm > threshold * 0.4) finalColor = PALETTE.mid;
-
-            dst[i] = finalColor.r; dst[i+1] = finalColor.g; dst[i+2] = finalColor.b; dst[i+3] = 255;
+            let c = PALETTE.dark;
+            if (norm > threshold) c = PALETTE.highlight;
+            else if (norm > threshold * 0.4) c = PALETTE.mid;
+            dst[i]=c.r; dst[i+1]=c.g; dst[i+2]=c.b; dst[i+3]=255;
         }
         ctx.putImageData(output, 0, 0);
         requestAnimationFrame(process);
@@ -259,6 +332,81 @@
         originalImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         process();
     };
+</script>
+
+<script>
+    const REPLIES = {
+        hello: [
+            "Hey there! 👋 So lovely to hear from you! Dinshini will be thrilled — drop your contact info and she'll reach back to you soon! ✨",
+            "Hi hi! 😊 Dinshini's in coding mode right now but she'd love to connect. Leave a note and she'll get back to you!",
+            "Hello! 🌟 Welcome to Dinshini's little corner of the internet. Feel free to share your email and she'll say hi back!"
+        ],
+        project: [
+            "Ooh a project idea?! 🚀 You've come to the right place! Tell me more — Dinshini will read every word and get back to you ASAP.",
+            "That's exciting! 💡 Dinshini loves building cool things. Give me the details and I'll make sure she sees this right away.",
+            "Let's build something awesome! 🛠️ Share your idea and your contact info — Dinshini will get in touch to discuss!"
+        ],
+        collaborate: [
+            "Collaboration is Dinshini's favourite thing! 🤝 Drop your details here and she'll set up a quick call with you.",
+            "Yes please! ✨ Dinshini is always open to meaningful collabs. Leave your info and she'll be in touch very soon!",
+            "Love that energy! 🚀 Let's make something great together. Share your contact and Dinshini will reach out!"
+        ],
+        default: [
+            "Got it! 📝 I've noted this down for Dinshini. She'll get back to you soon — usually within 24 hours!",
+            "Thanks for reaching out! ✉️ Dinshini will see this when she surfaces from her coding cave. Stay tuned!",
+            "Message received! 🌟 I'll pass this along to Dinshini. Have a wonderful day! ✨"
+        ]
+    };
+
+    function pickRandom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+    function getReply(text){
+        const t = text.toLowerCase();
+        if(t.includes('hello')||t.includes('hi')||t.includes('hey')||t.includes('saying hello')) return pickRandom(REPLIES.hello);
+        if(t.includes('project')||t.includes('build')||t.includes('idea')||t.includes('cool')) return pickRandom(REPLIES.project);
+        if(t.includes('collaborat')||t.includes('work together')||t.includes('team')||t.includes('love to collab')) return pickRandom(REPLIES.collaborate);
+        return pickRandom(REPLIES.default);
+    }
+
+    function addMsg(text, isUser){
+        const msgs = document.getElementById('messages');
+        const wrap = document.createElement('div');
+        wrap.className = 'msg-wrap ' + (isUser ? 'msg-user' : 'msg-bot');
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble ' + (isUser ? 'user-bubble' : 'bot-bubble');
+        bubble.textContent = text;
+        wrap.appendChild(bubble);
+        msgs.appendChild(wrap);
+        msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function showTyping(){
+        const msgs = document.getElementById('messages');
+        const wrap = document.createElement('div');
+        wrap.id = 'typing-indicator';
+        wrap.className = 'msg-wrap msg-bot';
+        wrap.innerHTML = '<div class="bubble bot-bubble" style="display:flex;gap:5px;align-items:center;padding:12px 16px;"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>';
+        msgs.appendChild(wrap);
+        msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function removeTyping(){ const t=document.getElementById('typing-indicator'); if(t) t.remove(); }
+
+    function sendMsg(){
+        const input = document.getElementById('msg-input');
+        const text = input.value.trim();
+        if(!text) return;
+        input.value = '';
+        addMsg(text, true);
+        showTyping();
+        setTimeout(()=>{ removeTyping(); addMsg(getReply(text), false); }, 1000+Math.random()*700);
+    }
+
+    function sendQuick(text){
+        addMsg(text, true);
+        showTyping();
+        setTimeout(()=>{ removeTyping(); addMsg(getReply(text), false); }, 1000+Math.random()*600);
+    }
 </script>
 </body>
 </html>
