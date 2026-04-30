@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -30,11 +31,11 @@
             display: flex;
             width: 100%;
             height: 100vh;
-            /* ── පැති දෙක මාරු කරන ප්‍රධාන පේළිය ── */
+
             flex-direction: row-reverse;
         }
 
-        /* ── CANVAS Section (දකුණු පැත්ත) ── */
+
         .canvas-section {
             flex: 1.4;
             display: flex;
@@ -42,7 +43,7 @@
             align-items: center;
             background: radial-gradient(circle at center, #1e1336 0%, #050308 100%);
             position: relative;
-            border-left: 1px solid rgba(255,215,115,0.08); /* දකුණට ආ නිසා border එක වමට දැම්මා */
+            border-left: 1px solid rgba(255,215,115,0.08);
         }
 
         canvas {
@@ -53,7 +54,7 @@
             border-radius: 12px;
         }
 
-        /* ── CHAT Section (වම් පැත්ත) ── */
+
         .chat-section {
             flex: 0.9;
             display: flex;
@@ -94,10 +95,14 @@
         }
 
         .profile-pic {
-            width: 52px; height: 52px; border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
             background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
 
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 22px;
             box-shadow: 0 0 16px rgba(255,215,115,0.3);
             overflow: hidden; flex-shrink: 0;
@@ -225,7 +230,6 @@
     </style>
 </head>
 <body>
-
 
 
 
