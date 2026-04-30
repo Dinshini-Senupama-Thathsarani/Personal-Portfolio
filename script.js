@@ -277,6 +277,8 @@ hairZone.addEventListener('touchstart', e => {
 
 
 
+
+
 (function initHomeTrail() {
     // Check if we are on the Home Page
     const isHomePage = document.body.classList.contains('home-page');

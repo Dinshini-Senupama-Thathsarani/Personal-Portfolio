@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -341,34 +344,29 @@ canvas {
 
 
 
-
 /*
    HEADER
-   */
+*/
 #header {
     height: 10vh;
     overflow: hidden;
     background: #d8bfd8;
 }
 
-
 .nav {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 5px 5px;
-
+    padding: 5px 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-
     z-index: 1000;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
 }
-
 
 .nav-leftSide {
     display: flex;
@@ -377,7 +375,6 @@ canvas {
     gap: 12px;
     flex: 0 0 auto;
 }
-
 
 .nav-rightGroup {
     display: flex;
@@ -393,7 +390,6 @@ canvas {
     cursor: pointer;
     transition: transform 0.3s ease;
 }
-
 .ico:hover { transform: scale(1.1); }
 
 .logo {
@@ -404,12 +400,9 @@ canvas {
     letter-spacing: 2px;
 }
 
+.nav-spacer { display: none; }
 
-.nav-spacer {
-    display: none;
-}
-
-
+/* ── Desktop nav links ── */
 .nav-center {
     list-style: none;
     display: flex;
@@ -419,7 +412,6 @@ canvas {
     flex: 0 0 auto;
     margin-right: 30px;
 }
-
 
 .nav-center li { display: block; }
 
@@ -435,17 +427,14 @@ canvas {
 .nav-center a::after {
     content: "";
     position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 0%;
-    height: 1px;
+    left: 0; bottom: -5px;
+    width: 0%; height: 1px;
     background: black;
     transition: 0.3s;
 }
-
 .nav-center a:hover::after { width: 100%; }
 
-
+/* ── Right side (dark mode icon) ── */
 .nav-rightSide {
     display: flex;
     align-items: center;
@@ -453,15 +442,13 @@ canvas {
 }
 
 .nav-icon {
-    width: 30px;
-    height: 30px;
+    width: 30px; height: 30px;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
-
 .nav-icon:hover { transform: scale(1.2); }
 
-
+/* ── Hamburger button ── */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -475,8 +462,7 @@ canvas {
 
 .hamburger span {
     display: block;
-    width: 25px;
-    height: 2px;
+    width: 25px; height: 2px;
     background-color: #1a1014;
     border-radius: 2px;
     transition: all 0.3s ease;
@@ -486,20 +472,26 @@ canvas {
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-
+/* ── Mobile dropdown menu ── */
 .mobile-menu {
     display: none;
     flex-direction: column;
     align-items: center;
     position: fixed;
-    top: 70px;
-    left: 0;
+    top: 70px; left: 0;
     width: 100%;
     background: rgba(166, 139, 175, 0.97);
     backdrop-filter: blur(10px);
     z-index: 999;
     padding: 1rem 0;
     border-top: 1px solid rgba(0,0,0,0.1);
+    /* smooth slide down */
+    animation: slideDown 0.25s ease forwards;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .mobile-menu.open { display: flex; }
@@ -515,10 +507,41 @@ canvas {
     border-bottom: 1px solid rgba(0,0,0,0.07);
     transition: background 0.2s;
 }
-
 .mobile-menu a:hover { background: rgba(255,255,255,0.15); }
 
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
 
+/* Tablet: shrink gaps */
+@media (max-width: 1024px) {
+    .nav { padding: 5px 15px; }
+    .ico { width: 55px; height: 50px; }
+    .nav-center { gap: 24px; margin-right: 16px; }
+    .nav-center a { font-size: 14px; }
+    .nav-icon { width: 26px; height: 26px; }
+}
+
+/* Phone: hide links, show hamburger */
+@media (max-width: 768px) {
+    .nav { padding: 5px 16px; }
+    .ico { width: 48px; height: 44px; }
+    .logo { font-size: 20px; }
+
+    /* hide desktop links + dark-mode icon */
+    .nav-center    { display: none; }
+    .nav-rightSide { display: none; }
+
+    /* show hamburger */
+    .hamburger { display: flex; }
+}
+
+/* Small phone */
+@media (max-width: 480px) {
+    .nav { padding: 5px 12px; }
+    .ico { width: 42px; height: 38px; }
+    .logo { font-size: 18px; }
+}
 /*
    FOOTER — DESKTOP
 */
@@ -1146,7 +1169,7 @@ footer {
     font-weight: 500;
     color: #1a1014;
     letter-spacing: 0.02em;
-    margin-left: 100px;
+    margin-left: clamp(0px, 8vw, 100px);  /* ✅ mobile margin fix */
 }
 
 .hero-sub-small {
@@ -1760,16 +1783,12 @@ footer {
     --text-purple: #3a2040;
 }
 
-* {
-    margin: 0;
-    padding: 0;
+/* Skills section scoped resets */
+.container * {
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Inter', sans-serif;
-    background: var(--gradient-main);
-    min-height: 100vh;
+.container body, body {
     overflow-x: hidden;
 }
 
@@ -2024,6 +2043,50 @@ body {
     margin-top: 38px;
 }
 
+/* ✅ FIX: mobile work section scroll enable */
+@media (max-width: 768px) {
+    .workMain {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+        align-items: flex-start;
+        padding: 80px 0 40px;
+        margin-top: 0;
+    }
+
+    .main-wrapper {
+        width: 95vw;
+        height: auto;
+        gap: 20px;
+    }
+
+    .section-item {
+        height: auto;
+        min-height: 160px;
+        flex-direction: column !important;
+        gap: 16px;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .image-box {
+        width: 100%;
+        height: 180px;
+    }
+
+    .title {
+        font-size: 1.8rem;
+        opacity: 1;              /* always visible on mobile */
+        transform: none;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .title { font-size: 1.5rem; }
+    .image-box { height: 140px; }
+}
+
 .main-wrapper {
     width: 90vw;
     height: 85vh;
@@ -2105,7 +2168,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 90vh;
+    min-height: 90vh;          /* ✅ min-height instead of fixed height */
+    padding: 40px 20px;
     margin: 0;
 }
 
@@ -2116,6 +2180,7 @@ body {
     border-radius: 40px;
     padding: 50px;
     width: 700px;
+    max-width: 95vw;           /* ✅ mobile width fix */
     text-align: center;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(255,255,255,0.3);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -2124,6 +2189,30 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .feedback-card {
+        padding: 30px 20px;
+        border-radius: 24px;
+    }
+    .question-text {
+        font-size: 1.3rem;
+        margin-bottom: 28px;
+    }
+    .btn-container {
+        flex-wrap: wrap;
+        height: auto;
+        gap: 16px;
+    }
+    #btn-no {
+        position: static; /* ✅ remove absolute positioning on mobile */
+        left: auto;
+    }
+    .btn {
+        padding: 10px 28px;
+        font-size: 1rem;
+    }
 }
 
 .question-text {
@@ -2282,23 +2371,40 @@ body {
 
 /* MOBILE FIX */
 @media (max-width: 768px) {
+    .cta-section {
+        flex-direction: column;
+        justify-content: flex-end;
+        padding-bottom: 40px;
+        height: auto;
+        min-height: 100vh;
+    }
     .character-container {
-        width: 60vw;
+        width: 55vw;
         left: 0;
         bottom: 0;
         z-index: 5;
     }
     .text-content {
-        margin-top: -150px;
-        margin-left: 100px;
-        margin-bottom: 200px;
-        padding: 0 20px;
+        margin-top: 0;
+        margin-left: 0;          /* ✅ remove hardcoded margin-left */
+        margin-bottom: 0;
+        padding: 20px;
+        text-align: center;
         z-index: 20;
+        width: 100%;
+    }
+    .cta-title {
+        font-size: clamp(1.6rem, 7vw, 2.5rem);
     }
     .email-wrapper {
         justify-content: center;
         padding-right: 0;
     }
+}
+
+@media (max-width: 480px) {
+    .character-container { width: 70vw; }
+    .cta-title { font-size: 1.5rem; }
 }
 
 
@@ -2604,7 +2710,6 @@ body {
 
 
 
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600&display=swap');
 
 
 .about-header {
@@ -2645,7 +2750,7 @@ body {
 
 .about-content {
     flex: 1.5;
-    min-width: 400px;
+    min-width: min(400px, 100%);  /* ✅ small screen overflow fix */
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -2685,7 +2790,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 350px;
+    min-width: min(350px, 100%);   /* ✅ overflow fix */
 }
 
 .profile-circle-container {
@@ -2991,7 +3096,9 @@ pre {
 
 
 
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
+
+
+
 
 .journey-section {
     width: 100%;
@@ -3128,19 +3235,27 @@ pre {
     .card-stack {
         flex-direction: column;
         align-items: center;
+        gap: 12px;
     }
 
     .journey-card {
         width: 100%;
-        max-width: 350px;
-        height: 110px;
+        max-width: 420px;
+        height: 68px;           /* collapsed — thin pill */
+        min-width: unset;       /* ✅ FIX: desktop min-width:80px override */
         flex: none;
         transition: height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 4px 4px 0px #000;
+    }
+
+    .card-label {
+        height: 100%;           /* fill collapsed card */
     }
 
     .card-label span {
         writing-mode: horizontal-tb;
         transform: rotate(0deg);
+        font-size: 0.95rem;
     }
 
     .journey-card.expanded {
@@ -3152,92 +3267,17 @@ pre {
     }
 
     .journey-card.expanded .card-label {
-        height: 60px;
+        height: 58px;
+        min-height: 58px;       /* ✅ label crush wenne na */
         margin-top: auto;
         background: #EAC8F2;
         border-top: 3px solid #000;
+        flex-shrink: 0;         /* ✅ prevent shrink */
     }
 }
 
 @media (max-width: 480px) {
-    .journey-card { max-width: 100%; }
+    .journey-card {
+        max-width: 100%;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

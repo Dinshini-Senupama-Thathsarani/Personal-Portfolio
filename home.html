@@ -10,27 +10,47 @@
 </head>
 <body>
 
+
 <header id="header">
 
-        <nav class="nav">
-            <div class="nav-leftSide">
-                <img src="assets/lib/icons/rapunzelicon.png" class="ico" alt="theme" width="200px">
-                <a href="home.html" class="logo">DS</a>
-            </div>
+    <nav class="nav">
 
-            <div>
-                <ul class="nav-center">
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="work.html">Work</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
+        <!-- Left: logo + icon -->
+        <div class="nav-leftSide">
+            <img src="assets/lib/icons/rapunzelicon.png" class="ico" alt="logo">
+            <a href="home.html" class="logo">DS</a>
+        </div>
 
+        <!-- Center: desktop links -->
+        <ul class="nav-center">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="work.html">Work</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <!-- Right: dark mode icon (desktop) + hamburger (mobile) -->
+        <div class="nav-rightGroup">
             <div class="nav-rightSide">
-                <img src="assets/lib/icons/darkMode.png" class="nav-icon" alt="menu">
+                <img src="assets/lib/icons/darkMode.png" class="nav-icon" alt="dark mode">
             </div>
-        </nav>
+            <!-- hamburger — hidden on desktop, shown on mobile via CSS -->
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+    </nav>
+
+    <!-- Mobile dropdown — sits outside nav so it spans full width -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="home.html"    onclick="closeMobileMenu()">Home</a>
+        <a href="about.html"   onclick="closeMobileMenu()">About</a>
+        <a href="work.html"    onclick="closeMobileMenu()">Work</a>
+        <a href="contact.html" onclick="closeMobileMenu()">Contact</a>
+    </div>
 
 </header>
 
@@ -426,6 +446,35 @@
 
 
 
+<script>
+    (function () {
+        const hamburger  = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', function () {
+            const isOpen = mobileMenu.classList.toggle('open');
+            hamburger.classList.toggle('open', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close on resize back to desktop
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 768) closeMobileMenu();
+        });
+    })();
+
+    function closeMobileMenu() {
+        document.getElementById('mobileMenu').classList.remove('open');
+        document.getElementById('hamburger').classList.remove('open');
+    }
+</script>
 
 </body>
 </html>
