@@ -431,10 +431,10 @@
     />
 
 
-    <div class="hero-follow">FOLLOW</div>
-
-
-    <div class="hero-me">ME</div>
+    <div class="hero-text-row">
+        <span class="hero-follow">FOLLOW</span>
+        <span class="hero-me">ME</span>
+    </div>
 
 
     <div class="hero-socials">
@@ -723,20 +723,20 @@ public class DinshiniPortfolioTimeline {
 
 
 
-        function toggleCard(element) {
+    function toggleCard(element) {
         if (window.innerWidth <= 768) {
-        const isOpen = element.classList.contains('expanded');
+            const isOpen = element.classList.contains('expanded');
 
-        // Close all cards first
-        document.querySelectorAll('.journey-card').forEach(card => {
-        card.classList.remove('expanded');
-    });
+            // Close all cards first
+            document.querySelectorAll('.journey-card').forEach(card => {
+                card.classList.remove('expanded');
+            });
 
-        // Toggle if it wasn't already open
-        if (!isOpen) {
-        element.classList.add('expanded');
-    }
-    }
+            // Toggle if it wasn't already open
+            if (!isOpen) {
+                element.classList.add('expanded');
+            }
+        }
     }
 
 

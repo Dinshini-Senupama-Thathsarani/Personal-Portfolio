@@ -2547,14 +2547,12 @@ footer {
 
 
 
-
 .about-hero {
     position: relative;
     width: 100%;
     height: 85vh;
     min-height: 500px;
     overflow: hidden;
-
 
     background: linear-gradient(
             160deg,
@@ -2567,7 +2565,6 @@ footer {
     align-items: flex-end;
     justify-content: center;
 }
-
 
 .about-hero-img {
     position: absolute;
@@ -2594,7 +2591,6 @@ footer {
     to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
-
 .about-hero::after {
     content: '';
     position: absolute;
@@ -2614,6 +2610,10 @@ footer {
     z-index: 2;
 }
 
+/* ✅ FIX: FOLLOW ME text eka scroll karana kotama uda yanawa una
+   cause: position:absolute elements scroll ekka move wenna section
+   eke overflow:hidden + position:relative proper set wenna ona.
+   Extra fix: will-change:transform dala repaint force karanawa */
 
 .hero-follow {
     position: absolute;
@@ -2629,13 +2629,14 @@ footer {
     animation: fadeInLeft 0.9s ease forwards;
     opacity: 0;
     animation-delay: 0.4s;
+    will-change: transform;       /* ✅ GPU layer — scroll flicker fix */
+    backface-visibility: hidden;  /* ✅ prevent repaint jump */
 }
-
 
 .hero-me {
     position: absolute;
     bottom: 2.5rem;
-    right: calc(2rem + 56px * 3 + 0.75rem * 2 + 1rem); /* right of socials */
+    right: calc(2rem + 56px * 3 + 0.75rem * 2 + 1rem);
     z-index: 10;
     font-family: 'Playfair Display', serif;
     font-size: clamp(3.5rem, 7vw, 7rem);
@@ -2646,6 +2647,8 @@ footer {
     animation: fadeInRight 0.9s ease forwards;
     opacity: 0;
     animation-delay: 0.5s;
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 .hero-socials {
@@ -2687,13 +2690,11 @@ footer {
     fill: #1a1014;
 }
 
-
 .hero-social-btn.instagram svg {
     fill: none;
     stroke: #1a1014;
     stroke-width: 2;
 }
-
 
 @keyframes fadeInLeft {
     from { opacity: 0; transform: translateX(-30px); }
@@ -2738,23 +2739,46 @@ footer {
 
 /* Phone */
 @media (max-width: 768px) {
+
+    .about-hero {
+        height: 90vh; /* ✅ taller on mobile — text clip wenna na */
+    }
+
     .about-hero-img {
         max-width: 85%;
-        height: 80%;
+        height: 78%;
+    }
+
+    /* ✅ FOLLOW + ME eka ekka flex row ekata dana — position:absolute
+       mobile eke calculate karana eka awkward, flex use karanawa */
+    .hero-text-row {
+        position: absolute;
+        bottom: 5.5rem;
+        left: 1.2rem;
+        right: 1.2rem;
+        z-index: 10;
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        gap: 0.5rem;
     }
 
     .hero-follow {
+        position: static; /* ✅ flow inside .hero-text-row */
         font-size: clamp(2rem, 9vw, 3.5rem);
-        bottom: 5.5rem;
-        left: 1.2rem;
+        bottom: auto;
+        left: auto;
+        animation: fadeInLeft 0.9s ease 0.4s forwards;
+        opacity: 0;
     }
 
     .hero-me {
-        font-size: clamp(1rem, 9vw, 3.5rem);
-        bottom: 5.5rem;
+        position: static; /* ✅ flow inside .hero-text-row */
+        font-size: clamp(2rem, 9vw, 3.5rem);
+        bottom: auto;
         right: auto;
-
-        left: calc(clamp(2rem, 9vw, 3.5rem) * 3.8 + 1.2rem);
+        animation: fadeInRight 0.9s ease 0.5s forwards;
+        opacity: 0;
     }
 
     .hero-socials {
@@ -2776,21 +2800,25 @@ footer {
 
 /* Small phone */
 @media (max-width: 480px) {
+
+    .about-hero {
+        height: 92vh;
+    }
+
     .about-hero-img {
         max-width: 95%;
         height: 75%;
     }
 
-    .hero-follow {
-        font-size: 2rem;
-        bottom: 5rem;
+    .hero-text-row {
+        bottom: 4.8rem;
         left: 1rem;
+        right: 1rem;
     }
 
+    .hero-follow,
     .hero-me {
-        font-size: 1rem;
-        bottom: 5rem;
-        left: 9rem;
+        font-size: clamp(1.8rem, 8vw, 2.8rem);
     }
 
     .hero-socials {
@@ -2809,16 +2837,6 @@ footer {
         height: 16px;
     }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
