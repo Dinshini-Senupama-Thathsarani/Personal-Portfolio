@@ -14,7 +14,7 @@
 <header id="header">
 
     <nav class="nav">
-
+ 
         <!-- Left: logo + icon -->
         <div class="nav-leftSide">
             <img src="assets/lib/icons/rapunzelicon.png" class="ico" alt="logo">
@@ -68,16 +68,15 @@
 
 
 
-
 <section class="hero" id="hero">
 
-    <!--image-->
-    <div>
+    <!-- ✅ FIX: div ekata .hero-img-wrap class damma -->
+    <!-- before: > div:first-child selector use una — fragile -->
+    <div class="hero-img-wrap">
         <img src="assets/lib/images/tower.png" alt="Tower" class="hero-tower"/>
     </div>
 
-
-    <!--text-->
+    <!-- text -->
     <div class="hero-content">
 
         <p class="hero-title fade-up">Welcome to the</p>
@@ -93,7 +92,7 @@
                     You can simply call me Dinshini.
                 </span>
                 <span class="hero-bracket">)</span>
-                <span class="hero-arrow" style="transform: scaleX(-1); display:inline-block;">&#8629;</span>
+                <span class="hero-arrow" style="transform:scaleX(-1);display:inline-block;">&#8629;</span>
             </span>
         </p>
 
@@ -106,8 +105,14 @@
 
     </div>
 
+    <div id="welcome-toast" class="toast">
+        Hope your day is 10/10! ✨
+    </div>
 
 </section>
+
+
+
 
 
 
@@ -475,6 +480,24 @@
         document.getElementById('mobileMenu').classList.remove('open');
         document.getElementById('hamburger').classList.remove('open');
     }
+
+
+
+
+
+
+
+    window.onload = function() {
+        var toast = document.getElementById("welcome-toast");
+
+        setTimeout(function() {
+            toast.classList.add("show");
+        }, 500); // 0.5s delay ekakin msg eka enawa
+
+        setTimeout(function(){
+            toast.classList.remove("show");
+        }, 4500); // 4.5s walin ayeth hide wenawa
+    };
 </script>
 
 

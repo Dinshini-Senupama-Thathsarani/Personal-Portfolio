@@ -483,27 +483,66 @@ function runCode() {
 
 
 
-
-
+//gallery
 
 (function () {
-    function initMobile() {
-        document.querySelectorAll('.journey-card').forEach(card => {
-            card.onclick = null;
-            if (window.innerWidth <= 768) {
-                card.addEventListener('click', function handler() {
-                    const isOpen = card.classList.contains('expanded');
-                    document.querySelectorAll('.journey-card')
-                        .forEach(c => c.classList.remove('expanded'));
-                    if (!isOpen) card.classList.add('expanded');
-                });
-            }
+    function initJourneyCards() {
+        const cards = document.querySelectorAll('.journey-card');
+
+        cards.forEach(card => {
+            // Parana events remove karala clean karagannawa
+            const newCard = card.cloneNode(true);
+            card.parentNode.replaceChild(newCard, card);
+
+            newCard.addEventListener('click', function (e) {
+                if (window.innerWidth <= 768) {
+                    const isOpen = this.classList.contains('expanded');
+
+                    // Okkoma close karala click karapu eka witharak open karanawa
+                    document.querySelectorAll('.journey-card').forEach(c => {
+                        c.classList.remove('expanded');
+                    });
+
+                    if (!isOpen) {
+                        this.classList.add('expanded');
+                    }
+                }
+            });
         });
     }
 
-    initMobile();
-    window.addEventListener('resize', initMobile);
+    function toggleCard(cardElement) {
+        // Mobile width ekedi witharak click logic eka trigger wenna
+        if (window.innerWidth <= 768) {
+            const isCurrentlyExpanded = cardElement.classList.contains('expanded');
+
+            // 1. Okkoma anith cards reset karanna
+            document.querySelectorAll('.journey-card').forEach(c => {
+                c.classList.remove('expanded');
+            });
+
+            // 2. Click karapu eka expanded nathnam eka expand karanna
+            if (!isCurrentlyExpanded) {
+                cardElement.classList.add('expanded');
+            }
+        }
+    }
+
+
+    // Initial load
+    initJourneyCards();
+
+    // Resize weddi debounce ekak ekka run wenna
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(initJourneyCards, 250);
+    });
 })();
+
+
+
+
 
 
 

@@ -344,6 +344,9 @@ canvas {
 
 
 
+
+
+
 /*
    HEADER
 */
@@ -1005,12 +1008,9 @@ footer {
 
 
 
-
 /*
    HERO SECTION
- */
-
-
+*/
 
 .scrolling-container {
     width: 100%;
@@ -1022,8 +1022,6 @@ footer {
     align-items: center;
     position: relative;
     z-index: 100;
-
-
     margin-top: -40px;
     box-shadow: 0px -10px 30px rgba(0,0,0,0.1);
 }
@@ -1044,22 +1042,24 @@ footer {
     display: inline-block;
 }
 
-
 @keyframes scroll-text {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
 }
-
 
 .scrolling-container + section {
     margin-top: 0;
 }
 
 
+/* ════════════════════════════════
+   HERO — BASE (desktop)
+════════════════════════════════ */
+
 .hero {
     min-height: 88vh;
     width: 100%;
-    background-color: #e6e8fa ;
+    background-color: #e6e8fa;
     position: relative;
     display: flex;
     flex-direction: row;
@@ -1068,10 +1068,8 @@ footer {
     padding-top: 80px;
 }
 
-
-
 /* Tower image wrapper */
-.hero > div:first-child {
+.hero-img-wrap {
     position: absolute;
     left: 50px;
     bottom: 30px;
@@ -1080,6 +1078,7 @@ footer {
     z-index: 1;
 }
 
+/* ✅ FIX: was using > div:first-child which breaks when DOM order changes */
 .hero-tower {
     width: 100%;
     height: 100%;
@@ -1093,8 +1092,7 @@ footer {
     to   { opacity: 1; transform: translateX(0); }
 }
 
-
-/*  Hero text content  */
+/* Hero text content */
 .hero-content {
     position: relative;
     left: 400px;
@@ -1108,8 +1106,7 @@ footer {
     justify-content: flex-end;
 }
 
-
-/*  Main title */
+/* Main title */
 .hero-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(3rem, 6.5vw, 6.5rem);
@@ -1121,8 +1118,7 @@ footer {
     margin: 0;
 }
 
-
-/*  Inline bio wrapper*/
+/* Inline bio wrapper */
 .hero-inline-bio {
     display: inline-flex;
     align-items: center;
@@ -1159,17 +1155,15 @@ footer {
     max-width: 475px;
 }
 
-
-/*Sub title */
+/* Sub title */
 .hero-sub {
-    /* margin-top: 2rem;*/
     margin-top: 130px;
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(1.2rem, 3vw, 1.9rem);
     font-weight: 500;
     color: #1a1014;
     letter-spacing: 0.02em;
-    margin-left: clamp(0px, 8vw, 100px);  /* ✅ mobile margin fix */
+    margin-left: clamp(0px, 8vw, 100px);
 }
 
 .hero-sub-small {
@@ -1182,8 +1176,7 @@ footer {
     margin-top: 0.25rem;
 }
 
-
-/* Fade-up animations*/
+/* Fade-up animations */
 .fade-up {
     opacity: 0;
     transform: translateY(28px);
@@ -1200,57 +1193,77 @@ footer {
 }
 
 
-/*
-   RESPONSIVE
- */
-
-/* Tablet */
+/* ════════════════════════════════
+   TABLET  (max 1024px)
+════════════════════════════════ */
 @media (max-width: 1024px) {
 
     .hero-title {
         font-size: clamp(2.4rem, 5.5vw, 4.5rem);
     }
 
-    .hero > div:first-child {
-        width: 36%;
+    .hero-img-wrap {
+        width: 38%;
+        left: 30px;
     }
 
+    /* ✅ FIX: left:400px is too much on tablet — use vw instead */
     .hero-content {
-        padding: 0 2.5rem 4rem 2.5rem;
+        left: 32vw;
+        padding: 0 2.5rem 4rem 2rem;
     }
 
     .hero-bio-text {
         font-size: 0.78rem;
         max-width: 250px;
     }
+
+    .hero-sub {
+        margin-top: 60px;
+    }
 }
 
-/* Phone */
+
+/* ════════════════════════════════
+   PHONE  (max 768px)
+════════════════════════════════ */
 @media (max-width: 768px) {
 
     .hero {
         flex-direction: column;
         align-items: center;
-        padding-top: 70px;
+        /* ✅ FIX: padding-top accounts for fixed nav height */
+        padding-top: 75px;
         min-height: 100svh;
+        /* ✅ FIX: overflow:hidden was clipping content on some phones */
+        overflow: visible;
     }
 
-    /* Tower — top, centered */
-    .hero > div:first-child {
+    /* ✅ FIX: absolute positioning removed — tower flows naturally */
+    .hero-img-wrap {
         position: relative;
-        width: 65%;
+        width: 62%;
         height: auto;
         left: auto;
         bottom: auto;
-        margin: 1.5rem auto 0;
+        margin: 1rem auto 0;
+        /* ✅ FIX: height:90% on absolute parent caused 0px height on mobile */
+        height: auto;
     }
 
     .hero-tower {
         object-position: center;
+        /* ✅ FIX: height:100% with auto parent = 0px — use explicit auto */
+        height: auto;
+        width: 100%;
     }
 
-
+    /* ✅ FIX: left:400px pushed content off screen on mobile */
     .hero-content {
+        position: relative;
+        left: 0;
+        bottom: auto;
+        width: 100%;
         padding: 1.5rem 1.5rem 3rem;
         align-items: center;
         text-align: center;
@@ -1261,39 +1274,75 @@ footer {
         text-align: center;
     }
 
-    /* Hide inline bio on phone */
+    /* ✅ hide inline bio — too cramped on phone */
     .hero-inline-bio {
         display: none;
     }
 
     .hero-sub {
         text-align: center;
-        font-size: 1rem;
-        margin-top: 1rem;
+        font-size: 1.1rem;
+        /* ✅ FIX: margin-top:130px was pushing sub off screen */
+        margin-top: 1.2rem;
+        margin-left: 0;
     }
 
     .hero-sub-small {
-        font-size: 0.72rem;
+        font-size: 0.75rem;
     }
 }
 
-/* Small phone */
+
+/* ════════════════════════════════
+   SMALL PHONE  (max 480px)
+════════════════════════════════ */
 @media (max-width: 480px) {
 
-    .hero > div:first-child {
-        width: 80%;
+    .hero-img-wrap {
+        width: 78%;
     }
 
     .hero-title {
-        font-size: clamp(1.5rem, 8vw, 2.5rem);
+        font-size: clamp(1.5rem, 8vw, 2.4rem);
     }
 
+    .hero-sub {
+        font-size: 0.95rem;
+    }
+
+    .hero-sub-small {
+        font-size: 0.7rem;
+    }
 }
 
 
+.toast {
+    visibility: hidden;
+    min-width: 150px; /* Size eka adu kara */
+    background-color: rgba(142, 68, 173, 0.8); /* Rapunzel Purple */
+    backdrop-filter: blur(8px);
+    color: #FFF5CC; /* Soft Gold text */
+    text-align: center;
+    border-radius: 50px; /* Capsule shape ekak dunna podiyata pennna */
+    padding: 8px 20px; /* Compact padding */
+    position: fixed;
+    z-index: 2000;
+    right: 20px;
+    top: 70px; /* Udin show wenna */
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px; /* Font eka podi kara */
+    border: 1px solid rgba(241, 196, 15, 0.5); /* Gold border */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: all 0.5s ease;
+    transform: translateY(-20px);
+}
 
-
-
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
 
 
 
@@ -1417,7 +1466,6 @@ footer {
     color: rgba(255, 255, 255, 0.75);
     text-align: right;
     margin-top: 0.5rem;
-
 }
 
 .about-bottom {
@@ -1527,14 +1575,63 @@ footer {
 
 /*
    RESPONSIVE
- */
-@media (max-width: 768px) {
+*/
+
+/* ── TABLET ── */
+@media (max-width: 1024px) {
+
+    .about-inner { padding: 0 2rem; }
 
     .about-card {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding: 2rem 1.5rem;
+        grid-template-columns: 240px 1fr !important;
+        gap: 2rem;
+        padding: 2rem;
     }
+
+    .about-divider-v { left: 268px !important; }
+
+    .card { width: 230px; height: 230px; }
+
+    .about-role { font-size: 1.25rem; }
+    .about-desc { font-size: 1rem; }
+}
+
+/* ── PHONE ── */
+@media (max-width: 768px) {
+
+    .about { padding: 0 0 3rem 0; }
+
+    .about-arch {
+        height: 60px;
+        margin-bottom: 1.5rem;
+    }
+
+    .about-inner { padding: 0 1.2rem; }
+
+    /* card udin center, text yatin */
+    .about-card {
+        grid-template-columns: 1fr !important;
+        text-align: center;
+        padding: 1.8rem 1.2rem;
+        gap: 1.5rem;
+    }
+
+    .about-divider-v { display: none !important; }
+
+    .card {
+        width: 220px;
+        height: 220px;
+        margin: 0 auto;
+    }
+
+    .about-text {
+        align-items: center;
+        text-align: center;
+    }
+
+    .about-role { font-size: 1.1rem; }
+    .about-desc { font-size: 0.95rem; line-height: 1.7; }
+    .about-tagline { text-align: center; }
 
     .about-photo-wrap {
         margin: 0 auto;
@@ -1542,34 +1639,37 @@ footer {
         height: 200px;
     }
 
-    .about-divider-v { display: none; }
-
     .about-bottom {
         flex-direction: column;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1.2rem;
+        margin-top: 1.5rem;
+        padding: 0;
     }
 
-    .about-flower-img {
-        width: 90px;
-        height: 110px;
-    }
+    .about-signature-img { width: 70px; height: 85px; }
+    .about-flower-img { width: 90px; height: 110px; }
 
-    .about-inner {
-        padding: 0 1.5rem;
-    }
+    .deco:nth-child(n+25) { display: none; }
 }
 
+/* ── SMALL PHONE ── */
+@media (max-width: 480px) {
 
+    .card { width: 190px; height: 190px; }
+    .about-card { padding: 1.4rem 1rem; }
+    .about-role { font-size: 1rem; }
+    .about-desc { font-size: 0.88rem; }
 
+    .about-btn {
+        font-size: 0.9rem;
+        padding: 0.65rem 1.6rem;
+    }
 
-
-
-
-
-
-
-
+    .card .bottom { top: 72%; }
+    .card .bottom .content .name { font-size: 0.95rem; }
+    .card .bottom .content .about-me { font-size: 0.7rem; }
+}
 
 
 /*
@@ -1749,20 +1849,15 @@ footer {
 }
 
 
-.about-card {
-    grid-template-columns: 270px 1fr !important;
+/* desktop only overrides — scoped so mobile media queries win */
+@media (min-width: 769px) {
+    .about-card {
+        grid-template-columns: 270px 1fr !important;
+    }
+    .about-divider-v {
+        left: 300px !important;
+    }
 }
-
-.about-divider-v {
-    left: 300px !important;
-}
-
-
-
-
-
-
-
 
 
 
@@ -1771,18 +1866,28 @@ footer {
 
 
 :root {
-    --pink-100: #FCE7F3;
-    --pink-400: #F472B6;
-    --gold-300: #FCD34D;
-    --purple-500: #A855F7;
-    --purple-600: #9333EA;
-    --gradient-main: linear-gradient(135deg, #fef3f2 0%, #fde8e3 25%, #fce7f3 75%, #f0e7ff 100%);
-    --glass-bg: rgba(255, 255, 255, 0.45);
-    --shadow-glow: 0 20px 50px rgba(168, 85, 247, 0.15);
-    --text-dark: #1f2937;
-    --text-purple: #3a2040;
-}
+    /* Base Colors */
+    --pink-100: #fdf2f8;
+    --pink-400: #e879a0;
+    --gold-300: #f9d57e;
+    --purple-500: #9b59b6;
+    --purple-600: #7d3c98;
 
+    /* Text Colors */
+    --text-dark: #2d1b3d;
+    --text-purple: #4a2060;
+
+    /* Gradients & Backgrounds */
+    --gradient-main: linear-gradient(135deg, #fff9fd 0%, #fdf0fa 40%, #f8f0ff 100%);
+    --glass-bg: rgba(255, 255, 255, 0.60);
+    --shadow-glow: 0 20px 50px rgba(155, 89, 182, 0.12);
+
+    /* IDE Error Fixes - Declaring missing properties */
+    --dur: 1s;
+    --d: 0s;
+    --tx: 0px;
+    --ty: 0px;
+}
 /* Skills section scoped resets */
 .container * {
     box-sizing: border-box;
@@ -1802,7 +1907,7 @@ footer {
 
 .bubble {
     position: absolute;
-    background: radial-gradient(circle at 30% 30%, rgba(252, 211, 77, 0.3), transparent);
+    background: radial-gradient(circle at 30% 30%, rgba(232, 121, 160, 0.18), transparent);
     border-radius: 50%;
     animation: bubbleFloat 15s infinite ease-in-out;
 }
@@ -1812,7 +1917,7 @@ footer {
 .bubble:nth-child(3) { width: 100px; height: 100px; bottom: 20%; left: 20%;  animation-delay: 4s; }
 
 @keyframes bubbleFloat {
-    0%, 100% { transform: translateY(0)    scale(1);   opacity: 0.5; }
+    0%, 100% { transform: translateY(0)     scale(1);   opacity: 0.5; }
     50%       { transform: translateY(-40px) scale(1.1); opacity: 0.8; }
 }
 
@@ -1828,25 +1933,26 @@ footer {
     min-height: 100vh;
     position: relative;
     z-index: 2;
+    /* ✅ cream/white background */
+    background: var(--gradient-main);
 }
 
 /* --- Left: Magic Card --- */
 .card-container {
     display: flex;
     justify-content: flex-start;
-    /* FIX 1: added 'forwards' — card stays visible after animation ends */
     animation: slideInLeft 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .floating-magic-card {
-    background: var(--glass-bg);
+    background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 2px solid rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(232, 121, 160, 0.2);
     border-radius: 40px;
     padding: 80px 60px;
     text-align: center;
-    box-shadow: 0 40px 80px rgba(168, 85, 247, 0.12);
+    box-shadow: 0 40px 80px rgba(155, 89, 182, 0.10);
     transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 0.5s ease,
     border-color 0.5s ease;
@@ -1854,8 +1960,8 @@ footer {
 
 .floating-magic-card:hover {
     transform: translateY(-15px) rotate(-1deg);
-    box-shadow: 0 60px 120px rgba(168, 85, 247, 0.2);
-    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 60px 120px rgba(155, 89, 182, 0.18);
+    border-color: rgba(232, 121, 160, 0.4);
 }
 
 .card-title {
@@ -1869,7 +1975,6 @@ footer {
 
 .card-title strong {
     font-weight: 700;
-    /* FIX 2: color fallback for non-webkit browsers */
     color: var(--purple-500);
     background: linear-gradient(to right, var(--purple-500), var(--pink-400));
     -webkit-background-clip: text;
@@ -1881,25 +1986,23 @@ footer {
     align-items: center;
     gap: 15px;
     padding: 22px 50px;
-    background: var(--purple-500);
+    background: linear-gradient(135deg, var(--purple-500), var(--pink-400));
     color: white;
     text-decoration: none;
     border-radius: 50px;
     font-size: 1.25rem;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
-    box-shadow: 0 15px 35px rgba(168, 85, 247, 0.3);
-    transition: background 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow: 0 15px 35px rgba(155, 89, 182, 0.25);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 0.4s ease;
     position: relative;
     overflow: hidden;
 }
 
 .magic-cta-button:hover {
-    background: var(--purple-600);
-    transform: scale(1.1);
-    box-shadow: 0 25px 50px rgba(168, 85, 247, 0.5);
+    transform: scale(1.08);
+    box-shadow: 0 25px 50px rgba(155, 89, 182, 0.40);
 }
 
 /* --- Right: Skills --- */
@@ -1916,7 +2019,7 @@ footer {
 
 .section-subtitle {
     font-size: 15px;
-    color: #9ca3af;
+    color: #c084c8;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -1926,9 +2029,8 @@ footer {
 .skills-title {
     font-size: clamp(1.5rem, 3vw, 2.5rem);
     font-weight: 800;
-    /* FIX 2: color fallback */
     color: var(--purple-500);
-    background: linear-gradient(135deg, #1f2937, var(--purple-500));
+    background: linear-gradient(135deg, var(--text-dark), var(--purple-500));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 40px;
@@ -1939,15 +2041,13 @@ footer {
     align-items: center;
     gap: 25px;
     padding: 30px;
-    background: var(--glass-bg);
+    background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(15px);
     border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(232, 121, 160, 0.15);
     opacity: 0;
     transform: translateY(30px);
     animation: fadeUp 0.8s ease forwards;
-    /* FIX 3: transition:all → specific properties only
-       'all' was fighting the fadeUp opacity animation */
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
     background 0.4s ease,
     box-shadow 0.4s ease,
@@ -1955,7 +2055,6 @@ footer {
     cursor: pointer;
 }
 
-/* Staggered delays */
 .skill-card:nth-child(2) { animation-delay: 0.2s; }
 .skill-card:nth-child(3) { animation-delay: 0.4s; }
 .skill-card:nth-child(4) { animation-delay: 0.6s; }
@@ -1963,14 +2062,14 @@ footer {
 .skill-card:hover {
     transform: translateX(20px) scale(1.02);
     background: white;
-    box-shadow: 0 20px 40px rgba(168, 85, 247, 0.15);
+    box-shadow: 0 20px 40px rgba(155, 89, 182, 0.12);
     border-color: var(--pink-400);
 }
 
 .skill-icon {
     width: 70px;
     height: 70px;
-    background: var(--purple-500);
+    background: linear-gradient(135deg, var(--purple-500), var(--pink-400));
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -1983,7 +2082,7 @@ footer {
 
 .skill-card:hover .skill-icon {
     transform: rotate(360deg);
-    background: var(--purple-600);
+    background: linear-gradient(135deg, var(--pink-400), var(--purple-500));
 }
 
 .skill-info h4 {
@@ -1994,7 +2093,7 @@ footer {
 }
 
 .skill-info p {
-    color: #6b7280;
+    color: #7c6b8a;
     font-size: 15px;
     line-height: 1.5;
 }
@@ -2021,10 +2120,24 @@ footer {
     .skill-card      { text-align: left; }
 }
 
-
-
-
-
+@media (max-width: 768px) {
+    .container {
+        padding: 60px 16px;
+        gap: 40px;
+    }
+    .floating-magic-card {
+        padding: 50px 30px;
+        border-radius: 28px;
+    }
+    .magic-cta-button {
+        padding: 16px 36px;
+        font-size: 1rem;
+    }
+    .skill-card { padding: 20px; gap: 16px; }
+    .skill-icon { width: 54px; height: 54px; font-size: 20px; }
+    .skill-info h4 { font-size: 18px; }
+    .skill-info p  { font-size: 13px; }
+}
 
 
 
@@ -2637,7 +2750,7 @@ footer {
     }
 
     .hero-me {
-        font-size: clamp(2rem, 9vw, 3.5rem);
+        font-size: clamp(1rem, 9vw, 3.5rem);
         bottom: 5.5rem;
         right: auto;
 
@@ -2675,7 +2788,7 @@ footer {
     }
 
     .hero-me {
-        font-size: 2rem;
+        font-size: 1rem;
         bottom: 5rem;
         left: 9rem;
     }
@@ -3281,3 +3394,5 @@ pre {
         max-width: 100%;
     }
 }
+
+
