@@ -1416,6 +1416,50 @@
             addMsg(getReply(text),false);
         },800);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    (function () {
+        const hamburger  = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', function () {
+            const isOpen = mobileMenu.classList.toggle('open');
+            hamburger.classList.toggle('open', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close on resize back to desktop
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 768) closeMobileMenu();
+        });
+    })();
+
+    function closeMobileMenu() {
+        document.getElementById('mobileMenu').classList.remove('open');
+        document.getElementById('hamburger').classList.remove('open');
+    }
+
+
 </script>
 
 </body>
