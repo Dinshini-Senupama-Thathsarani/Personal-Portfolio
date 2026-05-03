@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Tower of Dinshini</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;500&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #050308;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #fff;
+        }
+
+        .second-sec {
+            background: linear-gradient(135deg, #f8d7e8 0%, #e2b1d3 50%, #c699d1 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* ─── MAIN LAYOUT CONTAINER ─── */
+        .contact-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        /* ─── LEFT SIDE: GET IN TOUCH FORM ─── */
+        .contact-form-side {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-form-side h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #4a2c5e; /* Deep Rapunzel Purple */
+            margin-bottom: 10px;
+        }
+
+        .contact-form-side p {
+            color: #6a4c7e;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(74, 44, 94, 0.2);
+            background: rgba(255, 255, 255, 0.5);
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #ffd773;
+            background: #fff;
+        }
+
+        .send-btn {
+            background: #4a2c5e;
+            color: #ffd773; /* Gold text */
+            padding: 15px 30px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(74, 44, 94, 0.2);
+        }
+
+        .send-btn:hover {
+            transform: translateY(-3px);
+            background: #5d3b75;
+        }
+
+        /* ─── RIGHT SIDE: MAGICAL CANVAS ─── */
+        .magical-side {
+            flex: 1;
+            position: relative;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+        }
+
+        #mainCanvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.95) contrast(1.1);
+        }
+
+        .text-overlay {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .talk-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: #ffd773; /* Gold */
+            font-style: italic;
+            text-shadow: 0 0 20px rgba(255, 215, 115, 0.5);
+        }
+
+        .underline {
+            display: inline-block;
+            border-bottom: 3px solid #ffd773;
+            padding-bottom: 2px;
+            margin-bottom: 5px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .contact-container { flex-direction: column; }
+            .contact-form-side { padding: 40px; }
+            .magical-side { min-height: 400px; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="second-sec">
+    <div class="contact-container">
+        <!-- Left Side: Form -->
+        <div class="contact-form-side">
+            <h2>Contact Me</h2>
+            <p>Drop a message, let's create something magic.</p>
+
+            <form>
+                <div class="input-group">
+                    <input type="text" placeholder="Name">
+                </div>
+                <div class="input-group">
+                    <input type="email" placeholder="Email">
+                </div>
+                <div class="input-group">
+                    <input type="text" placeholder="Phone">
+                </div>
+                <div class="input-group">
+                    <textarea rows="4" placeholder="Message"></textarea>
+                </div>
+                <button type="button" class="send-btn">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Right Side: Canvas -->
+        <div class="magical-side">
+            <canvas id="mainCanvas"></canvas>
+            <div class="text-overlay">
+                <h1 class="talk-heading">
+                    <span class="underline">Let's Talk</span><br>
+                    <span>About It</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="module">
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = 'https://images.unsplash.com/photo-1700583173020-624f5f11188c?w=1200';
+
+    let originalData = null;
+    let mouse = { x: 0.5, y: 0.5 };
+    let targetScale = 1.8, currentScale = 1.8;
+
+    const PALETTE = {
+        highlight: { r:255, g:215, b:115 }, // Gold
+        mid:       { r:110, g:70,  b:150 }, // Purple
+        dark:      { r:18,  g:12,  b:30  }  // Dark[cite: 1]
+    };
+
+    function init() {
+        const parent = canvas.parentElement;
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+        const aspect = img.width / img.height;
+        let w = canvas.width, h = canvas.width / aspect;
+        if (h < canvas.height) { h = canvas.height; w = canvas.height * aspect; }
+        ctx.drawImage(img, (canvas.width-w)/2, (canvas.height-h)/2, w, h);
+        originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+
+    window.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = (e.clientX - rect.left) / rect.width;
+        mouse.y = (e.clientY - rect.top) / rect.height;
+        targetScale = 1.2 + (mouse.x * 2.5);
+    });
+
+    function draw() {
+        if (!originalData) return;
+        const output = ctx.createImageData(canvas.width, canvas.height);
+        const src = originalData.data;
+        const dst = output.data;
+        currentScale += (targetScale - currentScale) * 0.05;
+        const bright = 135 + (mouse.y * 75);
+
+        for (let i = 0; i < src.length; i += 4) {
+            let g = 0.299*src[i] + 0.587*src[i+1] + 0.114*src[i+2];
+            let norm = (g + bright - 160) / 255;
+            const x = (i/4) % canvas.width;
+            const y = (i/4) / canvas.width;
+            let pattern = Math.sin(x/currentScale) * Math.cos(y/currentScale);
+            let thresh = (pattern + 1.3) / 2.5;
+            let c = norm > thresh ? PALETTE.highlight : (norm > thresh*0.45 ? PALETTE.mid : PALETTE.dark);
+            dst[i]=c.r; dst[i+1]=c.g; dst[i+2]=c.b; dst[i+3]=255;
+        }
+        ctx.putImageData(output, 0, 0);
+        requestAnimationFrame(draw);
+    }
+
+    img.onload = () => { init(); draw(); };
+    window.onresize = init;
+</script>
+
+</body>
+</html>
