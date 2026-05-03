@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Dinshini Senupama</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary-gold: #ffd773;
+            --soft-purple-bg: linear-gradient(180deg, #b084cc 0%, #d182c4 100%);
+            --footer-pink: #bf6ec4;
+            --text-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #0a0612;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* ─── CONTACT SECTION WITH NEW TYPOGRAPHY ─── */
+        .contact-section-wrapper {
+            background: var(--soft-purple-bg);
+            min-height: 90vh;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            padding: 120px 8% 80px;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .contact-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Aluth Typography Style */
+        .heading-container {
+            color: var(--text-color);
+            line-height: 0.9;
+        }
+
+        .text-want-to {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(4rem, 8vw, 7rem);
+            font-weight: 500;
+            display: block;
+            margin-bottom: -10px;
+        }
+
+        .text-start {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(5rem, 10vw, 9rem);
+            font-weight: 500;
+            display: block;
+            margin-left: 40px;
+        }
+
+        .text-a-new {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(4rem, 8vw, 7rem);
+            font-style: italic;
+            font-weight: 400;
+            display: block;
+            margin-top: -10px;
+        }
+
+        .text-project {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(6rem, 12vw, 11rem);
+            font-weight: 500;
+            display: block;
+            margin-top: -20px;
+            margin-left: 80px;
+        }
+
+        .text-hello {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            margin-left: 150px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* ─── CHAT BOX ─── */
+        .contact-right {
+            display: flex;
+            justify-content: center;
+        }
+
+        #chat-popup {
+            width: 100%;
+            max-width: 380px;
+            height: 520px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 20px;
+            display: flex; align-items: center; gap: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .chat-profile-pic { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #fff; overflow: hidden; }
+        .chat-profile-pic img { width: 100%; height: 100%; object-fit: cover; }
+
+        #messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .bubble { font-size: 13px; padding: 12px 16px; border-radius: 18px; color: #fff; max-width: 85%; }
+        .bot-bubble { background: rgba(255,255,255,0.15); border-bottom-left-radius: 4px; }
+        .user-bubble { background: #fff; color: var(--footer-pink); align-self: flex-end; border-bottom-right-radius: 4px; }
+
+        .input-area { padding: 15px; display: flex; gap: 10px; }
+        #msg-input { flex: 1; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 10px 15px; color: #fff; }
+        #send-btn { width: 35px; height: 35px; border-radius: 50%; background: #fff; border: none; color: var(--footer-pink); cursor: pointer; }
+
+        /* ─── FOOTER (No changes) ─── */
+        footer { background-color: var(--footer-pink); width: 100%; }
+        .footer-main { display: flex; padding: 2.5rem 3rem; align-items: center; justify-content: space-between; }
+        .footer-logo-text { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: #1a1014; }
+        .footer-watermark { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: rgba(255,255,255,0.25); text-transform: uppercase; }
+
+        @media (max-width: 1024px) {
+            .contact-section-wrapper { grid-template-columns: 1fr; padding-top: 150px; gap: 60px; }
+            .text-start, .text-project, .text-hello { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+<section>
+    <div class="contact-section-wrapper">
+        <div class="contact-left">
+            <div class="heading-container">
+                <span class="text-want-to">Want to</span>
+                <span class="text-start">start</span>
+                <span class="text-a-new">a new</span>
+                <span class="text-project">project?</span>
+            </div>
+            <p class="text-hello">Or just say hello.</p>
+        </div>
+
+        <div class="contact-right">
+            <div id="chat-popup">
+                <div class="chat-header">
+                    <div class="chat-profile-pic">
+                        <img src="assets/lib/images/professionalpic.jpeg" alt="Dinshini">
+                    </div>
+                    <div>
+                        <h3 style="color: #fff; font-size: 14px;">Dinshini Senupama</h3>
+                        <p style="font-size: 11px; color: rgba(255,255,255,0.7);">Let's create magic ✨</p>
+                    </div>
+                </div>
+                <div id="messages">
+                    <div class="bubble bot-bubble">Hi there! How can I help you today? 🏮</div>
+                </div>
+                <div class="input-area">
+                    <input id="msg-input" type="text" placeholder="Type here...">
+                    <button id="send-btn">➤</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+</body>
+</html>
