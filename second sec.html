@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Tower of Dinshini</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;500&display=swap" rel="stylesheet">
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -19,101 +21,154 @@
             background: linear-gradient(135deg, #f8d7e8 0%, #e2b1d3 50%, #c699d1 100%);
             min-height: 100vh;
             display: flex;
+            flex-direction: column; /* Stack container and icons */
             justify-content: center;
             align-items: center;
             padding: 50px 20px;
         }
 
-        /* ─── MAIN LAYOUT CONTAINER ─── */
+        /* ─── MAIN CONTAINER ─── */
         .contact-container {
             display: flex;
             width: 100%;
-            max-width: 1200px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
             border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            box-shadow: 0 25px 50px rgba(74, 44, 94, 0.1);
+            margin-bottom: 40px; /* Space for icons below */
         }
 
-        /* ─── LEFT SIDE: GET IN TOUCH FORM ─── */
         .contact-form-side {
-            flex: 1;
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            flex: 1.2;
+            padding: 50px 60px;
         }
 
         .contact-form-side h2 {
             font-family: 'Playfair Display', serif;
             font-size: 3rem;
-            color: #4a2c5e; /* Deep Rapunzel Purple */
-            margin-bottom: 10px;
+            color: #4a2c5e;
+            margin-bottom: 5px;
         }
 
         .contact-form-side p {
             color: #6a4c7e;
             margin-bottom: 30px;
-            font-weight: 500;
+            font-weight: 600;
+        }
+
+        /* ─── GLASS FORM ─── */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            flex: 1;
+        }
+
+        .input-group label {
+            display: block;
+            color: #4a2c5e;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
         }
 
         .input-group input, .input-group textarea {
             width: 100%;
-            padding: 15px 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(74, 44, 94, 0.2);
-            background: rgba(255, 255, 255, 0.5);
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.18);
+            color: #331d44;
             font-family: inherit;
             outline: none;
             transition: 0.3s;
+            backdrop-filter: blur(10px);
         }
 
         .input-group input:focus, .input-group textarea:focus {
+            background: rgba(255, 255, 255, 0.35);
             border-color: #ffd773;
-            background: #fff;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
         }
 
         .send-btn {
-            background: #4a2c5e;
-            color: #ffd773; /* Gold text */
-            padding: 15px 30px;
+            background: #a35d40;
+            color: #fff;
+            padding: 12px 40px;
             border: none;
-            border-radius: 15px;
+            border-radius: 4px;
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(74, 44, 94, 0.2);
         }
 
-        .send-btn:hover {
-            transform: translateY(-3px);
-            background: #5d3b75;
+        .send-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* ─── ICONS SECTION (Figma Style) ─── */
+        .get-in-touch-section {
+            text-align: center;
+            width: 100%;
         }
 
-        /* ─── RIGHT SIDE: MAGICAL CANVAS ─── */
+        .get-in-touch-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #4a2c5e;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: #000; /* Black icons like Figma */
+            font-size: 1.6rem;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-icons a:hover {
+            color: #4a2c5e;
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(74, 44, 94, 0.15);
+        }
+
+        /* ─── CANVAS ─── */
         .magical-side {
-            flex: 1;
+            flex: 0.8;
             position: relative;
             background: #000;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 500px;
         }
 
-        #mainCanvas {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.95) contrast(1.1);
-        }
+        #mainCanvas { width: 100%; height: 100%; object-fit: cover; }
 
         .text-overlay {
             position: absolute;
@@ -124,8 +179,8 @@
 
         .talk-heading {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            color: #ffd773; /* Gold */
+            font-size: 2.5rem;
+            color: #ffd773;
             font-style: italic;
             text-shadow: 0 0 20px rgba(255, 215, 115, 0.5);
         }
@@ -137,11 +192,11 @@
             margin-bottom: 5px;
         }
 
-        /* Mobile Responsive */
         @media (max-width: 900px) {
             .contact-container { flex-direction: column; }
-            .contact-form-side { padding: 40px; }
-            .magical-side { min-height: 400px; }
+            .form-row { flex-direction: column; gap: 0; }
+            .contact-form-side { padding: 40px 30px; order: 2; }
+            .magical-side { min-height: 350px; order: 1; }
         }
     </style>
 </head>
@@ -149,29 +204,37 @@
 
 <section class="second-sec">
     <div class="contact-container">
-        <!-- Left Side: Form -->
+        <!-- Form Side -->
         <div class="contact-form-side">
             <h2>Contact Me</h2>
             <p>Drop a message, let's create something magic.</p>
 
             <form>
-                <div class="input-group">
-                    <input type="text" placeholder="Name">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>First Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input type="text">
+                    </div>
                 </div>
                 <div class="input-group">
-                    <input type="email" placeholder="Email">
+                    <label>Email *</label>
+                    <input type="email" required>
                 </div>
                 <div class="input-group">
-                    <input type="text" placeholder="Phone">
+                    <label>Message</label>
+                    <textarea rows="5"></textarea>
                 </div>
-                <div class="input-group">
-                    <textarea rows="4" placeholder="Message"></textarea>
+                <div class="btn-container">
+                    <button type="button" class="send-btn">Send</button>
                 </div>
-                <button type="button" class="send-btn">Send Message</button>
             </form>
         </div>
 
-        <!-- Right Side: Canvas -->
+        <!-- Canvas Side -->
         <div class="magical-side">
             <canvas id="mainCanvas"></canvas>
             <div class="text-overlay">
@@ -180,6 +243,19 @@
                     <span>About It</span>
                 </h1>
             </div>
+        </div>
+    </div>
+
+    <!-- Icons Section -->
+    <div class="get-in-touch-section">
+        <h3>Get In Touch</h3>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
         </div>
     </div>
 </section>
@@ -196,9 +272,2277 @@
     let targetScale = 1.8, currentScale = 1.8;
 
     const PALETTE = {
-        highlight: { r:255, g:215, b:115 }, // Gold
-        mid:       { r:110, g:70,  b:150 }, // Purple
-        dark:      { r:18,  g:12,  b:30  }  // Dark[cite: 1]
+        highlight: { r:255, g:215, b:115 },
+        mid:       { r:110, g:70,  b:150 },
+        dark:      { r:18,  g:12,  b:30  }
+    };
+
+    function init() {
+        const parent = canvas.parentElement;
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+        const aspect = img.width / img.height;
+        let w = canvas.width, h = canvas.width / aspect;
+        if (h < canvas.height) { h = canvas.height; w = canvas.height * aspect; }
+        ctx.drawImage(img, (canvas.width-w)/2, (canvas.height-h)/2, w, h);
+        originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+
+    window.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = (e.clientX - rect.left) / rect.width;
+        mouse.y = (e.clientY - rect.top) / rect.height;
+        targetScale = 1.2 + (mouse.x * 2.5);
+    });
+
+    function draw() {
+        if (!originalData) return;
+        const output = ctx.createImageData(canvas.width, canvas.height);
+        const src = originalData.data;
+        const dst = output.data;
+        currentScale += (targetScale - currentScale) * 0.05;
+        const bright = 135 + (mouse.y * 75);
+
+        for (let i = 0; i < src.length; i += 4) {
+            let g = 0.299*src[i] + 0.587*src[i+1] + 0.114*src[i+2];
+            let norm = (g + bright - 160) / 255;
+            const x = (i/4) % canvas.width;
+            const y = (i/4) / canvas.width;
+            let pattern = Math.sin(x/currentScale) * Math.cos(y/currentScale);
+            let thresh = (pattern + 1.3) / 2.5;
+            let c = norm > thresh ? PALETTE.highlight : (norm > thresh*0.45 ? PALETTE.mid : PALETTE.dark);
+            dst[i]=c.r; dst[i+1]=c.g; dst[i+2]=c.b; dst[i+3]=255;
+        }
+        ctx.putImageData(output, 0, 0);
+        requestAnimationFrame(draw);
+    }
+
+    img.onload = () => { init(); draw(); };
+    window.onresize = init;
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Tower of Dinshini</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #050308;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #fff;
+        }
+
+        .second-sec {
+            background: linear-gradient(135deg, #f8d7e8 0%, #e2b1d3 50%, #c699d1 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Stack container and icons */
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* ─── MAIN CONTAINER ─── */
+        .contact-container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(74, 44, 94, 0.1);
+            margin-bottom: 40px; /* Space for icons below */
+        }
+
+        .contact-form-side {
+            flex: 1.2;
+            padding: 50px 60px;
+        }
+
+        .contact-form-side h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #4a2c5e;
+            margin-bottom: 5px;
+        }
+
+        .contact-form-side p {
+            color: #6a4c7e;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* ─── GLASS FORM ─── */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            flex: 1;
+        }
+
+        .input-group label {
+            display: block;
+            color: #4a2c5e;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.18);
+            color: #331d44;
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: #ffd773;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .send-btn {
+            background: #a35d40;
+            color: #fff;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* ─── ICONS SECTION (Figma Style) ─── */
+        .get-in-touch-section {
+            text-align: center;
+            width: 100%;
+        }
+
+        .get-in-touch-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #4a2c5e;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: #000; /* Black icons like Figma */
+            font-size: 1.6rem;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-icons a:hover {
+            color: #4a2c5e;
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(74, 44, 94, 0.15);
+        }
+
+        /* ─── CANVAS ─── */
+        .magical-side {
+            flex: 0.8;
+            position: relative;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #mainCanvas { width: 100%; height: 100%; object-fit: cover; }
+
+        .text-overlay {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .talk-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #ffd773;
+            font-style: italic;
+            text-shadow: 0 0 20px rgba(255, 215, 115, 0.5);
+        }
+
+        .underline {
+            display: inline-block;
+            border-bottom: 3px solid #ffd773;
+            padding-bottom: 2px;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 900px) {
+            .contact-container { flex-direction: column; }
+            .form-row { flex-direction: column; gap: 0; }
+            .contact-form-side { padding: 40px 30px; order: 2; }
+            .magical-side { min-height: 350px; order: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="second-sec">
+    <div class="contact-container">
+        <!-- Form Side -->
+        <div class="contact-form-side">
+            <h2>Contact Me</h2>
+            <p>Drop a message, let's create something magic.</p>
+
+            <form>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>First Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Email *</label>
+                    <input type="email" required>
+                </div>
+                <div class="input-group">
+                    <label>Message</label>
+                    <textarea rows="5"></textarea>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="send-btn">Send</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Canvas Side -->
+        <div class="magical-side">
+            <canvas id="mainCanvas"></canvas>
+            <div class="text-overlay">
+                <h1 class="talk-heading">
+                    <span class="underline">Let's Talk</span><br>
+                    <span>About It</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Icons Section -->
+    <div class="get-in-touch-section">
+        <h3>Get In Touch</h3>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+    </div>
+</section>
+
+<script type="module">
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = 'https://images.unsplash.com/photo-1700583173020-624f5f11188c?w=1200';
+
+    let originalData = null;
+    let mouse = { x: 0.5, y: 0.5 };
+    let targetScale = 1.8, currentScale = 1.8;
+
+    const PALETTE = {
+        highlight: { r:255, g:215, b:115 },
+        mid:       { r:110, g:70,  b:150 },
+        dark:      { r:18,  g:12,  b:30  }
+    };
+
+    function init() {
+        const parent = canvas.parentElement;
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+        const aspect = img.width / img.height;
+        let w = canvas.width, h = canvas.width / aspect;
+        if (h < canvas.height) { h = canvas.height; w = canvas.height * aspect; }
+        ctx.drawImage(img, (canvas.width-w)/2, (canvas.height-h)/2, w, h);
+        originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+
+    window.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = (e.clientX - rect.left) / rect.width;
+        mouse.y = (e.clientY - rect.top) / rect.height;
+        targetScale = 1.2 + (mouse.x * 2.5);
+    });
+
+    function draw() {
+        if (!originalData) return;
+        const output = ctx.createImageData(canvas.width, canvas.height);
+        const src = originalData.data;
+        const dst = output.data;
+        currentScale += (targetScale - currentScale) * 0.05;
+        const bright = 135 + (mouse.y * 75);
+
+        for (let i = 0; i < src.length; i += 4) {
+            let g = 0.299*src[i] + 0.587*src[i+1] + 0.114*src[i+2];
+            let norm = (g + bright - 160) / 255;
+            const x = (i/4) % canvas.width;
+            const y = (i/4) / canvas.width;
+            let pattern = Math.sin(x/currentScale) * Math.cos(y/currentScale);
+            let thresh = (pattern + 1.3) / 2.5;
+            let c = norm > thresh ? PALETTE.highlight : (norm > thresh*0.45 ? PALETTE.mid : PALETTE.dark);
+            dst[i]=c.r; dst[i+1]=c.g; dst[i+2]=c.b; dst[i+3]=255;
+        }
+        ctx.putImageData(output, 0, 0);
+        requestAnimationFrame(draw);
+    }
+
+    img.onload = () => { init(); draw(); };
+    window.onresize = init;
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Tower of Dinshini</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #050308;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #fff;
+        }
+
+        .second-sec {
+            background: linear-gradient(135deg, #f8d7e8 0%, #e2b1d3 50%, #c699d1 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Stack container and icons */
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* ─── MAIN CONTAINER ─── */
+        .contact-container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(74, 44, 94, 0.1);
+            margin-bottom: 40px; /* Space for icons below */
+        }
+
+        .contact-form-side {
+            flex: 1.2;
+            padding: 50px 60px;
+        }
+
+        .contact-form-side h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #4a2c5e;
+            margin-bottom: 5px;
+        }
+
+        .contact-form-side p {
+            color: #6a4c7e;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* ─── GLASS FORM ─── */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            flex: 1;
+        }
+
+        .input-group label {
+            display: block;
+            color: #4a2c5e;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.18);
+            color: #331d44;
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: #ffd773;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .send-btn {
+            background: #a35d40;
+            color: #fff;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* ─── ICONS SECTION (Figma Style) ─── */
+        .get-in-touch-section {
+            text-align: center;
+            width: 100%;
+        }
+
+        .get-in-touch-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #4a2c5e;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: #000; /* Black icons like Figma */
+            font-size: 1.6rem;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-icons a:hover {
+            color: #4a2c5e;
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(74, 44, 94, 0.15);
+        }
+
+        /* ─── CANVAS ─── */
+        .magical-side {
+            flex: 0.8;
+            position: relative;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #mainCanvas { width: 100%; height: 100%; object-fit: cover; }
+
+        .text-overlay {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .talk-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #ffd773;
+            font-style: italic;
+            text-shadow: 0 0 20px rgba(255, 215, 115, 0.5);
+        }
+
+        .underline {
+            display: inline-block;
+            border-bottom: 3px solid #ffd773;
+            padding-bottom: 2px;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 900px) {
+            .contact-container { flex-direction: column; }
+            .form-row { flex-direction: column; gap: 0; }
+            .contact-form-side { padding: 40px 30px; order: 2; }
+            .magical-side { min-height: 350px; order: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="second-sec">
+    <div class="contact-container">
+        <!-- Form Side -->
+        <div class="contact-form-side">
+            <h2>Contact Me</h2>
+            <p>Drop a message, let's create something magic.</p>
+
+            <form>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>First Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Email *</label>
+                    <input type="email" required>
+                </div>
+                <div class="input-group">
+                    <label>Message</label>
+                    <textarea rows="5"></textarea>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="send-btn">Send</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Canvas Side -->
+        <div class="magical-side">
+            <canvas id="mainCanvas"></canvas>
+            <div class="text-overlay">
+                <h1 class="talk-heading">
+                    <span class="underline">Let's Talk</span><br>
+                    <span>About It</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Icons Section -->
+    <div class="get-in-touch-section">
+        <h3>Get In Touch</h3>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+    </div>
+</section>
+
+<script type="module">
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = 'https://images.unsplash.com/photo-1700583173020-624f5f11188c?w=1200';
+
+    let originalData = null;
+    let mouse = { x: 0.5, y: 0.5 };
+    let targetScale = 1.8, currentScale = 1.8;
+
+    const PALETTE = {
+        highlight: { r:255, g:215, b:115 },
+        mid:       { r:110, g:70,  b:150 },
+        dark:      { r:18,  g:12,  b:30  }
+    };
+
+    function init() {
+        const parent = canvas.parentElement;
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+        const aspect = img.width / img.height;
+        let w = canvas.width, h = canvas.width / aspect;
+        if (h < canvas.height) { h = canvas.height; w = canvas.height * aspect; }
+        ctx.drawImage(img, (canvas.width-w)/2, (canvas.height-h)/2, w, h);
+        originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+
+    window.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = (e.clientX - rect.left) / rect.width;
+        mouse.y = (e.clientY - rect.top) / rect.height;
+        targetScale = 1.2 + (mouse.x * 2.5);
+    });
+
+    function draw() {
+        if (!originalData) return;
+        const output = ctx.createImageData(canvas.width, canvas.height);
+        const src = originalData.data;
+        const dst = output.data;
+        currentScale += (targetScale - currentScale) * 0.05;
+        const bright = 135 + (mouse.y * 75);
+
+        for (let i = 0; i < src.length; i += 4) {
+            let g = 0.299*src[i] + 0.587*src[i+1] + 0.114*src[i+2];
+            let norm = (g + bright - 160) / 255;
+            const x = (i/4) % canvas.width;
+            const y = (i/4) / canvas.width;
+            let pattern = Math.sin(x/currentScale) * Math.cos(y/currentScale);
+            let thresh = (pattern + 1.3) / 2.5;
+            let c = norm > thresh ? PALETTE.highlight : (norm > thresh*0.45 ? PALETTE.mid : PALETTE.dark);
+            dst[i]=c.r; dst[i+1]=c.g; dst[i+2]=c.b; dst[i+3]=255;
+        }
+        ctx.putImageData(output, 0, 0);
+        requestAnimationFrame(draw);
+    }
+
+    img.onload = () => { init(); draw(); };
+    window.onresize = init;
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Tower of Dinshini</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #050308;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #fff;
+        }
+
+        .second-sec {
+            background: linear-gradient(135deg, #f8d7e8 0%, #e2b1d3 50%, #c699d1 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Stack container and icons */
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* ─── MAIN CONTAINER ─── */
+        .contact-container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(74, 44, 94, 0.1);
+            margin-bottom: 40px; /* Space for icons below */
+        }
+
+        .contact-form-side {
+            flex: 1.2;
+            padding: 50px 60px;
+        }
+
+        .contact-form-side h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #4a2c5e;
+            margin-bottom: 5px;
+        }
+
+        .contact-form-side p {
+            color: #6a4c7e;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* ─── GLASS FORM ─── */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            flex: 1;
+        }
+
+        .input-group label {
+            display: block;
+            color: #4a2c5e;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.18);
+            color: #331d44;
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: #ffd773;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .send-btn {
+            background: #a35d40;
+            color: #fff;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* ─── ICONS SECTION (Figma Style) ─── */
+        .get-in-touch-section {
+            text-align: center;
+            width: 100%;
+        }
+
+        .get-in-touch-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #4a2c5e;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: #000; /* Black icons like Figma */
+            font-size: 1.6rem;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-icons a:hover {
+            color: #4a2c5e;
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(74, 44, 94, 0.15);
+        }
+
+        /* ─── CANVAS ─── */
+        .magical-side {
+            flex: 0.8;
+            position: relative;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #mainCanvas { width: 100%; height: 100%; object-fit: cover; }
+
+        .text-overlay {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .talk-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #ffd773;
+            font-style: italic;
+            text-shadow: 0 0 20px rgba(255, 215, 115, 0.5);
+        }
+
+        .underline {
+            display: inline-block;
+            border-bottom: 3px solid #ffd773;
+            padding-bottom: 2px;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 900px) {
+            .contact-container { flex-direction: column; }
+            .form-row { flex-direction: column; gap: 0; }
+            .contact-form-side { padding: 40px 30px; order: 2; }
+            .magical-side { min-height: 350px; order: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="second-sec">
+    <div class="contact-container">
+        <!-- Form Side -->
+        <div class="contact-form-side">
+            <h2>Contact Me</h2>
+            <p>Drop a message, let's create something magic.</p>
+
+            <form>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>First Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Email *</label>
+                    <input type="email" required>
+                </div>
+                <div class="input-group">
+                    <label>Message</label>
+                    <textarea rows="5"></textarea>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="send-btn">Send</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Canvas Side -->
+        <div class="magical-side">
+            <canvas id="mainCanvas"></canvas>
+            <div class="text-overlay">
+                <h1 class="talk-heading">
+                    <span class="underline">Let's Talk</span><br>
+                    <span>About It</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Icons Section -->
+    <div class="get-in-touch-section">
+        <h3>Get In Touch</h3>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+    </div>
+</section>
+
+<script type="module">
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = 'https://images.unsplash.com/photo-1700583173020-624f5f11188c?w=1200';
+
+    let originalData = null;
+    let mouse = { x: 0.5, y: 0.5 };
+    let targetScale = 1.8, currentScale = 1.8;
+
+    const PALETTE = {
+        highlight: { r:255, g:215, b:115 },
+        mid:       { r:110, g:70,  b:150 },
+        dark:      { r:18,  g:12,  b:30  }
+    };
+
+    function init() {
+        const parent = canvas.parentElement;
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+        const aspect = img.width / img.height;
+        let w = canvas.width, h = canvas.width / aspect;
+        if (h < canvas.height) { h = canvas.height; w = canvas.height * aspect; }
+        ctx.drawImage(img, (canvas.width-w)/2, (canvas.height-h)/2, w, h);
+        originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+
+    window.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = (e.clientX - rect.left) / rect.width;
+        mouse.y = (e.clientY - rect.top) / rect.height;
+        targetScale = 1.2 + (mouse.x * 2.5);
+    });
+
+    function draw() {
+        if (!originalData) return;
+        const output = ctx.createImageData(canvas.width, canvas.height);
+        const src = originalData.data;
+        const dst = output.data;
+        currentScale += (targetScale - currentScale) * 0.05;
+        const bright = 135 + (mouse.y * 75);
+
+        for (let i = 0; i < src.length; i += 4) {
+            let g = 0.299*src[i] + 0.587*src[i+1] + 0.114*src[i+2];
+            let norm = (g + bright - 160) / 255;
+            const x = (i/4) % canvas.width;
+            const y = (i/4) / canvas.width;
+            let pattern = Math.sin(x/currentScale) * Math.cos(y/currentScale);
+            let thresh = (pattern + 1.3) / 2.5;
+            let c = norm > thresh ? PALETTE.highlight : (norm > thresh*0.45 ? PALETTE.mid : PALETTE.dark);
+            dst[i]=c.r; dst[i+1]=c.g; dst[i+2]=c.b; dst[i+3]=255;
+        }
+        ctx.putImageData(output, 0, 0);
+        requestAnimationFrame(draw);
+    }
+
+    img.onload = () => { init(); draw(); };
+    window.onresize = init;
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Tower of Dinshini</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #050308;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #fff;
+        }
+
+        .second-sec {
+            background: linear-gradient(135deg, #f8d7e8 0%, #e2b1d3 50%, #c699d1 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Stack container and icons */
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* ─── MAIN CONTAINER ─── */
+        .contact-container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(74, 44, 94, 0.1);
+            margin-bottom: 40px; /* Space for icons below */
+        }
+
+        .contact-form-side {
+            flex: 1.2;
+            padding: 50px 60px;
+        }
+
+        .contact-form-side h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #4a2c5e;
+            margin-bottom: 5px;
+        }
+
+        .contact-form-side p {
+            color: #6a4c7e;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* ─── GLASS FORM ─── */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            flex: 1;
+        }
+
+        .input-group label {
+            display: block;
+            color: #4a2c5e;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.18);
+            color: #331d44;
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: #ffd773;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .send-btn {
+            background: #a35d40;
+            color: #fff;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* ─── ICONS SECTION (Figma Style) ─── */
+        .get-in-touch-section {
+            text-align: center;
+            width: 100%;
+        }
+
+        .get-in-touch-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #4a2c5e;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: #000; /* Black icons like Figma */
+            font-size: 1.6rem;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-icons a:hover {
+            color: #4a2c5e;
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(74, 44, 94, 0.15);
+        }
+
+        /* ─── CANVAS ─── */
+        .magical-side {
+            flex: 0.8;
+            position: relative;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #mainCanvas { width: 100%; height: 100%; object-fit: cover; }
+
+        .text-overlay {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .talk-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #ffd773;
+            font-style: italic;
+            text-shadow: 0 0 20px rgba(255, 215, 115, 0.5);
+        }
+
+        .underline {
+            display: inline-block;
+            border-bottom: 3px solid #ffd773;
+            padding-bottom: 2px;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 900px) {
+            .contact-container { flex-direction: column; }
+            .form-row { flex-direction: column; gap: 0; }
+            .contact-form-side { padding: 40px 30px; order: 2; }
+            .magical-side { min-height: 350px; order: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="second-sec">
+    <div class="contact-container">
+        <!-- Form Side -->
+        <div class="contact-form-side">
+            <h2>Contact Me</h2>
+            <p>Drop a message, let's create something magic.</p>
+
+            <form>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>First Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Email *</label>
+                    <input type="email" required>
+                </div>
+                <div class="input-group">
+                    <label>Message</label>
+                    <textarea rows="5"></textarea>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="send-btn">Send</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Canvas Side -->
+        <div class="magical-side">
+            <canvas id="mainCanvas"></canvas>
+            <div class="text-overlay">
+                <h1 class="talk-heading">
+                    <span class="underline">Let's Talk</span><br>
+                    <span>About It</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Icons Section -->
+    <div class="get-in-touch-section">
+        <h3>Get In Touch</h3>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+    </div>
+</section>
+
+<script type="module">
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = 'https://images.unsplash.com/photo-1700583173020-624f5f11188c?w=1200';
+
+    let originalData = null;
+    let mouse = { x: 0.5, y: 0.5 };
+    let targetScale = 1.8, currentScale = 1.8;
+
+    const PALETTE = {
+        highlight: { r:255, g:215, b:115 },
+        mid:       { r:110, g:70,  b:150 },
+        dark:      { r:18,  g:12,  b:30  }
+    };
+
+    function init() {
+        const parent = canvas.parentElement;
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+        const aspect = img.width / img.height;
+        let w = canvas.width, h = canvas.width / aspect;
+        if (h < canvas.height) { h = canvas.height; w = canvas.height * aspect; }
+        ctx.drawImage(img, (canvas.width-w)/2, (canvas.height-h)/2, w, h);
+        originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+
+    window.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = (e.clientX - rect.left) / rect.width;
+        mouse.y = (e.clientY - rect.top) / rect.height;
+        targetScale = 1.2 + (mouse.x * 2.5);
+    });
+
+    function draw() {
+        if (!originalData) return;
+        const output = ctx.createImageData(canvas.width, canvas.height);
+        const src = originalData.data;
+        const dst = output.data;
+        currentScale += (targetScale - currentScale) * 0.05;
+        const bright = 135 + (mouse.y * 75);
+
+        for (let i = 0; i < src.length; i += 4) {
+            let g = 0.299*src[i] + 0.587*src[i+1] + 0.114*src[i+2];
+            let norm = (g + bright - 160) / 255;
+            const x = (i/4) % canvas.width;
+            const y = (i/4) / canvas.width;
+            let pattern = Math.sin(x/currentScale) * Math.cos(y/currentScale);
+            let thresh = (pattern + 1.3) / 2.5;
+            let c = norm > thresh ? PALETTE.highlight : (norm > thresh*0.45 ? PALETTE.mid : PALETTE.dark);
+            dst[i]=c.r; dst[i+1]=c.g; dst[i+2]=c.b; dst[i+3]=255;
+        }
+        ctx.putImageData(output, 0, 0);
+        requestAnimationFrame(draw);
+    }
+
+    img.onload = () => { init(); draw(); };
+    window.onresize = init;
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Tower of Dinshini</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #050308;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #fff;
+        }
+
+        .second-sec {
+            background: linear-gradient(135deg, #f8d7e8 0%, #e2b1d3 50%, #c699d1 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Stack container and icons */
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* ─── MAIN CONTAINER ─── */
+        .contact-container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(74, 44, 94, 0.1);
+            margin-bottom: 40px; /* Space for icons below */
+        }
+
+        .contact-form-side {
+            flex: 1.2;
+            padding: 50px 60px;
+        }
+
+        .contact-form-side h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #4a2c5e;
+            margin-bottom: 5px;
+        }
+
+        .contact-form-side p {
+            color: #6a4c7e;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* ─── GLASS FORM ─── */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            flex: 1;
+        }
+
+        .input-group label {
+            display: block;
+            color: #4a2c5e;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.18);
+            color: #331d44;
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: #ffd773;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .send-btn {
+            background: #a35d40;
+            color: #fff;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* ─── ICONS SECTION (Figma Style) ─── */
+        .get-in-touch-section {
+            text-align: center;
+            width: 100%;
+        }
+
+        .get-in-touch-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #4a2c5e;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: #000; /* Black icons like Figma */
+            font-size: 1.6rem;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-icons a:hover {
+            color: #4a2c5e;
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(74, 44, 94, 0.15);
+        }
+
+        /* ─── CANVAS ─── */
+        .magical-side {
+            flex: 0.8;
+            position: relative;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #mainCanvas { width: 100%; height: 100%; object-fit: cover; }
+
+        .text-overlay {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .talk-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #ffd773;
+            font-style: italic;
+            text-shadow: 0 0 20px rgba(255, 215, 115, 0.5);
+        }
+
+        .underline {
+            display: inline-block;
+            border-bottom: 3px solid #ffd773;
+            padding-bottom: 2px;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 900px) {
+            .contact-container { flex-direction: column; }
+            .form-row { flex-direction: column; gap: 0; }
+            .contact-form-side { padding: 40px 30px; order: 2; }
+            .magical-side { min-height: 350px; order: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="second-sec">
+    <div class="contact-container">
+        <!-- Form Side -->
+        <div class="contact-form-side">
+            <h2>Contact Me</h2>
+            <p>Drop a message, let's create something magic.</p>
+
+            <form>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>First Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Email *</label>
+                    <input type="email" required>
+                </div>
+                <div class="input-group">
+                    <label>Message</label>
+                    <textarea rows="5"></textarea>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="send-btn">Send</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Canvas Side -->
+        <div class="magical-side">
+            <canvas id="mainCanvas"></canvas>
+            <div class="text-overlay">
+                <h1 class="talk-heading">
+                    <span class="underline">Let's Talk</span><br>
+                    <span>About It</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Icons Section -->
+    <div class="get-in-touch-section">
+        <h3>Get In Touch</h3>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+    </div>
+</section>
+
+<script type="module">
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = 'https://images.unsplash.com/photo-1700583173020-624f5f11188c?w=1200';
+
+    let originalData = null;
+    let mouse = { x: 0.5, y: 0.5 };
+    let targetScale = 1.8, currentScale = 1.8;
+
+    const PALETTE = {
+        highlight: { r:255, g:215, b:115 },
+        mid:       { r:110, g:70,  b:150 },
+        dark:      { r:18,  g:12,  b:30  }
+    };
+
+    function init() {
+        const parent = canvas.parentElement;
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+        const aspect = img.width / img.height;
+        let w = canvas.width, h = canvas.width / aspect;
+        if (h < canvas.height) { h = canvas.height; w = canvas.height * aspect; }
+        ctx.drawImage(img, (canvas.width-w)/2, (canvas.height-h)/2, w, h);
+        originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+
+    window.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = (e.clientX - rect.left) / rect.width;
+        mouse.y = (e.clientY - rect.top) / rect.height;
+        targetScale = 1.2 + (mouse.x * 2.5);
+    });
+
+    function draw() {
+        if (!originalData) return;
+        const output = ctx.createImageData(canvas.width, canvas.height);
+        const src = originalData.data;
+        const dst = output.data;
+        currentScale += (targetScale - currentScale) * 0.05;
+        const bright = 135 + (mouse.y * 75);
+
+        for (let i = 0; i < src.length; i += 4) {
+            let g = 0.299*src[i] + 0.587*src[i+1] + 0.114*src[i+2];
+            let norm = (g + bright - 160) / 255;
+            const x = (i/4) % canvas.width;
+            const y = (i/4) / canvas.width;
+            let pattern = Math.sin(x/currentScale) * Math.cos(y/currentScale);
+            let thresh = (pattern + 1.3) / 2.5;
+            let c = norm > thresh ? PALETTE.highlight : (norm > thresh*0.45 ? PALETTE.mid : PALETTE.dark);
+            dst[i]=c.r; dst[i+1]=c.g; dst[i+2]=c.b; dst[i+3]=255;
+        }
+        ctx.putImageData(output, 0, 0);
+        requestAnimationFrame(draw);
+    }
+
+    img.onload = () => { init(); draw(); };
+    window.onresize = init;
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Tower of Dinshini</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #050308;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #fff;
+        }
+
+        .second-sec {
+            background: linear-gradient(135deg, #f8d7e8 0%, #e2b1d3 50%, #c699d1 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Stack container and icons */
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* ─── MAIN CONTAINER ─── */
+        .contact-container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(74, 44, 94, 0.1);
+            margin-bottom: 40px; /* Space for icons below */
+        }
+
+        .contact-form-side {
+            flex: 1.2;
+            padding: 50px 60px;
+        }
+
+        .contact-form-side h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #4a2c5e;
+            margin-bottom: 5px;
+        }
+
+        .contact-form-side p {
+            color: #6a4c7e;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* ─── GLASS FORM ─── */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            flex: 1;
+        }
+
+        .input-group label {
+            display: block;
+            color: #4a2c5e;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.18);
+            color: #331d44;
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: #ffd773;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .send-btn {
+            background: #a35d40;
+            color: #fff;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* ─── ICONS SECTION (Figma Style) ─── */
+        .get-in-touch-section {
+            text-align: center;
+            width: 100%;
+        }
+
+        .get-in-touch-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #4a2c5e;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: #000; /* Black icons like Figma */
+            font-size: 1.6rem;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-icons a:hover {
+            color: #4a2c5e;
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(74, 44, 94, 0.15);
+        }
+
+        /* ─── CANVAS ─── */
+        .magical-side {
+            flex: 0.8;
+            position: relative;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #mainCanvas { width: 100%; height: 100%; object-fit: cover; }
+
+        .text-overlay {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .talk-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #ffd773;
+            font-style: italic;
+            text-shadow: 0 0 20px rgba(255, 215, 115, 0.5);
+        }
+
+        .underline {
+            display: inline-block;
+            border-bottom: 3px solid #ffd773;
+            padding-bottom: 2px;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 900px) {
+            .contact-container { flex-direction: column; }
+            .form-row { flex-direction: column; gap: 0; }
+            .contact-form-side { padding: 40px 30px; order: 2; }
+            .magical-side { min-height: 350px; order: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="second-sec">
+    <div class="contact-container">
+        <!-- Form Side -->
+        <div class="contact-form-side">
+            <h2>Contact Me</h2>
+            <p>Drop a message, let's create something magic.</p>
+
+            <form>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>First Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Email *</label>
+                    <input type="email" required>
+                </div>
+                <div class="input-group">
+                    <label>Message</label>
+                    <textarea rows="5"></textarea>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="send-btn">Send</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Canvas Side -->
+        <div class="magical-side">
+            <canvas id="mainCanvas"></canvas>
+            <div class="text-overlay">
+                <h1 class="talk-heading">
+                    <span class="underline">Let's Talk</span><br>
+                    <span>About It</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Icons Section -->
+    <div class="get-in-touch-section">
+        <h3>Get In Touch</h3>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+    </div>
+</section>
+
+<script type="module">
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = 'https://images.unsplash.com/photo-1700583173020-624f5f11188c?w=1200';
+
+    let originalData = null;
+    let mouse = { x: 0.5, y: 0.5 };
+    let targetScale = 1.8, currentScale = 1.8;
+
+    const PALETTE = {
+        highlight: { r:255, g:215, b:115 },
+        mid:       { r:110, g:70,  b:150 },
+        dark:      { r:18,  g:12,  b:30  }
+    };
+
+    function init() {
+        const parent = canvas.parentElement;
+        canvas.width = parent.offsetWidth;
+        canvas.height = parent.offsetHeight;
+        const aspect = img.width / img.height;
+        let w = canvas.width, h = canvas.width / aspect;
+        if (h < canvas.height) { h = canvas.height; w = canvas.height * aspect; }
+        ctx.drawImage(img, (canvas.width-w)/2, (canvas.height-h)/2, w, h);
+        originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+
+    window.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = (e.clientX - rect.left) / rect.width;
+        mouse.y = (e.clientY - rect.top) / rect.height;
+        targetScale = 1.2 + (mouse.x * 2.5);
+    });
+
+    function draw() {
+        if (!originalData) return;
+        const output = ctx.createImageData(canvas.width, canvas.height);
+        const src = originalData.data;
+        const dst = output.data;
+        currentScale += (targetScale - currentScale) * 0.05;
+        const bright = 135 + (mouse.y * 75);
+
+        for (let i = 0; i < src.length; i += 4) {
+            let g = 0.299*src[i] + 0.587*src[i+1] + 0.114*src[i+2];
+            let norm = (g + bright - 160) / 255;
+            const x = (i/4) % canvas.width;
+            const y = (i/4) / canvas.width;
+            let pattern = Math.sin(x/currentScale) * Math.cos(y/currentScale);
+            let thresh = (pattern + 1.3) / 2.5;
+            let c = norm > thresh ? PALETTE.highlight : (norm > thresh*0.45 ? PALETTE.mid : PALETTE.dark);
+            dst[i]=c.r; dst[i+1]=c.g; dst[i+2]=c.b; dst[i+3]=255;
+        }
+        ctx.putImageData(output, 0, 0);
+        requestAnimationFrame(draw);
+    }
+
+    img.onload = () => { init(); draw(); };
+    window.onresize = init;
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Tower of Dinshini</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #050308;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #fff;
+        }
+
+        .second-sec {
+            background: linear-gradient(135deg, #f8d7e8 0%, #e2b1d3 50%, #c699d1 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Stack container and icons */
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* ─── MAIN CONTAINER ─── */
+        .contact-container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(74, 44, 94, 0.1);
+            margin-bottom: 40px; /* Space for icons below */
+        }
+
+        .contact-form-side {
+            flex: 1.2;
+            padding: 50px 60px;
+        }
+
+        .contact-form-side h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #4a2c5e;
+            margin-bottom: 5px;
+        }
+
+        .contact-form-side p {
+            color: #6a4c7e;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* ─── GLASS FORM ─── */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            flex: 1;
+        }
+
+        .input-group label {
+            display: block;
+            color: #4a2c5e;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.18);
+            color: #331d44;
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: #ffd773;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .send-btn {
+            background: #a35d40;
+            color: #fff;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* ─── ICONS SECTION (Figma Style) ─── */
+        .get-in-touch-section {
+            text-align: center;
+            width: 100%;
+        }
+
+        .get-in-touch-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: #4a2c5e;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: #000; /* Black icons like Figma */
+            font-size: 1.6rem;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-icons a:hover {
+            color: #4a2c5e;
+            background: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(74, 44, 94, 0.15);
+        }
+
+        /* ─── CANVAS ─── */
+        .magical-side {
+            flex: 0.8;
+            position: relative;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #mainCanvas { width: 100%; height: 100%; object-fit: cover; }
+
+        .text-overlay {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .talk-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #ffd773;
+            font-style: italic;
+            text-shadow: 0 0 20px rgba(255, 215, 115, 0.5);
+        }
+
+        .underline {
+            display: inline-block;
+            border-bottom: 3px solid #ffd773;
+            padding-bottom: 2px;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 900px) {
+            .contact-container { flex-direction: column; }
+            .form-row { flex-direction: column; gap: 0; }
+            .contact-form-side { padding: 40px 30px; order: 2; }
+            .magical-side { min-height: 350px; order: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="second-sec">
+    <div class="contact-container">
+        <!-- Form Side -->
+        <div class="contact-form-side">
+            <h2>Contact Me</h2>
+            <p>Drop a message, let's create something magic.</p>
+
+            <form>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>First Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Email *</label>
+                    <input type="email" required>
+                </div>
+                <div class="input-group">
+                    <label>Message</label>
+                    <textarea rows="5"></textarea>
+                </div>
+                <div class="btn-container">
+                    <button type="button" class="send-btn">Send</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Canvas Side -->
+        <div class="magical-side">
+            <canvas id="mainCanvas"></canvas>
+            <div class="text-overlay">
+                <h1 class="talk-heading">
+                    <span class="underline">Let's Talk</span><br>
+                    <span>About It</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Icons Section -->
+    <div class="get-in-touch-section">
+        <h3>Get In Touch</h3>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+    </div>
+</section>
+
+<script type="module">
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = 'https://images.unsplash.com/photo-1700583173020-624f5f11188c?w=1200';
+
+    let originalData = null;
+    let mouse = { x: 0.5, y: 0.5 };
+    let targetScale = 1.8, currentScale = 1.8;
+
+    const PALETTE = {
+        highlight: { r:255, g:215, b:115 },
+        mid:       { r:110, g:70,  b:150 },
+        dark:      { r:18,  g:12,  b:30  }
     };
 
     function init() {
