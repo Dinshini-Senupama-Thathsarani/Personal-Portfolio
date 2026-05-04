@@ -1230,6 +1230,225 @@
         }
 
 
+
+
+        .contact-me-sec {
+            min-height: 20vh;
+            background: linear-gradient(160deg, #b084cc 0%, #c9a0d8 40%, #d182c4 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 5% 60px;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* floating blur blobs */
+        .contact-me-sec::before {
+            content: '';
+            position: absolute;
+            width: 350px; height: 350px;
+            background: rgba(255,255,255,0.09);
+            border-radius: 50%;
+            top: -70px; left: -80px;
+            filter: blur(60px);
+            pointer-events: none;
+        }
+        .contact-me-sec::after {
+            content: '';
+            position: absolute;
+            width: 280px; height: 280px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 50%;
+            bottom: -60px; right: -60px;
+            filter: blur(50px);
+            pointer-events: none;
+        }
+
+        .cm-sp {
+            color: rgba(255,255,255,0.6);
+            font-size: 18px;
+            animation: cmSparkle 2.5s ease-in-out infinite;
+        }
+        .cm-sp:nth-child(1){ animation-delay: 0s;   font-size: 14px; }
+        .cm-sp:nth-child(2){ animation-delay: 0.4s; font-size: 22px; }
+        .cm-sp:nth-child(3){ animation-delay: 0.8s; font-size: 14px; }
+
+        @keyframes cmSparkle {
+            0%,100%{ opacity: 0.6; transform: scale(1); }
+            50%    { opacity: 1;   transform: scale(1.3); }
+        }
+
+        /* ── Heading ── */
+        .cm-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 6vw, 4.5rem);
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.01em;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        /* ── Divider line ── */
+        .cm-line {
+            width: min(600px, 80%);
+            height: 1px;
+            background: rgba(255,255,255,0.30);
+            margin-bottom: 36px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── Glass card ── */
+        .cm-card {
+            width: 100%;
+            max-width: 520px;
+            background: rgba(255,255,255,0.14);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 28px;
+            padding: 36px 32px;
+            box-shadow:
+                    0 24px 48px rgba(0,0,0,0.14),
+                    inset 0 1px 0 rgba(255,255,255,0.32);
+            margin-bottom: 48px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cm-sub {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.70);
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        /* ── Form ── */
+        .cm-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .cm-input {
+            width: 100%;
+            padding: 13px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.13);
+            backdrop-filter: blur(6px);
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13.5px;
+            outline: none;
+            transition: 0.3s;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+
+        .cm-textarea {
+            border-radius: 18px;
+            resize: none;
+            line-height: 1.6;
+        }
+
+        .cm-input::placeholder { color: rgba(255,255,255,0.50); }
+
+        .cm-input:focus {
+            border-color: rgba(255,255,255,0.50);
+            background: rgba(255,255,255,0.20);
+            box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,0.25),
+                    0 0 0 3px rgba(255,255,255,0.10);
+        }
+
+        /* ── Send button ── */
+        .cm-send-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.90);
+            color: #7c3fa0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            margin-top: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .cm-send-btn:hover {
+            background: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.16);
+        }
+
+        /* ── Get In Touch ── */
+        .cm-git {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cm-git-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ── Icon row ── */
+        .cm-icons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cm-icon-btn {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: #2a1040;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s, background 0.3s;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+        }
+
+        .cm-icon-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: #3d1060;
+            box-shadow: 0 10px 24px rgba(42,16,64,0.45);
+        }
+
+        .cm-icon-btn svg {
+            width: 22px; height: 22px;
+            fill: #fff;
+        }
+
+        /* ══ RESPONSIVE ══ */
+        @media (max-width: 600px) {
+            .contact-me-sec { padding: 60px 4% 50px; }
+            .cm-card { padding: 28px 20px; }
+            .cm-icon-btn { width: 46px; height: 46px; }
+            .cm-icon-btn svg { width: 19px; height: 19px; }
+            .cm-icons { gap: 10px; }
+        }
+
     </style>
 </head>
 
