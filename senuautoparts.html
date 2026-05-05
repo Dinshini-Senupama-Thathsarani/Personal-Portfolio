@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Senu Auto Parts POS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root{
+            --bg:#0e0f11;
+            --surface:#161719;
+            --surface2:#1e2024;
+            --surface3:#252830;
+            --border:#2e3138;
+            --border2:#3a3f4a;
+            --amber:#f5a623;
+            --amber-dim:#b87a18;
+            --steel:#8b95a8;
+            --text:#dde2ec;
+            --muted:#5e6474;
+            --success:#3ecf8e;
+            --danger:#f04e4e;
+            --info:#4ea8f0;
+            --warn:#f5a623;
+            --r:8px;
+            --font-display:'Barlow Condensed',sans-serif;
+            --font-mono:'Share Tech Mono',monospace;
+            --font-body:'Barlow',sans-serif;
+        }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;min-height:100vh;overflow-x:hidden}
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar{width:5px;height:5px}
+        ::-webkit-scrollbar-track{background:var(--surface)}
+        ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+
+        /* ─────────────────────────────────────────
+           LOGIN
+        ───────────────────────────────────────── */
+        #login-view{
+            min-height:100vh;display:flex;align-items:center;justify-content:center;
+            background:repeating-linear-gradient(45deg,#0e0f11 0px,#0e0f11 20px,#111214 20px,#111214 21px);
+        }
+        .login-card{
+            background:var(--surface);border:1px solid var(--border);border-radius:14px;
+            padding:48px 40px;width:100%;max-width:400px;
+            box-shadow:0 0 0 1px rgba(245,166,35,.07),0 32px 64px rgba(0,0,0,.7);
+        }
+        .brand{font-family:var(--font-display);font-weight:800;font-size:30px;letter-spacing:1px;color:var(--amber);margin-bottom:4px}
+        .brand small{color:var(--steel);font-weight:400;font-size:13px;letter-spacing:2px;display:block;text-transform:uppercase;font-family:var(--font-mono)}
+        .login-card .hint{font-size:11px;color:var(--muted);font-family:var(--font-mono);margin-top:6px}
+
+        /* ─────────────────────────────────────────
+           MAIN SHELL
+        ───────────────────────────────────────── */
+        #app-view{display:none;min-height:100vh;flex-direction:column}
+
+        /* TOPBAR */
+        .topbar{
+            background:var(--surface);border-bottom:1px solid var(--border);
+            padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;
+            position:sticky;top:0;z-index:100;
+        }
+        .topbar-brand{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:1px;color:var(--amber)}
+        .topbar-brand span{color:var(--steel);font-weight:400}
+        .topbar-right{display:flex;align-items:center;gap:12px}
+        .topbar-user{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+        .topbar-time{font-family:var(--font-mono);font-size:12px;color:var(--muted);background:var(--surface2);padding:4px 10px;border-radius:4px;border:1px solid var(--border)}
+
+        /* SIDEBAR + CONTENT */
+        .shell{display:flex;flex:1;overflow:hidden}
+        .sidebar{
+            width:220px;min-height:calc(100vh - 56px);background:var(--surface);
+            border-right:1px solid var(--border);padding:16px 0;flex-shrink:0;
+            display:flex;flex-direction:column;
+        }
+        .nav-section-label{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;padding:12px 20px 6px}
+        .nav-item{
+            display:flex;align-items:center;gap:12px;padding:10px 20px;cursor:pointer;
+            color:var(--steel);font-weight:500;transition:all .15s;font-size:14px;border-left:3px solid transparent;
+            user-select:none;
+        }
+        .nav-item i{font-size:16px;width:20px;text-align:center}
+        .nav-item:hover{background:var(--surface2);color:var(--text);border-left-color:var(--border2)}
+        .nav-item.active{background:rgba(245,166,35,.08);color:var(--amber);border-left-color:var(--amber)}
+
+        /* CONTENT */
+        .content{flex:1;overflow-y:auto;padding:28px 32px;background:var(--bg)}
+
+        /* ── CARDS ── */
+        .page{display:none}
+        .page.active{display:block;animation:fadeUp .25s ease}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+        .pg-header{margin-bottom:24px}
+        .pg-title{font-family:var(--font-display);font-weight:800;font-size:28px;letter-spacing:.5px;color:var(--text)}
+        .pg-sub{color:var(--muted);font-size:13px;font-family:var(--font-mono);margin-top:2px}
+
+        .card-pos{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+        .card-pos .card-header-pos{
+            padding:14px 20px;border-bottom:1px solid var(--border);display:flex;
+            align-items:center;justify-content:space-between;background:var(--surface2)
+        }
+        .card-pos .card-header-pos h6{font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:.5px;margin:0}
+        .card-body-pos{padding:20px}
+
+        /* ── FORM ELEMENTS ── */
+        .form-label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1.2px;font-weight:600;margin-bottom:5px;font-family:var(--font-mono)}
+        .form-control,.form-select{
+            background:var(--surface2);border:1px solid var(--border);color:var(--text);
+            border-radius:6px;padding:9px 12px;font-family:var(--font-body);font-size:14px;transition:border-color .2s
+        }
+        .form-control:focus,.form-select:focus{
+            background:var(--surface2);color:var(--text);border-color:var(--amber);
+            box-shadow:0 0 0 3px rgba(245,166,35,.12);outline:none
+        }
+        .form-control::placeholder{color:var(--muted)}
+        .form-select option{background:var(--surface2)}
+        .input-group-text{background:var(--surface3);border-color:var(--border);color:var(--muted);font-family:var(--font-mono);font-size:12px}
+
+        /* ── BUTTONS ── */
+        .btn-amber{background:var(--amber);color:#0e0f11;border:none;border-radius:6px;font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:.5px;padding:9px 20px;cursor:pointer;transition:opacity .15s,transform .1s}
+        .btn-amber:hover{opacity:.88;transform:translateY(-1px);color:#0e0f11}
+        .btn-amber:active{transform:scale(.97)}
+        .btn-outline-pos{background:transparent;color:var(--steel);border:1px solid var(--border2);border-radius:6px;font-family:var(--font-body);font-weight:500;font-size:13px;padding:8px 16px;cursor:pointer;transition:all .15s}
+        .btn-outline-pos:hover{border-color:var(--amber);color:var(--amber)}
+        .btn-danger-pos{background:rgba(240,78,78,.15);color:var(--danger);border:1px solid rgba(240,78,78,.3);border-radius:6px;font-size:12px;padding:5px 10px;cursor:pointer;transition:all .15s}
+        .btn-danger-pos:hover{background:rgba(240,78,78,.25)}
+        .btn-edit-pos{background:rgba(78,168,240,.15);color:var(--info);border:1px solid rgba(78,168,240,.3);border-radius:6px;font-size:12px;padding:5px 10px;cursor:pointer;transition:all .15s}
+        .btn-edit-pos:hover{background:rgba(78,168,240,.25)}
+        .btn-success-pos{background:rgba(62,207,142,.15);color:var(--success);border:1px solid rgba(62,207,142,.3);border-radius:6px;font-size:13px;padding:8px 16px;cursor:pointer;transition:all .15s;font-weight:600}
+        .btn-success-pos:hover{background:rgba(62,207,142,.25)}
+
+        /* ── TABLE ── */
+        .table-pos{width:100%;border-collapse:separate;border-spacing:0}
+        .table-pos th{font-family:var(--font-mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;padding:10px 14px;border-bottom:1px solid var(--border);font-weight:400;white-space:nowrap}
+        .table-pos td{padding:11px 14px;border-bottom:1px solid rgba(46,49,56,.6);vertical-align:middle;font-size:13px}
+        .table-pos tbody tr:hover{background:rgba(255,255,255,.02)}
+        .table-pos tbody tr:last-child td{border-bottom:none}
+        .code-badge{font-family:var(--font-mono);font-size:11px;background:var(--surface3);color:var(--amber);padding:3px 8px;border-radius:4px;border:1px solid var(--border2)}
+        .stock-badge{font-family:var(--font-mono);font-size:11px;padding:3px 8px;border-radius:4px}
+        .stock-ok{background:rgba(62,207,142,.12);color:var(--success);border:1px solid rgba(62,207,142,.2)}
+        .stock-low{background:rgba(245,166,35,.12);color:var(--warn);border:1px solid rgba(245,166,35,.2)}
+        .stock-out{background:rgba(240,78,78,.12);color:var(--danger);border:1px solid rgba(240,78,78,.2)}
+
+        /* ── SEARCH ── */
+        .search-wrap{position:relative;max-width:280px}
+        .search-wrap i{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none}
+        .search-wrap .form-control{padding-left:34px}
+
+        /* ── STATS ── */
+        .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;position:relative;overflow:hidden}
+        .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+        .stat-amber::before{background:var(--amber)}
+        .stat-green::before{background:var(--success)}
+        .stat-blue::before{background:var(--info)}
+        .stat-red::before{background:var(--danger)}
+        .stat-label{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+        .stat-value{font-family:var(--font-display);font-weight:800;font-size:32px;color:var(--text);margin:6px 0 2px;line-height:1}
+        .stat-icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:40px;opacity:.06;color:var(--text)}
+
+        /* ── ORDER PANEL ── */
+        .order-item-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--border)}
+        .order-item-row:last-child{border-bottom:none}
+        .order-item-name{flex:1;font-size:13px;font-weight:500}
+        .order-item-code{font-family:var(--font-mono);font-size:10px;color:var(--muted)}
+        .order-qty-input{width:60px;text-align:center;font-family:var(--font-mono)}
+        .order-item-total{font-family:var(--font-mono);font-size:13px;color:var(--amber);min-width:70px;text-align:right}
+        .order-summary{border-top:2px solid var(--border2);margin-top:16px;padding-top:16px}
+        .order-total-line{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px}
+        .order-grand{font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--amber)}
+
+        /* ── TOAST ── */
+        #toast-container{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+        .toast-msg{
+            background:var(--surface2);border:1px solid var(--border2);border-radius:8px;
+            padding:12px 18px;font-size:13px;display:flex;align-items:center;gap:10px;
+            box-shadow:0 8px 24px rgba(0,0,0,.5);min-width:240px;
+            animation:toastIn .3s ease;
+        }
+        .toast-msg.removing{animation:toastOut .3s ease forwards}
+        @keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+        @keyframes toastOut{to{opacity:0;transform:translateX(20px)}}
+        .toast-success{border-left:3px solid var(--success)}
+        .toast-error{border-left:3px solid var(--danger)}
+        .toast-warn{border-left:3px solid var(--warn)}
+        .toast-icon{font-size:16px}
+        .toast-success .toast-icon{color:var(--success)}
+        .toast-error .toast-icon{color:var(--danger)}
+        .toast-warn .toast-icon{color:var(--warn)}
+
+        /* ── MODAL ── */
+        .modal-pos .modal-content{background:var(--surface);border:1px solid var(--border);border-radius:14px;color:var(--text)}
+        .modal-pos .modal-header{border-bottom:1px solid var(--border);padding:18px 24px}
+        .modal-pos .modal-title{font-family:var(--font-display);font-weight:700;font-size:18px;letter-spacing:.5px}
+        .modal-pos .modal-body{padding:24px}
+        .modal-pos .modal-footer{border-top:1px solid var(--border);padding:16px 24px}
+        .modal-pos .btn-close{filter:invert(1) brightness(.6)}
+
+        /* ── ORDER HISTORY ── */
+        .order-history-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
+        .order-history-header{padding:14px 18px;background:var(--surface2);display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .15s}
+        .order-history-header:hover{background:var(--surface3)}
+        .order-id{font-family:var(--font-mono);color:var(--amber);font-size:13px}
+        .order-history-body{padding:0 18px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s}
+        .order-history-body.open{max-height:400px;padding:14px 18px}
+
+        /* ── LOGOUT ── */
+        .btn-logout{background:transparent;border:1px solid var(--border2);color:var(--muted);border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;font-family:var(--font-mono)}
+        .btn-logout:hover{border-color:var(--danger);color:var(--danger)}
+
+        /* ── INVALID ── */
+        .is-invalid-pos{border-color:var(--danger)!important}
+        .invalid-feedback-pos{color:var(--danger);font-size:11px;margin-top:4px;font-family:var(--font-mono)}
+
+        /* ── EMPTY STATE ── */
+        .empty-state{text-align:center;padding:48px 24px;color:var(--muted)}
+        .empty-state i{font-size:48px;opacity:.3;display:block;margin-bottom:12px}
+        .empty-state p{font-family:var(--font-mono);font-size:12px}
+
+        /* ── ITEM SELECT GRID ── */
+        .item-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;max-height:320px;overflow-y:auto;padding:4px}
+        .item-tile{
+            background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+            padding:12px;cursor:pointer;transition:all .15s;text-align:center;
+        }
+        .item-tile:hover{border-color:var(--amber);background:rgba(245,166,35,.06)}
+        .item-tile.selected{border-color:var(--amber);background:rgba(245,166,35,.1)}
+        .item-tile.out{opacity:.4;cursor:not-allowed;pointer-events:none}
+        .item-tile-code{font-family:var(--font-mono);font-size:10px;color:var(--muted)}
+        .item-tile-name{font-size:12px;font-weight:600;margin:6px 0 4px;line-height:1.3}
+        .item-tile-price{font-family:var(--font-mono);font-size:13px;color:var(--amber)}
+        .item-tile-stock{font-size:10px;margin-top:4px}
+
+
+        /* ── DASHBOARD WELCOME ── */
+        .dash-welcome{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding:24px 28px;background:linear-gradient(135deg,var(--surface) 0%,rgba(245,166,35,.06) 100%);border:1px solid var(--border);border-radius:14px;gap:16px}
+        .dash-welcome-title{font-family:var(--font-display);font-size:22px;font-weight:800;letter-spacing:.3px}
+        .dash-welcome-title span{color:var(--amber)}
+        .dash-welcome-sub{color:var(--muted);font-size:13px;margin-top:3px}
+
+        /* ── BESTSELLER GRID ── */
+        .bestseller-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+        .bs-card{
+            background:var(--surface2);border:1px solid var(--border);border-radius:12px;
+            overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer;position:relative;
+        }
+        .bs-card:hover{transform:translateY(-4px);border-color:var(--amber);box-shadow:0 12px 32px rgba(245,166,35,.12)}
+        .bs-card-img{
+            width:100%;height:140px;object-fit:cover;display:block;
+            background:var(--surface3);
+        }
+        .bs-card-img-placeholder{
+            width:100%;height:140px;display:flex;align-items:center;justify-content:center;
+            background:linear-gradient(135deg,var(--surface3),var(--surface2));
+            font-size:52px;opacity:.35;
+        }
+        .bs-card-body{padding:14px}
+        .bs-rank{
+            position:absolute;top:10px;left:10px;
+            background:var(--amber);color:#0e0f11;
+            font-family:var(--font-display);font-weight:800;font-size:13px;
+            width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+            box-shadow:0 2px 8px rgba(0,0,0,.4);
+        }
+        .bs-badge-new{
+            position:absolute;top:10px;right:10px;
+            background:var(--success);color:#0e0f11;
+            font-family:var(--font-mono);font-size:9px;font-weight:700;
+            padding:3px 7px;border-radius:3px;letter-spacing:1px;
+        }
+        .bs-code{font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:4px}
+        .bs-name{font-size:13px;font-weight:700;line-height:1.3;margin-bottom:6px;color:var(--text)}
+        .bs-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+        .bs-price{font-family:var(--font-mono);font-size:14px;color:var(--amber);font-weight:500}
+        .bs-sold{font-size:11px;color:var(--muted);font-family:var(--font-mono)}
+        .bs-bar-wrap{margin-top:8px;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+        .bs-bar{height:100%;background:linear-gradient(90deg,var(--amber),var(--accent2,#e07a30));border-radius:2px;transition:width .6s ease}
+
+        @media(max-width:768px){
+            .bestseller-grid{grid-template-columns:repeat(2,1fr)}
+            .dash-welcome{flex-direction:column;align-items:flex-start}
+        }
+
+        @media(max-width:768px){
+            .sidebar{display:none}
+            .content{padding:16px}
+            .stat-value{font-size:24px}
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════ LOGIN ═══════════════ -->
+<div id="login-view">
+    <div class="login-card">
+        <div class="brand">🔧 Senu<span> Auto Parts</span></div>
+        <small class="brand" style="font-size:12px;font-weight:400;color:var(--muted);font-family:var(--font-mono);letter-spacing:2px">BODY PARTS SPECIALIST</small>
+        <p class="hint" style="margin-top:20px;margin-bottom:24px">// AUTHORIZED PERSONNEL ONLY</p>
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" id="login-user" class="form-control" placeholder="admin">
+        </div>
+        <div class="mb-4">
+            <label class="form-label">Password</label>
+            <input type="password" id="login-pass" class="form-control" placeholder="••••••••">
+            <div id="login-error" style="color:var(--danger);font-size:11px;font-family:var(--font-mono);margin-top:6px;display:none">⚠ Invalid credentials</div>
+        </div>
+        <button class="btn-amber w-100" onclick="AuthController.login()">SIGN IN →</button>
+        <p class="hint" style="margin-top:14px;text-align:center">Default: admin / admin123</p>
+    </div>
+</div>
+
+<!-- ═══════════════ APP ═══════════════ -->
+<div id="app-view" style="display:none;flex-direction:column">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <div class="topbar-brand">🔧 Senu <span style="font-weight:400;font-size:16px"> Auto Parts</span></div>
+        <div class="topbar-right">
+            <span class="topbar-time" id="live-time">00:00:00</span>
+            <span class="topbar-user" id="topbar-user">admin</span>
+            <button class="btn-logout" onclick="AuthController.logout()"><i class="bi bi-power"></i> LOGOUT</button>
+        </div>
+    </div>
+
+    <!-- SHELL -->
+    <div class="shell">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="nav-section-label">MAIN</div>
+            <div class="nav-item active" onclick="navigate('dashboard')" data-page="dashboard"><i class="bi bi-grid-1x2"></i> Dashboard</div>
+            <div class="nav-item" onclick="navigate('order')" data-page="order"><i class="bi bi-receipt"></i> New Order</div>
+            <div class="nav-section-label" style="margin-top:8px">MANAGE</div>
+            <div class="nav-item" onclick="navigate('customers')" data-page="customers"><i class="bi bi-person-lines-fill"></i> Customers</div>
+            <div class="nav-item" onclick="navigate('items')" data-page="items"><i class="bi bi-boxes"></i> Inventory</div>
+            <div class="nav-item" onclick="navigate('history')" data-page="history"><i class="bi bi-clock-history"></i> Order History</div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+
+
+            <!-- ── DASHBOARD ── -->
+            <div id="page-dashboard" class="page active">
+
+                <div class="dash-welcome">
+                    <div>
+                        <div class="dash-welcome-title">Good day, <span id="dash-username">Admin</span> 👋</div>
+                        <div class="dash-welcome-sub">Here's what's happening at Senu Auto Parts today.</div>
+                    </div>
+                    <button class="btn-amber" onclick="navigate('order')" style="white-space:nowrap"><i class="bi bi-plus-circle me-2"></i>NEW ORDER</button>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-md-3"><div class="stat-card stat-amber"><div class="stat-label">Total Revenue</div><div class="stat-value" id="stat-revenue">Rs 0</div><i class="bi bi-cash-coin stat-icon"></i></div></div>
+                    <div class="col-6 col-md-3"><div class="stat-card stat-green"><div class="stat-label">Orders Placed</div><div class="stat-value" id="stat-orders">0</div><i class="bi bi-receipt stat-icon"></i></div></div>
+                    <div class="col-6 col-md-3"><div class="stat-card stat-blue"><div class="stat-label">Customers</div><div class="stat-value" id="stat-customers">0</div><i class="bi bi-people stat-icon"></i></div></div>
+                    <div class="col-6 col-md-3"><div class="stat-card stat-red"><div class="stat-label">Low Stock</div><div class="stat-value" id="stat-lowstock">0</div><i class="bi bi-exclamation-triangle stat-icon"></i></div></div>
+                </div>
+
+                <div class="card-pos mb-4">
+                    <div class="card-header-pos">
+                        <h6><i class="bi bi-fire me-2" style="color:var(--amber)"></i>BEST SELLING PARTS</h6>
+                        <span class="code-badge">Top 6</span>
+                    </div>
+                    <div class="card-body-pos">
+                        <div class="bestseller-grid" id="bestseller-grid"></div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-7">
+                        <div class="card-pos">
+                            <div class="card-header-pos"><h6><i class="bi bi-receipt me-2"></i>RECENT ORDERS</h6><button class="btn-outline-pos" onclick="navigate('history')">View All</button></div>
+                            <div class="card-body-pos" style="padding:0">
+                                <table class="table-pos w-100"><thead><tr><th>ORDER ID</th><th>CUSTOMER</th><th>TOTAL</th><th>DATE</th></tr></thead>
+                                    <tbody id="dash-recent-orders"><tr><td colspan="4"><div class="empty-state"><i class="bi bi-receipt"></i><p>No orders yet</p></div></td></tr></tbody></table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card-pos">
+                            <div class="card-header-pos"><h6><i class="bi bi-exclamation-triangle me-2" style="color:var(--warn)"></i>LOW STOCK ALERT</h6></div>
+                            <div class="card-body-pos" style="padding:0">
+                                <table class="table-pos w-100"><thead><tr><th>PART</th><th>CODE</th><th>QTY</th></tr></thead>
+                                    <tbody id="dash-low-stock"><tr><td colspan="3"><div class="empty-state"><i class="bi bi-check-circle"></i><p>All levels OK</p></div></td></tr></tbody></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── CUSTOMERS ── -->
+            <div id="page-customers" class="page">
+                <div class="pg-header d-flex justify-content-between align-items-start">
+                    <div><div class="pg-title">CUSTOMERS</div><div class="pg-sub">// manage customer records</div></div>
+                    <button class="btn-amber" onclick="CustomerController.openAddModal()"><i class="bi bi-plus-lg me-1"></i>ADD CUSTOMER</button>
+                </div>
+                <div class="card-pos mb-3" style="padding:14px 18px">
+                    <div class="search-wrap"><i class="bi bi-search"></i><input type="text" class="form-control" id="customer-search" placeholder="Search by name, phone or address…" oninput="CustomerController.search()"></div>
+                </div>
+                <div class="card-pos">
+                    <div class="card-body-pos" style="padding:0">
+                        <table class="table-pos"><thead><tr><th>#</th><th>NAME</th><th>PHONE</th><th>ADDRESS</th><th>ACTIONS</th></tr></thead>
+                            <tbody id="customer-table-body"></tbody></table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── ITEMS ── -->
+            <div id="page-items" class="page">
+                <div class="pg-header d-flex justify-content-between align-items-start">
+                    <div><div class="pg-title">INVENTORY</div><div class="pg-sub">// body parts catalogue</div></div>
+                    <button class="btn-amber" onclick="ItemController.openAddModal()"><i class="bi bi-plus-lg me-1"></i>ADD PART</button>
+                </div>
+                <div class="card-pos mb-3" style="padding:14px 18px">
+                    <div class="row g-2 align-items-center">
+                        <div class="col-auto flex-grow-1"><div class="search-wrap w-100" style="max-width:100%"><i class="bi bi-search"></i><input type="text" class="form-control" id="item-search" placeholder="Search parts…" oninput="ItemController.search()"></div></div>
+                        <div class="col-auto">
+                            <select class="form-select" id="item-filter-stock" onchange="ItemController.search()" style="width:160px">
+                                <option value="">All Stock</option>
+                                <option value="ok">In Stock</option>
+                                <option value="low">Low Stock</option>
+                                <option value="out">Out of Stock</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-pos">
+                    <div class="card-body-pos" style="padding:0">
+                        <table class="table-pos"><thead><tr><th>CODE</th><th>PART NAME</th><th>CATEGORY</th><th>UNIT PRICE</th><th>STOCK</th><th>ACTIONS</th></tr></thead>
+                            <tbody id="item-table-body"></tbody></table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── NEW ORDER ── -->
+            <div id="page-order" class="page">
+                <div class="pg-header"><div class="pg-title">NEW ORDER</div><div class="pg-sub">// place a new sale</div></div>
+                <div class="row g-3">
+                    <!-- LEFT: customer + item selection -->
+                    <div class="col-lg-7">
+                        <div class="card-pos mb-3">
+                            <div class="card-header-pos"><h6><i class="bi bi-person me-2"></i>SELECT CUSTOMER</h6></div>
+                            <div class="card-body-pos">
+                                <div class="row g-2">
+                                    <div class="col">
+                                        <select class="form-select" id="order-customer">
+                                            <option value="">— Choose Customer —</option>
+                                        </select>
+                                        <div class="invalid-feedback-pos" id="order-customer-err" style="display:none">Select a customer</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button class="btn-outline-pos" style="height:100%" onclick="CustomerController.openAddModal(true)"><i class="bi bi-person-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-pos">
+                            <div class="card-header-pos">
+                                <h6><i class="bi bi-boxes me-2"></i>SELECT PARTS</h6>
+                                <div class="search-wrap" style="max-width:200px"><i class="bi bi-search"></i><input type="text" class="form-control" id="order-item-search" placeholder="Search parts…" oninput="OrderController.filterItemGrid()"></div>
+                            </div>
+                            <div class="card-body-pos">
+                                <div class="item-grid" id="order-item-grid"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- RIGHT: cart -->
+                    <div class="col-lg-5">
+                        <div class="card-pos" style="position:sticky;top:72px">
+                            <div class="card-header-pos">
+                                <h6><i class="bi bi-cart3 me-2"></i>ORDER CART</h6>
+                                <span class="code-badge" id="order-id-display">—</span>
+                            </div>
+                            <div class="card-body-pos">
+                                <div id="order-cart-items">
+                                    <div class="empty-state"><i class="bi bi-cart-x"></i><p>No parts added yet</p></div>
+                                </div>
+                                <div class="order-summary" id="order-summary" style="display:none">
+                                    <div class="order-total-line"><span>Subtotal</span><span id="ot-subtotal" style="font-family:var(--font-mono)">Rs 0.00</span></div>
+                                    <div class="order-total-line"><span>Discount</span>
+                                        <div style="display:flex;align-items:center;gap:6px">
+                                            <input type="number" id="order-discount" class="form-control" style="width:70px;padding:4px 8px;font-family:var(--font-mono);font-size:12px" value="0" min="0" max="100" oninput="OrderController.recalc()"> <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">%</span>
+                                        </div>
+                                    </div>
+                                    <div class="order-total-line" style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px"><span style="font-family:var(--font-display);font-size:16px;font-weight:700">GRAND TOTAL</span><span class="order-grand" id="ot-grand">Rs 0.00</span></div>
+                                    <div class="order-total-line mt-2"><span>Cash Tendered</span>
+                                        <input type="number" id="order-cash" class="form-control" style="width:110px;padding:4px 8px;font-family:var(--font-mono);font-size:12px" placeholder="0.00" min="0" oninput="OrderController.recalc()">
+                                    </div>
+                                    <div class="order-total-line"><span>Change</span><span id="ot-change" style="font-family:var(--font-mono);color:var(--success)">Rs 0.00</span></div>
+                                    <button class="btn-amber w-100 mt-3" style="font-size:16px;padding:13px" onclick="OrderController.placeOrder()"><i class="bi bi-check2-circle me-2"></i>PLACE ORDER</button>
+                                    <button class="btn-outline-pos w-100 mt-2" onclick="OrderController.clearCart()">CLEAR CART</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── ORDER HISTORY ── -->
+            <div id="page-history" class="page">
+                <div class="pg-header d-flex justify-content-between align-items-start">
+                    <div><div class="pg-title">ORDER HISTORY</div><div class="pg-sub">// all recorded transactions</div></div>
+                    <div class="search-wrap"><i class="bi bi-search"></i><input type="text" class="form-control" id="history-search" placeholder="Search orders…" oninput="HistoryController.search()"></div>
+                </div>
+                <div id="history-list"><div class="empty-state"><i class="bi bi-clock-history"></i><p>No orders recorded</p></div></div>
+            </div>
+
+        </div><!-- /content -->
+    </div><!-- /shell -->
+</div><!-- /app-view -->
+
+<!-- ═══ TOAST ═══ -->
+<div id="toast-container"></div>
+
+<!-- ═══ MODALS ═══ -->
+<!-- Customer Modal -->
+<div class="modal fade modal-pos" id="customerModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="customerModalTitle">ADD CUSTOMER</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <input type="hidden" id="cust-id">
+                <div class="mb-3"><label class="form-label">Full Name *</label><input type="text" id="cust-name" class="form-control" placeholder="e.g. Kasun Perera"><div class="invalid-feedback-pos" id="err-cust-name" style="display:none">Name is required</div></div>
+                <div class="mb-3"><label class="form-label">Phone Number *</label><input type="text" id="cust-phone" class="form-control" placeholder="e.g. 0711234567"><div class="invalid-feedback-pos" id="err-cust-phone" style="display:none">Enter a valid 10-digit phone</div></div>
+                <div class="mb-3"><label class="form-label">Address</label><input type="text" id="cust-address" class="form-control" placeholder="e.g. 45/B Galle Rd, Colombo 3"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-outline-pos" data-bs-dismiss="modal">CANCEL</button>
+                <button type="button" class="btn-amber" onclick="CustomerController.save()">SAVE CUSTOMER</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Item Modal -->
+<div class="modal fade modal-pos" id="itemModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="itemModalTitle">ADD PART</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <input type="hidden" id="item-id">
+                <div class="row g-3">
+                    <div class="col-6"><label class="form-label">Part Code *</label><input type="text" id="item-code" class="form-control" placeholder="e.g. BP-001"><div class="invalid-feedback-pos" id="err-item-code" style="display:none">Unique code required</div></div>
+                    <div class="col-6"><label class="form-label">Category</label>
+                        <select class="form-select" id="item-cat">
+                            <option>Bumpers</option><option>Doors</option><option>Bonnets & Boots</option><option>Fenders & Guards</option><option>Side Mirrors</option><option>Grilles</option><option>Headlights & Taillights</option><option>Glass & Windscreens</option><option>Other Body Parts</option>
+                        </select>
+                    </div>
+                    <div class="col-12"><label class="form-label">Part Name *</label><input type="text" id="item-name" class="form-control" placeholder="e.g. Front Bumper - Toyota Aqua"><div class="invalid-feedback-pos" id="err-item-name" style="display:none">Name is required</div></div>
+                    <div class="col-6"><label class="form-label">Unit Price (Rs) *</label><input type="number" id="item-price" class="form-control" placeholder="0.00" min="0" step="0.01"><div class="invalid-feedback-pos" id="err-item-price" style="display:none">Valid price required</div></div>
+                    <div class="col-6"><label class="form-label">Stock Qty *</label><input type="number" id="item-qty" class="form-control" placeholder="0" min="0"><div class="invalid-feedback-pos" id="err-item-qty" style="display:none">Quantity required</div></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-outline-pos" data-bs-dismiss="modal">CANCEL</button>
+                <button type="button" class="btn-amber" onclick="ItemController.save()">SAVE PART</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="modal fade modal-pos" id="confirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">CONFIRM DELETE</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body"><p id="confirm-msg" style="color:var(--muted);font-size:13px"></p></div>
+            <div class="modal-footer">
+                <button type="button" class="btn-outline-pos" data-bs-dismiss="modal">CANCEL</button>
+                <button type="button" id="confirm-yes" class="btn-danger-pos" style="padding:9px 20px;font-size:14px">DELETE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Order Confirm Modal -->
+<div class="modal fade modal-pos" id="orderConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background:rgba(62,207,142,.06);border-bottom-color:rgba(62,207,142,.2)">
+                <h5 class="modal-title" style="color:var(--success)"><i class="bi bi-check-circle-fill me-2"></i>ORDER PLACED</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="order-confirm-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn-outline-pos" data-bs-dismiss="modal" onclick="OrderController.newOrder()">NEW ORDER</button>
+                <button type="button" class="btn-amber" data-bs-dismiss="modal" onclick="navigate('history')">VIEW HISTORY</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // ════════════════════════════════════════════
+    //  MODEL
+    // ════════════════════════════════════════════
+    const Model = {
+        currentUser: null,
+        customers: [
+            {id:1, name:'Kasun Perera', phone:'0711234567', address:'45/B Galle Rd, Colombo 3'},
+            {id:2, name:'Nimal Silva', phone:'0777654321', address:'12 Kandy Rd, Kegalle'},
+            {id:3, name:'Amara Jayawardena', phone:'0766112233', address:'78 Main St, Negombo'},
+        ],
+        items: [
+            {id:1, code:'BP-001', name:'Front Bumper - Toyota Aqua', category:'Bumpers', price:18500, qty:4},
+            {id:2, code:'BP-002', name:'Rear Bumper - Honda Fit', category:'Bumpers', price:15200, qty:3},
+            {id:3, code:'DR-011', name:'Front Door Panel - Suzuki Alto', category:'Doors', price:22000, qty:2},
+            {id:4, code:'FD-021', name:'Front Fender Left - Toyota Axio', category:'Fenders & Guards', price:9800, qty:0},
+            {id:5, code:'BN-005', name:'Bonnet - Nissan Tiida', category:'Bonnets & Boots', price:28000, qty:5},
+            {id:6, code:'SM-033', name:'Side Mirror Right - Honda Vezel', category:'Side Mirrors', price:6500, qty:2},
+            {id:7, code:'GR-009', name:'Front Grille - Toyota Premio', category:'Grilles', price:4200, qty:8},
+            {id:8, code:'HL-044', name:'Headlight Assembly Left - Suzuki Swift', category:'Headlights & Taillights', price:12500, qty:3},
+        ],
+        orders: [],
+        custIdSeq: 4,
+        itemIdSeq: 9,
+        orderIdSeq: 1,
+        cart: [],
+
+        nextCustomerId(){ return this.custIdSeq++ },
+        nextItemId(){ return this.itemIdSeq++ },
+        nextOrderId(){ return 'ORD-' + String(this.orderIdSeq++).padStart(4,'0') },
+
+        getCustomerById(id){ return this.customers.find(c=>c.id==id) },
+        getItemById(id){ return this.items.find(i=>i.id==id) },
+    };
+
+    // ════════════════════════════════════════════
+    //  HELPERS / UTILS
+    // ════════════════════════════════════════════
+    function fmt(n){ return 'Rs ' + parseFloat(n).toLocaleString('en-LK',{minimumFractionDigits:2,maximumFractionDigits:2}) }
+    function uid(){ return Date.now() }
+    function now(){ return new Date().toLocaleString('en-GB',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}) }
+
+    function toast(msg, type='success'){
+        const icons = {success:'bi-check-circle-fill', error:'bi-x-circle-fill', warn:'bi-exclamation-triangle-fill'};
+        const $t = $(`<div class="toast-msg toast-${type}"><i class="bi ${icons[type]} toast-icon"></i><span>${msg}</span></div>`);
+        $('#toast-container').append($t);
+        setTimeout(()=>{ $t.addClass('removing'); setTimeout(()=>$t.remove(), 300) }, 2800);
+    }
+
+    function showConfirm(msg, cb){
+        $('#confirm-msg').text(msg);
+        const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('confirmModal'));
+        modal.show();
+        $('#confirm-yes').off('click').on('click', ()=>{ modal.hide(); cb(); });
+    }
+
+    function navigate(page){
+        $('.page').removeClass('active');
+        $('.nav-item').removeClass('active');
+        $(`#page-${page}`).addClass('active');
+        $(`.nav-item[data-page="${page}"]`).addClass('active');
+        if(page==='dashboard') DashController.refresh();
+        if(page==='customers') CustomerController.render();
+        if(page==='items') ItemController.render();
+        if(page==='order') OrderController.init();
+        if(page==='history') HistoryController.render();
+    }
+
+    // Live clock
+    setInterval(()=>{
+        const d=new Date();
+        $('#live-time').text(d.toLocaleTimeString('en-GB'));
+    },1000);
+
+    // ════════════════════════════════════════════
+    //  AUTH CONTROLLER
+    // ════════════════════════════════════════════
+    const AuthController = {
+        login(){
+            const u = $('#login-user').val().trim();
+            const p = $('#login-pass').val().trim();
+            if(u==='admin' && p==='admin123'){
+                Model.currentUser = u;
+                $('#login-view').fadeOut(200,()=>{
+                    $('#app-view').css('display','flex').hide().fadeIn(200);
+                    $('#topbar-user').text(u.toUpperCase());
+                    DashController.refresh();
+                });
+                $('#login-error').hide();
+            } else {
+                $('#login-error').show();
+                $('#login-pass').val('').addClass('is-invalid-pos');
+                setTimeout(()=>$('#login-pass').removeClass('is-invalid-pos'),1500);
+            }
+        },
+        logout(){
+            Model.currentUser = null;
+            Model.cart = [];
+            $('#app-view').fadeOut(200,()=>{
+                $('#login-view').fadeIn(200);
+                $('#login-user').val(''); $('#login-pass').val('');
+            });
+        }
+    };
+
+    $('#login-pass').on('keypress',e=>{ if(e.which===13) AuthController.login(); });
+
+    // ════════════════════════════════════════════
+    //  DASHBOARD CONTROLLER
+    // ════════════════════════════════════════════
+    const DashController = {
+
+        // SVG illustrations per category - always renders, no external deps
+        getCategoryArt(category, idx){
+            const palettes = [
+                ['#f5a623','#b87a18'],['#4ea8f0','#2a6fa8'],['#3ecf8e','#1a8a5a'],
+                ['#f04e4e','#a83030'],['#c47cf5','#7a3db8'],['#f0c040','#b89018']
+            ];
+            const [c1,c2] = palettes[idx % palettes.length];
+            const svgs = {
+                'Bumpers': `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160'><rect width='400' height='160' fill='#1a1c21'/><rect x='40' y='90' width='320' height='28' rx='6' fill='${c1}' opacity='.9'/><rect x='20' y='90' width='24' height='28' rx='4' fill='${c2}'/><rect x='356' y='90' width='24' height='28' rx='4' fill='${c2}'/><rect x='60' y='80' width='280' height='14' rx='4' fill='${c1}' opacity='.4'/><circle cx='80' cy='118' r='22' fill='#111' stroke='${c2}' stroke-width='4'/><circle cx='80' cy='118' r='12' fill='#222'/><circle cx='320' cy='118' r='22' fill='#111' stroke='${c2}' stroke-width='4'/><circle cx='320' cy='118' r='12' fill='#222'/><rect x='160' y='60' width='80' height='30' rx='3' fill='${c1}' opacity='.15'/><rect x='170' y='65' width='60' height='20' rx='2' fill='${c1}' opacity='.2'/><text x='200' y='40' font-family='monospace' font-size='12' fill='${c1}' opacity='.5' text-anchor='middle'>BUMPER</text></svg>`,
+                'Doors': `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160'><rect width='400' height='160' fill='#1a1c21'/><rect x='80' y='15' width='240' height='130' rx='6' fill='#252830' stroke='${c1}' stroke-width='2'/><rect x='95' y='25' width='210' height='80' rx='4' fill='${c1}' opacity='.08'/><rect x='95' y='25' width='210' height='80' rx='4' fill='none' stroke='${c1}' stroke-width='1' opacity='.3'/><circle cx='300' cy='95' r='10' fill='${c1}' opacity='.8'/><circle cx='300' cy='95' r='5' fill='${c2}'/><rect x='100' y='115' width='60' height='8' rx='3' fill='${c1}' opacity='.5'/><text x='200' y='155' font-family='monospace' font-size='11' fill='${c1}' opacity='.5' text-anchor='middle'>DOOR PANEL</text></svg>`,
+                'Bonnets & Boots': `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160'><rect width='400' height='160' fill='#1a1c21'/><path d='M30 120 Q100 50 200 40 Q300 50 370 120 Z' fill='#252830' stroke='${c1}' stroke-width='2'/><path d='M60 120 Q120 65 200 55 Q280 65 340 120' fill='none' stroke='${c1}' stroke-width='1' opacity='.4'/><ellipse cx='200' cy='115' rx='30' ry='6' fill='${c1}' opacity='.3'/><rect x='185' y='42' width='30' height='4' rx='2' fill='${c1}' opacity='.6'/><text x='200' y='145' font-family='monospace' font-size='11' fill='${c1}' opacity='.5' text-anchor='middle'>BONNET</text></svg>`,
+                'Fenders & Guards': `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160'><rect width='400' height='160' fill='#1a1c21'/><path d='M60 140 L60 60 Q62 30 120 25 L320 25 L320 60 Q340 65 350 90 L350 140 Z' fill='#252830' stroke='${c1}' stroke-width='2'/><path d='M75 140 L75 65 Q77 38 125 33 L310 33' fill='none' stroke='${c1}' stroke-width='1' opacity='.3'/><circle cx='200' cy='135' r='28' fill='#111' stroke='${c2}' stroke-width='4'/><circle cx='200' cy='135' r='16' fill='#1a1c21'/><circle cx='200' cy='135' r='6' fill='${c2}' opacity='.5'/><text x='200' y='20' font-family='monospace' font-size='11' fill='${c1}' opacity='.5' text-anchor='middle'>FENDER</text></svg>`,
+                'Side Mirrors': `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160'><rect width='400' height='160' fill='#1a1c21'/><ellipse cx='200' cy='80' rx='100' ry='60' fill='#252830' stroke='${c1}' stroke-width='2'/><ellipse cx='200' cy='80' rx='88' ry='50' fill='#1e2024' stroke='${c1}' stroke-width='1' opacity='.3'/><ellipse cx='200' cy='80' rx='70' ry='40' fill='#111' opacity='.6'/><line x1='130' y1='80' x2='270' y2='80' stroke='${c1}' stroke-width='1' opacity='.2'/><line x1='200' y1='30' x2='200' y2='130' stroke='${c1}' stroke-width='1' opacity='.2'/><rect x='290' y='70' width='30' height='20' rx='4' fill='${c2}' opacity='.7'/><text x='200' y='150' font-family='monospace' font-size='11' fill='${c1}' opacity='.5' text-anchor='middle'>SIDE MIRROR</text></svg>`,
+                'Grilles': `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160'><rect width='400' height='160' fill='#1a1c21'/><rect x='60' y='35' width='280' height='90' rx='8' fill='#252830' stroke='${c1}' stroke-width='2'/><line x1='60' y1='65' x2='340' y2='65' stroke='${c1}' stroke-width='1.5' opacity='.5'/><line x1='60' y1='85' x2='340' y2='85' stroke='${c1}' stroke-width='1.5' opacity='.5'/><line x1='60' y1='105' x2='340' y2='105' stroke='${c1}' stroke-width='1.5' opacity='.5'/><line x1='100' y1='35' x2='100' y2='125' stroke='${c1}' stroke-width='1' opacity='.3'/><line x1='140' y1='35' x2='140' y2='125' stroke='${c1}' stroke-width='1' opacity='.3'/><line x1='180' y1='35' x2='180' y2='125' stroke='${c1}' stroke-width='1' opacity='.3'/><line x1='220' y1='35' x2='220' y2='125' stroke='${c1}' stroke-width='1' opacity='.3'/><line x1='260' y1='35' x2='260' y2='125' stroke='${c1}' stroke-width='1' opacity='.3'/><line x1='300' y1='35' x2='300' y2='125' stroke='${c1}' stroke-width='1' opacity='.3'/><text x='200' y='150' font-family='monospace' font-size='11' fill='${c1}' opacity='.5' text-anchor='middle'>GRILLE</text></svg>`,
+                'Headlights & Taillights': `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160'><rect width='400' height='160' fill='#1a1c21'/><ellipse cx='200' cy='80' rx='110' ry='55' fill='#252830' stroke='${c1}' stroke-width='2'/><ellipse cx='200' cy='80' rx='85' ry='40' fill='${c1}' opacity='.08'/><circle cx='200' cy='80' r='32' fill='${c1}' opacity='.15'/><circle cx='200' cy='80' r='22' fill='${c1}' opacity='.25'/><circle cx='200' cy='80' r='12' fill='${c1}' opacity='.8'/><line x1='200' y1='80' x2='380' y2='70' stroke='${c1}' stroke-width='2' opacity='.3'/><line x1='200' y1='80' x2='380' y2='80' stroke='${c1}' stroke-width='2' opacity='.5'/><line x1='200' y1='80' x2='380' y2='90' stroke='${c1}' stroke-width='2' opacity='.3'/><text x='200' y='150' font-family='monospace' font-size='11' fill='${c1}' opacity='.5' text-anchor='middle'>HEADLIGHT</text></svg>`,
+                'Glass & Windscreens': `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160'><rect width='400' height='160' fill='#1a1c21'/><path d='M60 130 L100 30 L300 30 L340 130 Z' fill='#252830' stroke='${c1}' stroke-width='2'/><path d='M80 130 L115 40 L285 40 L320 130 Z' fill='${c1}' opacity='.06'/><path d='M80 130 L115 40 L285 40 L320 130 Z' fill='none' stroke='${c1}' stroke-width='1' opacity='.3'/><line x1='180' y1='30' x2='160' y2='130' stroke='${c1}' stroke-width='1' opacity='.2'/><line x1='220' y1='30' x2='240' y2='130' stroke='${c1}' stroke-width='1' opacity='.2'/><text x='200' y='152' font-family='monospace' font-size='11' fill='${c1}' opacity='.5' text-anchor='middle'>WINDSCREEN</text></svg>`,
+                'Other Body Parts': `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 160'><rect width='400' height='160' fill='#1a1c21'/><rect x='60' y='50' width='280' height='70' rx='10' fill='#252830' stroke='${c1}' stroke-width='2'/><circle cx='110' cy='130' r='22' fill='#111' stroke='${c2}' stroke-width='3'/><circle cx='110' cy='130' r='10' fill='#222'/><circle cx='290' cy='130' r='22' fill='#111' stroke='${c2}' stroke-width='3'/><circle cx='290' cy='130' r='10' fill='#222'/><rect x='90' y='55' width='80' height='35' rx='3' fill='${c1}' opacity='.1'/><rect x='230' y='55' width='80' height='35' rx='3' fill='${c1}' opacity='.1'/><text x='200' y='45' font-family='monospace' font-size='11' fill='${c1}' opacity='.5' text-anchor='middle'>BODY PART</text></svg>`,
+            };
+            const svg = svgs[category] || svgs['Other Body Parts'];
+            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+        },
+
+        categoryIcons: {
+            'Bumpers':'🚗','Doors':'🚪','Bonnets & Boots':'🔩','Fenders & Guards':'🛡️',
+            'Side Mirrors':'🔭','Grilles':'⚙️','Headlights & Taillights':'💡',
+            'Glass & Windscreens':'🪟','Other Body Parts':'🔧'
+        },
+
+        refresh(){
+            const rev = Model.orders.reduce((s,o)=>s+o.grand,0);
+            const low = Model.items.filter(i=>i.qty>0&&i.qty<=5).length;
+            $('#stat-revenue').text(fmt(rev));
+            $('#stat-orders').text(Model.orders.length);
+            $('#stat-customers').text(Model.customers.length);
+            $('#stat-lowstock').text(low);
+            $('#dash-username').text((Model.currentUser||'Admin').toUpperCase());
+
+            // ── BEST SELLERS ── computed from order history
+            const soldMap = {};
+            Model.orders.forEach(o => o.items.forEach(it => {
+                soldMap[it.itemId] = (soldMap[it.itemId]||0) + it.qty;
+            }));
+
+            // merge with current items, fallback to full inventory sorted by price desc
+            let ranked = Model.items.map(i => ({
+                ...i,
+                sold: soldMap[i.id] || 0,
+                score: (soldMap[i.id]||0) * i.price
+            }));
+            ranked.sort((a,b) => b.score - a.score || b.price - a.price);
+            const top6 = ranked.slice(0,6);
+            const maxSold = Math.max(1, ...top6.map(i=>i.sold));
+
+            if(top6.length === 0){
+                $('#bestseller-grid').html('<div class="empty-state" style="grid-column:1/-1"><i class="bi bi-bar-chart"></i><p>No data yet</p></div>');
+            } else {
+                const imgMap = this.partImages;
+                const iconMap = this.categoryIcons;
+                $('#bestseller-grid').html(top6.map((item, idx) => {
+                    const imgUrl = this.getCategoryArt(item.category, idx);
+                    const pct = item.sold > 0 ? Math.round((item.sold/maxSold)*100) : 20;
+                    const sc = item.qty===0?'stock-out':item.qty<=5?'stock-low':'stock-ok';
+                    const sl = item.qty===0?'Out of stock':item.qty<=5?`Only ${item.qty} left`:`${item.qty} in stock`;
+                    const isNew = item.sold === 0;
+                    return `
+          <div class="bs-card" onclick="navigate('order')">
+            <div class="bs-rank">${idx+1}</div>
+            ${isNew ? '<div class="bs-badge-new">NEW</div>' : ''}
+            <img class="bs-card-img" src="${imgUrl}" alt="${item.name}">
+            <div class="bs-card-body">
+              <div class="bs-code">${item.code} &nbsp;·&nbsp; ${item.category}</div>
+              <div class="bs-name">${item.name}</div>
+              <div class="bs-bar-wrap"><div class="bs-bar" style="width:${pct}%"></div></div>
+              <div class="bs-footer">
+                <div class="bs-price">${fmt(item.price)}</div>
+                <div>
+                  <span class="stock-badge ${sc}" style="font-size:10px">${sl}</span>
+                </div>
+              </div>
+              ${item.sold>0?`<div style="margin-top:6px;font-family:var(--font-mono);font-size:10px;color:var(--muted)">${item.sold} units sold</div>`:''}
+            </div>
+          </div>`;
+                }).join(''));
+            }
+
+            // Recent orders (last 5)
+            const recent = [...Model.orders].reverse().slice(0,5);
+            if(recent.length===0){
+                $('#dash-recent-orders').html('<tr><td colspan="4"><div class="empty-state"><i class="bi bi-receipt"></i><p>No orders yet</p></div></td></tr>');
+            } else {
+                $('#dash-recent-orders').html(recent.map(o=>`
+        <tr>
+          <td><span class="code-badge">${o.id}</span></td>
+          <td>${o.customerName}</td>
+          <td style="font-family:var(--font-mono);color:var(--amber)">${fmt(o.grand)}</td>
+          <td style="color:var(--muted);font-size:11px;font-family:var(--font-mono)">${o.date}</td>
+        </tr>`).join(''));
+            }
+
+            // Low stock
+            const lowItems = Model.items.filter(i=>i.qty<=5);
+            if(lowItems.length===0){
+                $('#dash-low-stock').html('<tr><td colspan="3"><div class="empty-state"><i class="bi bi-check-circle"></i><p>All levels OK</p></div></td></tr>');
+            } else {
+                $('#dash-low-stock').html(lowItems.map(i=>`
+        <tr>
+          <td style="font-size:12px">${i.name}</td>
+          <td><span class="code-badge">${i.code}</span></td>
+          <td><span class="stock-badge ${i.qty===0?'stock-out':'stock-low'}">${i.qty===0?'OUT':i.qty}</span></td>
+        </tr>`).join(''));
+            }
+        }
+    };
+
+    // ════════════════════════════════════════════
+    //  CUSTOMER CONTROLLER
+    // ════════════════════════════════════════════
+    const CustomerController = {
+        _fromOrder: false,
+
+        render(data=null){
+            const list = data || Model.customers;
+            if(list.length===0){
+                $('#customer-table-body').html('<tr><td colspan="5"><div class="empty-state"><i class="bi bi-people"></i><p>No customers found</p></div></td></tr>');
+                return;
+            }
+            $('#customer-table-body').html(list.map((c,i)=>`
+      <tr>
+        <td style="color:var(--muted);font-family:var(--font-mono);font-size:11px">${String(i+1).padStart(2,'0')}</td>
+        <td><strong>${c.name}</strong></td>
+        <td style="font-family:var(--font-mono)">${c.phone}</td>
+        <td style="color:var(--muted)">${c.address||'—'}</td>
+        <td>
+          <div style="display:flex;gap:6px">
+            <button class="btn-edit-pos" onclick="CustomerController.openEditModal(${c.id})"><i class="bi bi-pencil"></i> Edit</button>
+            <button class="btn-danger-pos" onclick="CustomerController.deleteConfirm(${c.id})"><i class="bi bi-trash"></i> Del</button>
+          </div>
+        </td>
+      </tr>`).join(''));
+        },
+
+        search(){
+            const q = $('#customer-search').val().toLowerCase();
+            const filtered = Model.customers.filter(c=>
+                c.name.toLowerCase().includes(q)||c.phone.includes(q)||(c.address||'').toLowerCase().includes(q)
+            );
+            this.render(filtered);
+        },
+
+        openAddModal(fromOrder=false){
+            this._fromOrder = fromOrder;
+            $('#customerModalTitle').text('ADD CUSTOMER');
+            $('#cust-id').val(''); $('#cust-name').val(''); $('#cust-phone').val(''); $('#cust-address').val('');
+            ['cust-name','cust-phone'].forEach(f=>$(`#${f}`).removeClass('is-invalid-pos'));
+            ['err-cust-name','err-cust-phone'].forEach(f=>$(`#${f}`).hide());
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('customerModal')).show();
+        },
+
+        openEditModal(id){
+            const c = Model.getCustomerById(id);
+            if(!c) return;
+            $('#customerModalTitle').text('EDIT CUSTOMER');
+            $('#cust-id').val(c.id); $('#cust-name').val(c.name); $('#cust-phone').val(c.phone); $('#cust-address').val(c.address||'');
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('customerModal')).show();
+        },
+
+        save(){
+            const id = $('#cust-id').val();
+            const name = $('#cust-name').val().trim();
+            const phone = $('#cust-phone').val().trim();
+            const address = $('#cust-address').val().trim();
+            let valid = true;
+
+            if(!name){ $('#cust-name').addClass('is-invalid-pos'); $('#err-cust-name').show(); valid=false; }
+            else { $('#cust-name').removeClass('is-invalid-pos'); $('#err-cust-name').hide(); }
+
+            if(!phone || !/^0\d{9}$/.test(phone)){ $('#cust-phone').addClass('is-invalid-pos'); $('#err-cust-phone').show(); valid=false; }
+            else { $('#cust-phone').removeClass('is-invalid-pos'); $('#err-cust-phone').hide(); }
+
+            if(!valid) return;
+
+            if(id){
+                const c = Model.getCustomerById(parseInt(id));
+                c.name=name; c.phone=phone; c.address=address;
+                toast('Customer updated successfully');
+            } else {
+                Model.customers.push({id:Model.nextCustomerId(), name, phone, address});
+                toast('Customer added successfully');
+            }
+
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('customerModal')).hide();
+            this.render();
+            if(this._fromOrder){ OrderController.refreshCustomerDropdown(); this._fromOrder=false; }
+            DashController.refresh();
+        },
+
+        deleteConfirm(id){
+            const c = Model.getCustomerById(id);
+            showConfirm(`Delete customer "${c.name}"? This cannot be undone.`, ()=>this.delete(id));
+        },
+
+        delete(id){
+            Model.customers = Model.customers.filter(c=>c.id!==id);
+            this.render();
+            DashController.refresh();
+            toast('Customer deleted','warn');
+        }
+    };
+
+    // ════════════════════════════════════════════
+    //  ITEM CONTROLLER
+    // ════════════════════════════════════════════
+    const ItemController = {
+        render(data=null){
+            const list = data || Model.items;
+            if(list.length===0){
+                $('#item-table-body').html('<tr><td colspan="6"><div class="empty-state"><i class="bi bi-boxes"></i><p>No parts found</p></div></td></tr>');
+                return;
+            }
+            $('#item-table-body').html(list.map(i=>{
+                const sc = i.qty===0?'stock-out':i.qty<=5?'stock-low':'stock-ok';
+                const sl = i.qty===0?'OUT OF STOCK':i.qty<=5?`LOW: ${i.qty}`:`${i.qty} units`;
+                return `<tr>
+        <td><span class="code-badge">${i.code}</span></td>
+        <td><strong>${i.name}</strong></td>
+        <td style="color:var(--muted);font-size:12px">${i.category}</td>
+        <td style="font-family:var(--font-mono);color:var(--amber)">${fmt(i.price)}</td>
+        <td><span class="stock-badge ${sc}">${sl}</span></td>
+        <td>
+          <div style="display:flex;gap:6px">
+            <button class="btn-edit-pos" onclick="ItemController.openEditModal(${i.id})"><i class="bi bi-pencil"></i> Edit</button>
+            <button class="btn-danger-pos" onclick="ItemController.deleteConfirm(${i.id})"><i class="bi bi-trash"></i> Del</button>
+          </div>
+        </td>
+      </tr>`;
+            }).join(''));
+        },
+
+        search(){
+            const q = $('#item-search').val().toLowerCase();
+            const sf = $('#item-filter-stock').val();
+            let list = Model.items.filter(i=>
+                i.name.toLowerCase().includes(q)||i.code.toLowerCase().includes(q)||i.category.toLowerCase().includes(q)
+            );
+            if(sf==='ok') list=list.filter(i=>i.qty>5);
+            else if(sf==='low') list=list.filter(i=>i.qty>0&&i.qty<=5);
+            else if(sf==='out') list=list.filter(i=>i.qty===0);
+            this.render(list);
+        },
+
+        openAddModal(){
+            $('#itemModalTitle').text('ADD PART');
+            $('#item-id').val(''); $('#item-code').val(''); $('#item-name').val(''); $('#item-price').val(''); $('#item-qty').val(''); $('#item-cat').val('Bumpers');
+            ['item-code','item-name','item-price','item-qty'].forEach(f=>$(`#${f}`).removeClass('is-invalid-pos'));
+            ['err-item-code','err-item-name','err-item-price','err-item-qty'].forEach(f=>$(`#${f}`).hide());
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('itemModal')).show();
+        },
+
+        openEditModal(id){
+            const it = Model.getItemById(id);
+            if(!it) return;
+            $('#itemModalTitle').text('EDIT PART');
+            $('#item-id').val(it.id); $('#item-code').val(it.code); $('#item-name').val(it.name);
+            $('#item-price').val(it.price); $('#item-qty').val(it.qty); $('#item-cat').val(it.category);
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('itemModal')).show();
+        },
+
+        save(){
+            const id = $('#item-id').val();
+            const code = $('#item-code').val().trim().toUpperCase();
+            const name = $('#item-name').val().trim();
+            const price = parseFloat($('#item-price').val());
+            const qty = parseInt($('#item-qty').val());
+            const category = $('#item-cat').val();
+            let valid = true;
+
+            // code unique check
+            const dupCode = Model.items.find(i=>i.code===code&&i.id!=id);
+            if(!code||dupCode){ $('#item-code').addClass('is-invalid-pos'); $('#err-item-code').show().text(!code?'Code is required':'Code already exists'); valid=false; }
+            else { $('#item-code').removeClass('is-invalid-pos'); $('#err-item-code').hide(); }
+
+            if(!name){ $('#item-name').addClass('is-invalid-pos'); $('#err-item-name').show(); valid=false; }
+            else { $('#item-name').removeClass('is-invalid-pos'); $('#err-item-name').hide(); }
+
+            if(isNaN(price)||price<0){ $('#item-price').addClass('is-invalid-pos'); $('#err-item-price').show(); valid=false; }
+            else { $('#item-price').removeClass('is-invalid-pos'); $('#err-item-price').hide(); }
+
+            if(isNaN(qty)||qty<0){ $('#item-qty').addClass('is-invalid-pos'); $('#err-item-qty').show(); valid=false; }
+            else { $('#item-qty').removeClass('is-invalid-pos'); $('#err-item-qty').hide(); }
+
+            if(!valid) return;
+
+            if(id){
+                const it = Model.getItemById(parseInt(id));
+                it.code=code; it.name=name; it.price=price; it.qty=qty; it.category=category;
+                toast('Part updated successfully');
+            } else {
+                Model.items.push({id:Model.nextItemId(), code, name, price, qty, category});
+                toast('Part added to inventory');
+            }
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('itemModal')).hide();
+            this.render();
+            DashController.refresh();
+        },
+
+        deleteConfirm(id){
+            const it = Model.getItemById(id);
+            showConfirm(`Delete part "${it.name} (${it.code})"?`, ()=>this.delete(id));
+        },
+
+        delete(id){
+            Model.items = Model.items.filter(i=>i.id!==id);
+            this.render();
+            DashController.refresh();
+            toast('Part removed from inventory','warn');
+        }
+    };
+
+    // ════════════════════════════════════════════
+    //  ORDER CONTROLLER
+    // ════════════════════════════════════════════
+    const OrderController = {
+        _orderId: null,
+
+        init(){
+            this._orderId = Model.nextOrderId();
+            Model.ordIdSeq = (Model.ordIdSeq||1); // keep consistent
+            Model.orderIdSeq--; // will be re-assigned on place
+            this._orderId = null;
+            this.refreshCustomerDropdown();
+            this.renderItemGrid();
+            this.renderCart();
+            $('#order-discount').val(0);
+            $('#order-cash').val('');
+        },
+
+        refreshCustomerDropdown(){
+            const cur = $('#order-customer').val();
+            $('#order-customer').html('<option value="">— Choose Customer —</option>' +
+                Model.customers.map(c=>`<option value="${c.id}" ${c.id==cur?'selected':''}>${c.name} — ${c.phone}</option>`).join(''));
+        },
+
+        renderItemGrid(query=''){
+            const q = query.toLowerCase();
+            const list = Model.items.filter(i=>!q||(i.name.toLowerCase().includes(q)||i.code.toLowerCase().includes(q)));
+            if(list.length===0){ $('#order-item-grid').html('<div style="grid-column:1/-1"><div class="empty-state"><i class="bi bi-boxes"></i><p>No parts found</p></div></div>'); return; }
+            $('#order-item-grid').html(list.map(i=>{
+                const inCart = Model.cart.find(c=>c.itemId===i.id);
+                const out = i.qty===0;
+                const sc = i.qty===0?'stock-out':i.qty<=5?'stock-low':'stock-ok';
+                return `<div class="item-tile ${inCart?'selected':''} ${out?'out':''}" onclick="OrderController.addToCart(${i.id})" id="tile-${i.id}">
+        <div class="item-tile-code">${i.code}</div>
+        <div class="item-tile-name">${i.name}</div>
+        <div class="item-tile-price">${fmt(i.price)}</div>
+        <div class="item-tile-stock"><span class="stock-badge ${sc}">${out?'OUT':i.qty+' left'}</span></div>
+        ${inCart?'<div style="margin-top:4px"><i class="bi bi-check-circle-fill" style="color:var(--amber);font-size:12px"></i></div>':''}
+      </div>`;
+            }).join(''));
+        },
+
+        filterItemGrid(){
+            this.renderItemGrid($('#order-item-search').val());
+        },
+
+        addToCart(itemId){
+            const it = Model.getItemById(itemId);
+            if(!it||it.qty===0) return;
+            const existing = Model.cart.find(c=>c.itemId===itemId);
+            if(existing){
+                if(existing.qty < it.qty){ existing.qty++; }
+                else { toast(`Max stock reached (${it.qty})`, 'warn'); return; }
+            } else {
+                Model.cart.push({itemId, name:it.name, code:it.code, price:it.price, qty:1, maxQty:it.qty});
+            }
+            this.renderCart();
+            this.renderItemGrid($('#order-item-search').val());
+        },
+
+        removeFromCart(itemId){
+            Model.cart = Model.cart.filter(c=>c.itemId!==itemId);
+            this.renderCart();
+            this.renderItemGrid($('#order-item-search').val());
+        },
+
+        updateQty(itemId, val){
+            const c = Model.cart.find(c=>c.itemId===itemId);
+            if(!c) return;
+            const n = parseInt(val);
+            if(isNaN(n)||n<1){ c.qty=1; }
+            else if(n>c.maxQty){ c.qty=c.maxQty; toast(`Max available: ${c.maxQty}`, 'warn'); }
+            else { c.qty=n; }
+            this.renderCart();
+        },
+
+        renderCart(){
+            if(Model.cart.length===0){
+                $('#order-cart-items').html('<div class="empty-state"><i class="bi bi-cart-x"></i><p>No parts added yet</p></div>');
+                $('#order-summary').hide();
+                return;
+            }
+            $('#order-cart-items').html(Model.cart.map(c=>`
+      <div class="order-item-row">
+        <div style="flex:1">
+          <div class="order-item-name">${c.name}</div>
+          <div class="order-item-code">${c.code} · ${fmt(c.price)} each</div>
+        </div>
+        <input type="number" class="form-control order-qty-input" value="${c.qty}" min="1" max="${c.maxQty}"
+          onchange="OrderController.updateQty(${c.itemId}, this.value)"
+          style="width:60px;padding:5px 8px;font-family:var(--font-mono);font-size:12px">
+        <div class="order-item-total">${fmt(c.price * c.qty)}</div>
+        <button onclick="OrderController.removeFromCart(${c.itemId})" style="background:none;border:none;color:var(--muted);cursor:pointer;padding:4px;font-size:16px" title="Remove">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>`).join(''));
+            $('#order-summary').show();
+            this.recalc();
+        },
+
+        recalc(){
+            const sub = Model.cart.reduce((s,c)=>s+(c.price*c.qty),0);
+            const disc = Math.max(0, Math.min(100, parseFloat($('#order-discount').val())||0));
+            const grand = sub * (1 - disc/100);
+            const cash = parseFloat($('#order-cash').val())||0;
+            const change = Math.max(0, cash - grand);
+            $('#ot-subtotal').text(fmt(sub));
+            $('#ot-grand').text(fmt(grand));
+            $('#ot-change').text(fmt(change));
+            if(cash > 0 && cash < grand){
+                $('#ot-change').css('color','var(--danger)').text('⚠ Insufficient');
+            } else {
+                $('#ot-change').css('color','var(--success)');
+            }
+        },
+
+        clearCart(){
+            Model.cart = [];
+            this.renderCart();
+            this.renderItemGrid();
+        },
+
+        placeOrder(){
+            // Validate customer
+            const custId = parseInt($('#order-customer').val());
+            if(!custId){ $('#order-customer').addClass('is-invalid-pos'); $('#order-customer-err').show(); toast('Please select a customer','error'); return; }
+            $('#order-customer').removeClass('is-invalid-pos'); $('#order-customer-err').hide();
+
+            if(Model.cart.length===0){ toast('Add at least one part to the order','error'); return; }
+
+            const cash = parseFloat($('#order-cash').val())||0;
+            const sub = Model.cart.reduce((s,c)=>s+(c.price*c.qty),0);
+            const disc = Math.max(0, Math.min(100, parseFloat($('#order-discount').val())||0));
+            const grand = sub*(1-disc/100);
+
+            if(cash > 0 && cash < grand){ toast('Cash tendered is less than grand total','error'); return; }
+
+            const customer = Model.getCustomerById(custId);
+            const orderId = Model.nextOrderId();
+
+            // Deduct stock
+            Model.cart.forEach(c=>{
+                const it = Model.getItemById(c.itemId);
+                it.qty -= c.qty;
+            });
+
+            // Record order
+            const order = {
+                id: orderId,
+                customerId: custId,
+                customerName: customer.name,
+                customerPhone: customer.phone,
+                items: Model.cart.map(c=>({...c})),
+                subtotal: sub,
+                discount: disc,
+                grand: grand,
+                cash: cash,
+                change: Math.max(0, cash-grand),
+                date: now()
+            };
+            Model.orders.push(order);
+            Model.cart = [];
+
+            // Show confirmation
+            $('#order-confirm-body').html(`
+      <div style="text-align:center;margin-bottom:20px">
+        <span class="code-badge" style="font-size:16px;padding:8px 16px">${orderId}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+        <span style="color:var(--muted)">Customer</span><strong>${customer.name}</strong>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+        <span style="color:var(--muted)">Items</span><span>${order.items.length} part(s)</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+        <span style="color:var(--muted)">Discount</span><span>${disc}%</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px;border-top:1px solid var(--border);padding-top:10px">
+        <span style="font-family:var(--font-display);font-size:16px;font-weight:700">GRAND TOTAL</span>
+        <span style="font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--amber)">${fmt(grand)}</span>
+      </div>
+      ${cash>0?`<div style="display:flex;justify-content:space-between"><span style="color:var(--muted)">Change</span><span style="color:var(--success);font-family:var(--font-mono)">${fmt(Math.max(0,cash-grand))}</span></div>`:''}
+      <div style="text-align:center;margin-top:16px;color:var(--muted);font-family:var(--font-mono);font-size:11px">${order.date}</div>
+    `);
+
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('orderConfirmModal')).show();
+            DashController.refresh();
+            toast(`Order ${orderId} placed successfully!`);
+        },
+
+        newOrder(){
+            Model.cart = [];
+            $('#order-customer').val('');
+            this.init();
+        }
+    };
+
+    // ════════════════════════════════════════════
+    //  HISTORY CONTROLLER
+    // ════════════════════════════════════════════
+    const HistoryController = {
+        render(data=null){
+            const list = data || [...Model.orders].reverse();
+            if(list.length===0){
+                $('#history-list').html('<div class="empty-state"><i class="bi bi-clock-history"></i><p>No orders recorded yet</p></div>');
+                return;
+            }
+            $('#history-list').html(list.map(o=>`
+      <div class="order-history-card">
+        <div class="order-history-header" onclick="HistoryController.toggle('${o.id}')">
+          <div>
+            <span class="order-id">${o.id}</span>
+            <span style="color:var(--steel);font-size:13px;margin-left:12px">${o.customerName}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--amber)">${fmt(o.grand)}</span>
+            <span style="color:var(--muted);font-size:11px;font-family:var(--font-mono)">${o.date}</span>
+            <i class="bi bi-chevron-down" style="color:var(--muted)" id="chevron-${o.id}"></i>
+          </div>
+        </div>
+        <div class="order-history-body" id="ohb-${o.id}">
+          <table class="table-pos"><thead><tr><th>CODE</th><th>PART</th><th>QTY</th><th>UNIT</th><th>TOTAL</th></tr></thead>
+          <tbody>${o.items.map(it=>`
+            <tr>
+              <td><span class="code-badge">${it.code}</span></td>
+              <td>${it.name}</td>
+              <td style="font-family:var(--font-mono)">${it.qty}</td>
+              <td style="font-family:var(--font-mono)">${fmt(it.price)}</td>
+              <td style="font-family:var(--font-mono);color:var(--amber)">${fmt(it.price*it.qty)}</td>
+            </tr>`).join('')}
+          </tbody></table>
+          <div style="text-align:right;margin-top:10px;font-size:13px;color:var(--muted)">
+            Subtotal: <strong style="font-family:var(--font-mono)">${fmt(o.subtotal)}</strong>
+            ${o.discount>0?` &nbsp;|&nbsp; Discount: <strong>${o.discount}%</strong>`:''}
+            &nbsp;|&nbsp; Grand: <strong style="color:var(--amber);font-family:var(--font-mono)">${fmt(o.grand)}</strong>
+            ${o.cash>0?` &nbsp;|&nbsp; Cash: <strong style="font-family:var(--font-mono)">${fmt(o.cash)}</strong> &nbsp;|&nbsp; Change: <strong style="color:var(--success);font-family:var(--font-mono)">${fmt(o.change)}</strong>`:''}
+          </div>
+        </div>
+      </div>`).join(''));
+        },
+
+        toggle(id){
+            const $body = $(`#ohb-${id}`);
+            const $chev = $(`#chevron-${id}`);
+            $body.toggleClass('open');
+            $chev.toggleClass('bi-chevron-down bi-chevron-up');
+        },
+
+        search(){
+            const q = $('#history-search').val().toLowerCase();
+            const filtered = Model.orders.filter(o=>
+                o.id.toLowerCase().includes(q)||o.customerName.toLowerCase().includes(q)
+            ).reverse();
+            this.render(filtered);
+        }
+    };
+
+    // ════════════════════════════════════════════
+    //  BOOTSTRAP MODAL DARK BACKDROP
+    // ════════════════════════════════════════════
+    document.addEventListener('show.bs.modal', ()=>{
+        document.querySelectorAll('.modal-backdrop').forEach(el=>el.style.background='rgba(0,0,0,.7)');
+    });
+
+    // ════════════════════════════════════════════
+    //  INIT
+    // ════════════════════════════════════════════
+    $(document).ready(()=>{
+        $('#login-user, #login-pass').on('keypress', e=>{ if(e.which===13) AuthController.login(); });
+        // Ensure dashboard is active page on load
+        navigate('dashboard');
+        DashController.refresh();
+    });
+</script>
+</body>
+</html>
