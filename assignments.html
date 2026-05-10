@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magic Reveal Assignments</title>
+    <title>Magic Reveal Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --c1: #f3e5f5; --c2: #fce4ec; --c3: #ede7f6; --c4: #f8bbd0; --c5: #e1bee7;
-            --c6: #f0f4c3; --c7: #e0f2f1; --c8: #fff9c4; --c9: #ffe0b2; --c10: #d1c4e9;
-            --text-main: #5d4037;
+            --text-main: #4a148c; /* තද දම් පාටක් අකුරු වලට */
             --page-bg: #fdfbff;
         }
 
@@ -27,35 +25,48 @@
         .section-header {
             width: 90%;
             margin-left: 5%;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .section-header h2 {
             font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
-            color: var(--text-main);
+            color: #2d3436;
             margin: 0;
         }
 
+        /* පින්තූරයේ හැඩයට ගැලපෙන Grid එක */
         .rectangle-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(5, 1fr); /* පේළියකට 5 බැගින් */
             width: 100%;
-            min-height: 500px;
+            max-width: 1400px; /* මැදට තියෙන්න */
+            margin: 0 auto;
+            gap: 0;
             background-color: var(--page-bg);
         }
 
         .exercise-item {
             position: relative;
-            height: 250px;
+            height: 350px;
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0; /* Initially hidden */
-            transition: opacity 0.4s ease, transform 0.4s ease;
+
+            /* මුලින් ඉතාම ලාවට පෙනෙන්න (Very light visibility) */
+            opacity: 0.05;
+
+            transition: opacity 0.6s ease-in-out, transform 0.4s ease;
             cursor: pointer;
+
+            /* Background Image Setup */
+            background-image: url('assets/lib/images/image_dea5e1.jpg');
+            background-size: 500% 200%;
+            background-repeat: no-repeat;
+            image-rendering: -webkit-optimize-contrast;
         }
 
+        /* Hover කරද්දී පින්තූරයේ කොටස පෑදීම */
         .exercise-item:hover {
             opacity: 1;
             z-index: 10;
@@ -67,12 +78,19 @@
             flex-direction: column;
             gap: 15px;
             align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            width: 100%;
+            height: 100%;
+            justify-content: center;
         }
 
         .ex-label {
             font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--text-main);
+            font-size: 1.2rem;
+            color: #000;
+            background: rgba(255,255,255,0.6);
+            padding: 2px 10px;
+            border-radius: 5px;
         }
 
         .btn-group {
@@ -81,12 +99,12 @@
         }
 
         .btn {
-            padding: 6px 14px;
-            border-radius: 4px;
-            border: 1px solid var(--text-main);
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: 1.5px solid var(--text-main);
             background: white;
             color: var(--text-main);
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 600;
             text-decoration: none;
             cursor: pointer;
@@ -96,27 +114,26 @@
         .btn:hover {
             background: var(--text-main);
             color: white;
+            box-shadow: 0 0 15px rgba(74, 20, 140, 0.3);
         }
 
-        /* Improved Modal Size */
+        /* Modal Preview - පින්තූරයේ size එක adjust කළා */
         .modal {
             display: none;
             position: fixed;
             z-index: 9999;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4); /* Darker background to highlight image */
+            background: rgba(0,0,0,0.8);
             align-items: center; justify-content: center;
         }
 
         .modal-content {
-            width: 450px; /* ලොකු කරපු image size එක */
-            max-width: 85%;
-            height: auto;
+            width: 500px; /* පැහැදිලිව පේන්න තව පොඩ්ඩක් ලොකු කළා */
+            max-width: 90%;
             border: 4px solid white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            border-radius: 10px;
+            animation: bounceIn 0.5s ease;
         }
 
         @keyframes bounceIn {
@@ -124,9 +141,19 @@
             to { transform: scale(1); opacity: 1; }
         }
 
+        /* Mobile & Tablet Responsive Logic */
         @media (max-width: 1024px) {
-            .rectangle-grid { grid-template-columns: repeat(2, 1fr); }
+            .rectangle-grid {
+                grid-template-columns: repeat(2, 1fr); /* පේළියකට කොටු 2යි */
+            }
+
+            .exercise-item {
+                height: 200px; /* Mobile එකට ගැලපෙන height එකක් */
+                background-size: 200% 500%; /* Columns 2 සහ Rows 5 නිසා */
+                opacity: 0.1; /* Mobile එකේදී touch කරන්න කලින් පොඩ්ඩක් වැඩියෙන් පේන්න සැලැස්සුවා */
+            }
         }
+
     </style>
 </head>
 <body>
@@ -145,59 +172,83 @@
 </div>
 
 <script>
-    // මෙතන තමයි ඔයාගේ ඇත්තම පින්තූර සහ links දාන්න ඕනේ
+    // ඔබේ ඇත්තම GitHub links සහ screenshots මෙතනට දාන්න
     const assignmentData = [
-        { img: 'assets/lib/images/about.png', git: 'https://github.com/user/repo1' },
-        { img: 'img2.jpg', git: 'https://github.com/user/repo2' },
-        { img: 'img3.jpg', git: 'https://github.com/user/repo3' },
-        { img: 'img4.jpg', git: 'https://github.com/user/repo4' },
-        { img: 'img5.jpg', git: 'https://github.com/user/repo5' },
-        { img: 'img6.jpg', git: 'https://github.com/user/repo6' },
-        { img: 'img7.jpg', git: 'https://github.com/user/repo7' },
-        { img: 'img8.jpg', git: 'https://github.com/user/repo8' },
-        { img: 'img9.jpg', git: 'https://github.com/user/repo9' },
-        { img: 'img10.jpg', git: 'https://github.com/user/repo10' }
+        { img: 'assignment1.png', git: 'https://github.com/Dinshini/ex1' },
+        { img: 'assignment2.png', git: 'https://github.com/Dinshini/ex2' },
+        { img: 'assignment3.png', git: 'https://github.com/Dinshini/ex3' },
+        { img: 'assignment4.png', git: 'https://github.com/Dinshini/ex4' },
+        { img: 'assignment5.png', git: 'https://github.com/Dinshini/ex5' },
+        { img: 'assignment6.png', git: 'https://github.com/Dinshini/ex6' },
+        { img: 'assignment7.png', git: 'https://github.com/Dinshini/ex7' },
+        { img: 'assignment8.png', git: 'https://github.com/Dinshini/ex8' },
+        { img: 'assignment9.png', git: 'https://github.com/Dinshini/ex9' },
+        { img: 'assignment10.png', git: 'https://github.com/Dinshini/ex10' }
     ];
 
-    const colors = ['--c1', '--c2', '--c3', '--c4', '--c5', '--c6', '--c7', '--c8', '--c9', '--c10'];
     const grid = document.getElementById('mainGrid');
+    const items = []; // Items ටික track කරගන්න array එකක්
 
-    for(let i=1; i<=10; i++) {
-        const item = document.createElement('div');
-        const data = assignmentData[i-1]; // Get data from the array
+    function updateLayout() {
+        const isMobile = window.innerWidth <= 1024;
 
-        item.className = 'exercise-item';
-        item.style.backgroundColor = `var(${colors[i-1]})`;
-
-        item.innerHTML = `
-                <div class="content-box">
-                    <span class="ex-label">Exercise ${i < 10 ? '0'+i : i}</span>
-                    <div class="btn-group">
-                        <button class="btn" onclick="openModal('${data.img}', event)">VIEW</button>
-                        <a href="${data.git}" target="_blank" class="btn">CODE</a>
-                    </div>
-                </div>
-            `;
-        grid.appendChild(item);
-
-        // Floating movement logic
-        let angle = Math.random() * 360;
-        function float() {
-            const x = Math.sin(angle) * 10;
-            const y = Math.cos(angle) * 10;
-            item.style.transform = `translate(${x}px, ${y}px)`;
-            angle += 0.02;
-            requestAnimationFrame(float);
-        }
-        float();
+        items.forEach((item, i) => {
+            let xPos, yPos;
+            if (isMobile) {
+                // Mobile (2 columns, 5 rows) logic
+                xPos = (i % 2) * 100; // 0% හෝ 100%
+                yPos = Math.floor(i / 2) * 25; // 0, 25, 50, 75, 100
+            } else {
+                // Desktop (5 columns, 2 rows) logic
+                xPos = (i % 5) * 25; // 0, 25, 50, 75, 100
+                yPos = Math.floor(i / 5) * 100; // 0% හෝ 100%
+            }
+            item.style.backgroundPosition = `${xPos}% ${yPos}%`;
+        });
     }
 
+    // Grid එක මුලින්ම build කිරීම
+    for(let i=0; i<10; i++) {
+        const item = document.createElement('div');
+        item.className = 'exercise-item';
+        const data = assignmentData[i];
+
+        item.innerHTML = `
+            <div class="content-box">
+                <span class="ex-label">Exercise ${i + 1 < 10 ? '0'+(i+1) : i+1}</span>
+                <div class="btn-group">
+                    <button class="btn" onclick="openModal('${data.img}', event)">VIEW</button>
+                    <a href="${data.git}" target="_blank" class="btn">CODE</a>
+                </div>
+            </div>
+        `;
+
+        grid.appendChild(item);
+        items.push(item); // Update කරන්න ලේසි වෙන්න array එකට දානවා
+
+        // Floating Animation
+        let angle = Math.random() * 360;
+        function floatEffect() {
+            const moveX = Math.sin(angle) * 7;
+            const moveY = Math.cos(angle) * 7;
+            item.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            angle += 0.015;
+            requestAnimationFrame(floatEffect);
+        }
+        floatEffect();
+    }
+
+    // මුලින්ම layout එක සෙට් කරන්න
+    updateLayout();
+
+    // Screen එකේ size එක වෙනස් වෙද්දී (Rotate කරද්දී හෝ resize කරද්දී) auto update වෙන්න
+    window.addEventListener('resize', updateLayout);
+
     function openModal(imgSrc, event) {
-        event.stopPropagation(); // Prevents grid logic from interfering
+        event.stopPropagation();
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('img01');
         modal.style.display = "flex";
-        // ඇත්තම path එක මෙතන වැඩ කරයි
         modalImg.src = imgSrc;
     }
 
@@ -205,6 +256,5 @@
         document.getElementById('imageModal').style.display = "none";
     }
 </script>
-
 </body>
 </html>
