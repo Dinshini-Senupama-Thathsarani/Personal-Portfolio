@@ -3,165 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rapunzel Theme Assignments</title>
+    <title>Magic Reveal Assignments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --rapunzel-purple: #6a4c93;
-            --magic-gold: #ffd700;
-            --soft-lavender: #e0dbff;
-            --tower-stone: #f4f4f9;
+            --c1: #f3e5f5; --c2: #fce4ec; --c3: #ede7f6; --c4: #f8bbd0; --c5: #e1bee7;
+            --c6: #f0f4c3; --c7: #e0f2f1; --c8: #fff9c4; --c9: #ffe0b2; --c10: #d1c4e9;
+            --text-main: #5d4037;
+            --page-bg: #fdfbff;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--tower-stone);
+            background-color: var(--page-bg);
             margin: 0;
-            padding: 50px 0;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .assignments-section {
-            text-align: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        .assignments-container {
+            width: 100%;
+            padding: 80px 0;
         }
 
-        /* Section Heading */
-        .section-title {
-            font-size: 3rem;
-            color: var(--rapunzel-purple);
-            text-transform: uppercase;
-            letter-spacing: 5px;
+        .section-header {
+            width: 90%;
+            margin-left: 5%;
             margin-bottom: 50px;
-            position: relative;
-            display: inline-block;
-            text-shadow: 2px 2px 10px rgba(106, 76, 147, 0.2);
         }
 
-        .section-title::after {
-            content: '✨';
-            position: absolute;
-            right: -40px;
-            top: 0;
-            animation: sparkle 2s infinite;
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--text-main);
+            margin: 0;
         }
 
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        /* Container Grid */
-        .exercises-grid {
+        .rectangle-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            padding: 20px;
+            grid-template-columns: repeat(5, 1fr);
+            width: 100%;
+            min-height: 500px;
+            background-color: var(--page-bg);
         }
 
-        /* Exercise Card Styling */
-        .exercise-card {
-            background: white;
-            height: 180px;
-            border-radius: 20px;
+        .exercise-item {
+            position: relative;
+            height: 250px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.4s ease, transform 0.4s ease;
             cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
-        /* Initial State: Hidden Content */
-        .card-inner {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s ease;
-            text-align: center;
-            padding: 20px;
-            z-index: 2;
-        }
-
-        .card-number {
-            position: absolute;
-            font-size: 5rem;
-            font-weight: bold;
-            color: rgba(106, 76, 147, 0.05);
-            transition: 0.5s;
-        }
-
-        /* Magic Glow Hover Effect */
-        .exercise-card:hover {
-            border-color: var(--magic-gold);
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
-            background: linear-gradient(135deg, #ffffff 0%, var(--soft-lavender) 100%);
-        }
-
-        .exercise-card:hover .card-inner {
+        .exercise-item:hover {
             opacity: 1;
-            transform: translateY(0);
+            z-index: 10;
         }
 
-        .exercise-card:hover .card-number {
-            color: rgba(255, 215, 0, 0.2);
-            transform: scale(1.2) rotate(-10deg);
+        .content-box {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
         }
 
-        .card-inner h3 {
-            color: var(--rapunzel-purple);
-            margin: 0 0 10px 0;
-            font-size: 1.2rem;
+        .ex-label {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-main);
         }
 
-        .card-inner p {
-            font-size: 0.9rem;
-            color: #666;
-            margin: 0;
+        .btn-group {
+            display: flex;
+            gap: 10px;
         }
 
-        /* Floating Hair Line Animation */
-        .exercise-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 4px;
-            background: var(--magic-gold);
-            transition: 0.5s;
+        .btn {
+            padding: 6px 14px;
+            border-radius: 4px;
+            border: 1px solid var(--text-main);
+            background: white;
+            color: var(--text-main);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .exercise-card:hover::before {
-            left: 0;
+        .btn:hover {
+            background: var(--text-main);
+            color: white;
         }
 
+        /* Improved Modal Size */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); /* Darker background to highlight image */
+            align-items: center; justify-content: center;
+        }
+
+        .modal-content {
+            width: 450px; /* ලොකු කරපු image size එක */
+            max-width: 85%;
+            height: auto;
+            border: 4px solid white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        @keyframes bounceIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 1024px) {
+            .rectangle-grid { grid-template-columns: repeat(2, 1fr); }
+        }
     </style>
 </head>
 <body>
 
-<section class="assignments-section">
-    <h2 class="section-title">Academic Assignments</h2>
+<section class="assignments-container">
+    <div class="section-header">
+        <h2>Assignments</h2>
+    </div>
 
-    <div class="exercises-grid">
-        <script>
-            for (let i = 1; i <= 10; i++) {
-                document.write(`
-                        <div class="exercise-card">
-                            <div class="card-number">${i.toString().padStart(2, '0')}</div>
-                            <div class="card-inner">
-                                <h3>Exercise ${i}</h3>
-                                <p>Logic & Styling Task</p>
-                            </div>
-                        </div>
-                    `);
-            }
-        </script>
+    <div class="rectangle-grid" id="mainGrid">
     </div>
 </section>
+
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <img class="modal-content" id="img01">
+</div>
+
+<script>
+    // මෙතන තමයි ඔයාගේ ඇත්තම පින්තූර සහ links දාන්න ඕනේ
+    const assignmentData = [
+        { img: 'assets/lib/images/about.png', git: 'https://github.com/user/repo1' },
+        { img: 'img2.jpg', git: 'https://github.com/user/repo2' },
+        { img: 'img3.jpg', git: 'https://github.com/user/repo3' },
+        { img: 'img4.jpg', git: 'https://github.com/user/repo4' },
+        { img: 'img5.jpg', git: 'https://github.com/user/repo5' },
+        { img: 'img6.jpg', git: 'https://github.com/user/repo6' },
+        { img: 'img7.jpg', git: 'https://github.com/user/repo7' },
+        { img: 'img8.jpg', git: 'https://github.com/user/repo8' },
+        { img: 'img9.jpg', git: 'https://github.com/user/repo9' },
+        { img: 'img10.jpg', git: 'https://github.com/user/repo10' }
+    ];
+
+    const colors = ['--c1', '--c2', '--c3', '--c4', '--c5', '--c6', '--c7', '--c8', '--c9', '--c10'];
+    const grid = document.getElementById('mainGrid');
+
+    for(let i=1; i<=10; i++) {
+        const item = document.createElement('div');
+        const data = assignmentData[i-1]; // Get data from the array
+
+        item.className = 'exercise-item';
+        item.style.backgroundColor = `var(${colors[i-1]})`;
+
+        item.innerHTML = `
+                <div class="content-box">
+                    <span class="ex-label">Exercise ${i < 10 ? '0'+i : i}</span>
+                    <div class="btn-group">
+                        <button class="btn" onclick="openModal('${data.img}', event)">VIEW</button>
+                        <a href="${data.git}" target="_blank" class="btn">CODE</a>
+                    </div>
+                </div>
+            `;
+        grid.appendChild(item);
+
+        // Floating movement logic
+        let angle = Math.random() * 360;
+        function float() {
+            const x = Math.sin(angle) * 10;
+            const y = Math.cos(angle) * 10;
+            item.style.transform = `translate(${x}px, ${y}px)`;
+            angle += 0.02;
+            requestAnimationFrame(float);
+        }
+        float();
+    }
+
+    function openModal(imgSrc, event) {
+        event.stopPropagation(); // Prevents grid logic from interfering
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('img01');
+        modal.style.display = "flex";
+        // ඇත්තම path එක මෙතන වැඩ කරයි
+        modalImg.src = imgSrc;
+    }
+
+    function closeModal() {
+        document.getElementById('imageModal').style.display = "none";
+    }
+</script>
 
 </body>
 </html>
