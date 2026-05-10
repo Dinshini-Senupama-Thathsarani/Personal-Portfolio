@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapunzel Theme Assignments</title>
+    <style>
+        :root {
+            --rapunzel-purple: #6a4c93;
+            --magic-gold: #ffd700;
+            --soft-lavender: #e0dbff;
+            --tower-stone: #f4f4f9;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--tower-stone);
+            margin: 0;
+            padding: 50px 0;
+        }
+
+        .assignments-section {
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Section Heading */
+        .section-title {
+            font-size: 3rem;
+            color: var(--rapunzel-purple);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            text-shadow: 2px 2px 10px rgba(106, 76, 147, 0.2);
+        }
+
+        .section-title::after {
+            content: '✨';
+            position: absolute;
+            right: -40px;
+            top: 0;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Container Grid */
+        .exercises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+
+        /* Exercise Card Styling */
+        .exercise-card {
+            background: white;
+            height: 180px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Initial State: Hidden Content */
+        .card-inner {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            text-align: center;
+            padding: 20px;
+            z-index: 2;
+        }
+
+        .card-number {
+            position: absolute;
+            font-size: 5rem;
+            font-weight: bold;
+            color: rgba(106, 76, 147, 0.05);
+            transition: 0.5s;
+        }
+
+        /* Magic Glow Hover Effect */
+        .exercise-card:hover {
+            border-color: var(--magic-gold);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            background: linear-gradient(135deg, #ffffff 0%, var(--soft-lavender) 100%);
+        }
+
+        .exercise-card:hover .card-inner {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .exercise-card:hover .card-number {
+            color: rgba(255, 215, 0, 0.2);
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        .card-inner h3 {
+            color: var(--rapunzel-purple);
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+        }
+
+        .card-inner p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Floating Hair Line Animation */
+        .exercise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: var(--magic-gold);
+            transition: 0.5s;
+        }
+
+        .exercise-card:hover::before {
+            left: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<section class="assignments-section">
+    <h2 class="section-title">Academic Assignments</h2>
+
+    <div class="exercises-grid">
+        <script>
+            for (let i = 1; i <= 10; i++) {
+                document.write(`
+                        <div class="exercise-card">
+                            <div class="card-number">${i.toString().padStart(2, '0')}</div>
+                            <div class="card-inner">
+                                <h3>Exercise ${i}</h3>
+                                <p>Logic & Styling Task</p>
+                            </div>
+                        </div>
+                    `);
+            }
+        </script>
+    </div>
+</section>
+
+</body>
+</html>
