@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magic Reveal Portfolio</title>
+    <title>Tower of Dinshini - Assignments</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --text-main: #4a148c; /* තද දම් පාටක් අකුරු වලට */
+            --text-main: #4a148c;
             --page-bg: #fdfbff;
         }
 
@@ -15,6 +15,7 @@
             background-color: var(--page-bg);
             margin: 0;
             font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
         }
 
         .assignments-container {
@@ -35,12 +36,11 @@
             margin: 0;
         }
 
-        /* පින්තූරයේ හැඩයට ගැලපෙන Grid එක */
         .rectangle-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* පේළියකට 5 බැගින් */
+            grid-template-columns: repeat(5, 1fr);
             width: 100%;
-            max-width: 1400px; /* මැදට තියෙන්න */
+            max-width: 1400px;
             margin: 0 auto;
             gap: 0;
             background-color: var(--page-bg);
@@ -52,21 +52,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-
-            /* මුලින් ඉතාම ලාවට පෙනෙන්න (Very light visibility) */
-            opacity: 0.05;
-
+            opacity: 0.05; /* ලාවට පෙනීම */
             transition: opacity 0.6s ease-in-out, transform 0.4s ease;
             cursor: pointer;
 
-            /* Background Image Setup */
+            /* Desktop Background - Landscape Image */
             background-image: url('assets/lib/images/image_dea5e1.jpg');
             background-size: 500% 200%;
             background-repeat: no-repeat;
             image-rendering: -webkit-optimize-contrast;
         }
 
-        /* Hover කරද්දී පින්තූරයේ කොටස පෑදීම */
         .exercise-item:hover {
             opacity: 1;
             z-index: 10;
@@ -117,7 +113,6 @@
             box-shadow: 0 0 15px rgba(74, 20, 140, 0.3);
         }
 
-        /* Modal Preview - පින්තූරයේ size එක adjust කළා */
         .modal {
             display: none;
             position: fixed;
@@ -129,7 +124,7 @@
         }
 
         .modal-content {
-            width: 500px; /* පැහැදිලිව පේන්න තව පොඩ්ඩක් ලොකු කළා */
+            width: 500px;
             max-width: 90%;
             border: 4px solid white;
             border-radius: 10px;
@@ -141,19 +136,24 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* Mobile & Tablet Responsive Logic */
+        /* Responsive Logic */
         @media (max-width: 1024px) {
             .rectangle-grid {
-                grid-template-columns: repeat(2, 1fr); /* පේළියකට කොටු 2යි */
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .exercise-item {
-                height: 200px; /* Mobile එකට ගැලපෙන height එකක් */
-                background-size: 200% 500%; /* Columns 2 සහ Rows 5 නිසා */
-                opacity: 0.1; /* Mobile එකේදී touch කරන්න කලින් පොඩ්ඩක් වැඩියෙන් පේන්න සැලැස්සුවා */
+                height: 250px;
+                /* Mobile Background - Portrait Image */
+                background-image: url('assets/lib/images/image_dcccfc.jpg');
+                background-size: 200% 500%;
+                opacity: 0.15; /* Mobile එකේදී පොඩ්ඩක් වැඩියෙන් පෙනීම හොඳයි */
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
             }
         }
-
     </style>
 </head>
 <body>
@@ -163,8 +163,7 @@
         <h2>Assignments</h2>
     </div>
 
-    <div class="rectangle-grid" id="mainGrid">
-    </div>
+    <div class="rectangle-grid" id="mainGrid"></div>
 </section>
 
 <div id="imageModal" class="modal" onclick="closeModal()">
@@ -172,22 +171,21 @@
 </div>
 
 <script>
-    // ඔබේ ඇත්තම GitHub links සහ screenshots මෙතනට දාන්න
     const assignmentData = [
-        { img: 'assignment1.png', git: 'https://github.com/Dinshini/ex1' },
-        { img: 'assignment2.png', git: 'https://github.com/Dinshini/ex2' },
-        { img: 'assignment3.png', git: 'https://github.com/Dinshini/ex3' },
-        { img: 'assignment4.png', git: 'https://github.com/Dinshini/ex4' },
-        { img: 'assignment5.png', git: 'https://github.com/Dinshini/ex5' },
-        { img: 'assignment6.png', git: 'https://github.com/Dinshini/ex6' },
-        { img: 'assignment7.png', git: 'https://github.com/Dinshini/ex7' },
-        { img: 'assignment8.png', git: 'https://github.com/Dinshini/ex8' },
-        { img: 'assignment9.png', git: 'https://github.com/Dinshini/ex9' },
-        { img: 'assignment10.png', git: 'https://github.com/Dinshini/ex10' }
+        { img: 'assets/lib/images/img_1.png', git: 'https://github.com/Dinshini/ex1' },
+        { img: 'assets/lib/images/img_2.png', git: 'https://github.com/Dinshini/ex2' },
+        { img: 'assets/lib/images/img_3.png', git: 'https://github.com/Dinshini/ex3' },
+        { img: 'assets/lib/images/img_4.png', git: 'https://github.com/Dinshini/ex4' },
+        { img: 'assets/lib/images/img_5.png', git: 'https://github.com/Dinshini/ex5' },
+        { img: 'assets/lib/images/img_1.png', git: 'https://github.com/Dinshini/ex6' },
+        { img: 'assets/lib/images/img_2.png', git: 'https://github.com/Dinshini/ex7' },
+        { img: 'assets/lib/images/img_3.png', git: 'https://github.com/Dinshini/ex8' },
+        { img: 'assets/lib/images/img_4.png', git: 'https://github.com/Dinshini/ex9' },
+        { img: 'assets/lib/images/img_5.png', git: 'https://github.com/Dinshini/ex10' }
     ];
 
     const grid = document.getElementById('mainGrid');
-    const items = []; // Items ටික track කරගන්න array එකක්
+    const items = [];
 
     function updateLayout() {
         const isMobile = window.innerWidth <= 1024;
@@ -195,19 +193,18 @@
         items.forEach((item, i) => {
             let xPos, yPos;
             if (isMobile) {
-                // Mobile (2 columns, 5 rows) logic
-                xPos = (i % 2) * 100; // 0% හෝ 100%
-                yPos = Math.floor(i / 2) * 25; // 0, 25, 50, 75, 100
+                // Mobile (2x5 grid) logic
+                xPos = (i % 2) * 100;
+                yPos = Math.floor(i / 2) * 25;
             } else {
-                // Desktop (5 columns, 2 rows) logic
-                xPos = (i % 5) * 25; // 0, 25, 50, 75, 100
-                yPos = Math.floor(i / 5) * 100; // 0% හෝ 100%
+                // Desktop (5x2 grid) logic
+                xPos = (i % 5) * 25;
+                yPos = Math.floor(i / 5) * 100;
             }
             item.style.backgroundPosition = `${xPos}% ${yPos}%`;
         });
     }
 
-    // Grid එක මුලින්ම build කිරීම
     for(let i=0; i<10; i++) {
         const item = document.createElement('div');
         item.className = 'exercise-item';
@@ -224,7 +221,7 @@
         `;
 
         grid.appendChild(item);
-        items.push(item); // Update කරන්න ලේසි වෙන්න array එකට දානවා
+        items.push(item);
 
         // Floating Animation
         let angle = Math.random() * 360;
@@ -238,10 +235,7 @@
         floatEffect();
     }
 
-    // මුලින්ම layout එක සෙට් කරන්න
     updateLayout();
-
-    // Screen එකේ size එක වෙනස් වෙද්දී (Rotate කරද්දී හෝ resize කරද්දී) auto update වෙන්න
     window.addEventListener('resize', updateLayout);
 
     function openModal(imgSrc, event) {
