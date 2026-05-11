@@ -8,6 +8,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
+        * {
+            cursor: none !important; /* සාමාන්‍ය Cursor එක සම්පූර්ණයෙන් අයින් කරයි */
+        }
+
+        #magic-wand {
+            position: fixed;
+            width: 50px; /* යෂ්ටියේ ප්‍රමාණය */
+            height: 50px;
+            background-image: url('assets/lib/images/magic-wand.png'); /* ඔයා එවපු පින්තූරය */
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 10000;
+            /* යෂ්ටිය අතට අහුුවෙන විදිහට පොඩ්ඩක් ඇල කරනවා */
+            transform: translate(-10%, -10%) rotate(-15deg);
+        }
+
+        /* --- 2. GOLDEN SPARKLES (දිලිසෙන කුඩු) --- */
+        .sparkle {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #fff9c4 20%, #fbc02d 100%); /* රන්වන් පැහැය */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 10px #fdd835, 0 0 20px #fbc02d;
+            animation: sparkle-fall 1.2s linear forwards;
+        }
+
+        @keyframes sparkle-fall {
+            0% { transform: scale(1) translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: scale(0) translateY(40px) rotate(180deg); opacity: 0; }
+        }
 
         body {
             margin: 0;
@@ -544,7 +578,7 @@
 
 
 
-
+<div id="magic-wand"></div>
 
 
 
@@ -908,6 +942,43 @@
     }
 
 
+
+
+    const wand = document.getElementById('magic-wand');
+
+    document.addEventListener('mousemove', (e) => {
+        // යෂ්ටිය Cursor එකත් එක්කම යනවා
+        wand.style.left = e.clientX + 'px';
+        wand.style.top = e.clientY + 'px';
+
+        // දිලිසෙන කුඩු මවන්න (පොඩි delay එකක් දාමු තවත් ලස්සන වෙන්න)
+        if (Math.random() > 0.15) {
+            createSparkle(e.clientX, e.clientY);
+        }
+    });
+
+    function createSparkle(x, y) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+
+        // යෂ්ටියේ උඩ තරුව ගාවින්ම කුඩු වැටෙන්න සැලැස්වීම
+        const offsetX = (Math.random() - 0.5) * 25;
+        const offsetY = (Math.random() - 0.5) * 25;
+
+        sparkle.style.left = (x + offsetX) + 'px';
+        sparkle.style.top = (y + offsetY) + 'px';
+
+        // කුඩුවල ප්‍රමාණය random වෙනස් කරනවා
+        const size = Math.random() * 8 + 4;
+        sparkle.style.width = size + 'px';
+        sparkle.style.height = size + 'px';
+
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => {
+            sparkle.remove();
+        }, 1200);
+    }
 
 
 </script>
