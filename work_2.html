@@ -215,6 +215,164 @@
             }
             .cell-pos-text, .cell-portfolio-text { display: none; }
         }
+
+
+
+
+
+
+        :root {
+            --text-main: #4a148c;
+            --page-bg: #fdfbff;
+        }
+
+        .exercise {
+            background-color: var(--page-bg);
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .assignments-container {
+            width: 100%;
+            padding: 80px 0;
+            background-color: var(--page-bg);
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .section-header {
+            width: 90%;
+            margin-left: 5%;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #2d3436;
+            margin: 0;
+        }
+
+        .rectangle-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 0;
+            background-color: var(--page-bg);
+        }
+
+        .exercise-item {
+            position: relative;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.05; /* ලාවට පෙනීම */
+            transition: opacity 0.6s ease-in-out, transform 0.4s ease;
+            cursor: pointer;
+
+            /* Desktop Background - Landscape Image */
+            background-image: url('assets/lib/images/image_dea5e1.jpg');
+            background-size: 500% 200%;
+            background-repeat: no-repeat;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .exercise-item:hover {
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .content-box {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+        }
+
+        .ex-label {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #000;
+            background: rgba(255,255,255,0.6);
+            padding: 2px 10px;
+            border-radius: 5px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: 1.5px solid var(--text-main);
+            background: white;
+            color: var(--text-main);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--text-main);
+            color: white;
+            box-shadow: 0 0 15px rgba(74, 20, 140, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            align-items: center; justify-content: center;
+        }
+
+        .modal-content {
+            width: 500px;
+            max-width: 90%;
+            border: 4px solid white;
+            border-radius: 10px;
+            animation: bounceIn 0.5s ease;
+        }
+
+        @keyframes bounceIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Responsive Logic */
+        @media (max-width: 1024px) {
+            .rectangle-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .exercise-item {
+                height: 250px;
+                /* Mobile Background - Portrait Image */
+                background-image: url('assets/lib/images/image_dcccfc.jpg');
+                background-size: 200% 500%;
+                opacity: 0.15; /* Mobile එකේදී පොඩ්ඩක් වැඩියෙන් පෙනීම හොඳයි */
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+        }
     </style>
 </head>
 
@@ -522,6 +680,12 @@
         document.getElementById('mobileMenu').classList.remove('open');
         document.getElementById('hamburger').classList.remove('open');
     }
+
+
+
+
+
+
 
 </script>
 
