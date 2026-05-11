@@ -687,6 +687,89 @@
 
 
 
+    //assignments js
+        const assignmentData = [
+        { img: 'assets/lib/images/img_1.png', git: 'https://github.com/Dinshini/ex1' },
+        { img: 'assets/lib/images/img_2.png', git: 'https://github.com/Dinshini/ex2' },
+        { img: 'assets/lib/images/img_3.png', git: 'https://github.com/Dinshini/ex3' },
+        { img: 'assets/lib/images/img_4.png', git: 'https://github.com/Dinshini/ex4' },
+        { img: 'assets/lib/images/img_5.png', git: 'https://github.com/Dinshini/ex5' },
+        { img: 'assets/lib/images/img_1.png', git: 'https://github.com/Dinshini/ex6' },
+        { img: 'assets/lib/images/img_2.png', git: 'https://github.com/Dinshini/ex7' },
+        { img: 'assets/lib/images/img_3.png', git: 'https://github.com/Dinshini/ex8' },
+        { img: 'assets/lib/images/img_4.png', git: 'https://github.com/Dinshini/ex9' },
+        { img: 'assets/lib/images/img_5.png', git: 'https://github.com/Dinshini/ex10' }
+        ];
+
+        const grid = document.getElementById('mainGrid');
+        const items = [];
+
+        function updateLayout() {
+        const isMobile = window.innerWidth <= 1024;
+
+        items.forEach((item, i) => {
+        let xPos, yPos;
+        if (isMobile) {
+        // Mobile (2x5 grid) logic
+        xPos = (i % 2) * 100;
+        yPos = Math.floor(i / 2) * 25;
+    } else {
+        // Desktop (5x2 grid) logic
+        xPos = (i % 5) * 25;
+        yPos = Math.floor(i / 5) * 100;
+    }
+        item.style.backgroundPosition = `${xPos}% ${yPos}%`;
+    });
+    }
+
+        for(let i=0; i<10; i++) {
+        const item = document.createElement('div');
+        item.className = 'exercise-item';
+        const data = assignmentData[i];
+
+        item.innerHTML = `
+            <div class="content-box">
+                <span class="ex-label">Exercise ${i + 1 < 10 ? '0'+(i+1) : i+1}</span>
+                <div class="btn-group">
+                    <button class="btn" onclick="openModal('${data.img}', event)">VIEW</button>
+                    <a href="${data.git}" target="_blank" class="btn">CODE</a>
+                </div>
+            </div>
+        `;
+
+        grid.appendChild(item);
+        items.push(item);
+
+        // Floating Animation
+        let angle = Math.random() * 360;
+        function floatEffect() {
+        const moveX = Math.sin(angle) * 7;
+        const moveY = Math.cos(angle) * 7;
+        item.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        angle += 0.015;
+        requestAnimationFrame(floatEffect);
+    }
+        floatEffect();
+    }
+
+        updateLayout();
+        window.addEventListener('resize', updateLayout);
+
+        function openModal(imgSrc, event) {
+        event.stopPropagation();
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('img01');
+        modal.style.display = "flex";
+        modalImg.src = imgSrc;
+    }
+
+        function closeModal() {
+        document.getElementById('imageModal').style.display = "none";
+    }
+
+
+
+
 </script>
 
 <script src="script.js"></script>
