@@ -11,7 +11,12 @@
             --page-bg: #fdfbff;
         }
 
-
+        body {
+            background-color: var(--page-bg);
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
 
         .assignments-container {
             width: 100%;
@@ -168,6 +173,8 @@
 <div id="imageModal" class="modal" onclick="closeModal()">
     <img class="modal-content" id="img01">
 </div>
+
+
 
 <script>
     const assignmentData = [
