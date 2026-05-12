@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower of Dinshini | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- GENERAL STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none !important; /* Magic Wand එක සඳහා */
+        }
+
+        body {
+            background-color: #fdfbff;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- 1. MAGIC WAND & SPARKLES --- */
+        #magic-wand {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            background-image: url('assets/lib/icons/magic-wand.png'); /* ඔයා එවපු යෂ්ටිය */
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-10px, -10px);
+        }
+
+        .sparkle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #fff 10%, #f1c40f 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 8px #f1c40f, 0 0 15px #fff;
+            animation: sparkle-fall 1s linear forwards;
+        }
+
+        @keyframes sparkle-fall {
+            0% { transform: scale(1) translateY(0); opacity: 1; }
+            100% { transform: scale(0) translateY(30px); opacity: 0; }
+        }
+
+        /* --- 2. HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ede9ff; /* ලාවට පෙනෙන background එකක් */
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            color: #1a1014;
+        }
+
+        /* --- 3. ALL-IN-ONE JOURNEY SECTION --- */
+        .magical-journey {
+            padding: 100px 8%;
+            background-color: #fdfbff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .journey-container {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            max-width: 1300px;
+        }
+
+        .journey-info { flex: 1; }
+
+        .journey-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #2d3436;
+            margin-bottom: 25px;
+        }
+
+        .journey-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #636e72;
+            margin-bottom: 35px;
+        }
+
+        /* Collage Frame */
+        .journey-visual { flex: 1; }
+
+        .collage-frame {
+            position: relative;
+            transform: rotate(2deg);
+            transition: 0.5s ease;
+        }
+
+        .collage-frame:hover { transform: rotate(0deg) scale(1.02); }
+
+        .collage-img {
+            width: 100%;
+            border-radius: 30px;
+            border: 8px solid white;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        .magic-btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: #c084fc;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(192, 132, 252, 0.3);
+            transition: 0.3s;
+        }
+
+        .magic-btn:hover {
+            transform: translateY(-5px);
+            background: #a855f7;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .journey-container { flex-direction: column; text-align: center; }
+            .hero-content h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="magic-wand"></div>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Welcome To The <br> Tower Of Dinshini</h1>
+        <p>Web Developer & UI/UX Designer</p>
+    </div>
+</section>
+
+<section class="magical-journey">
+    <div class="journey-container">
+
+        <div class="journey-info">
+            <h2 class="journey-title">The Story Behind the Magic</h2>
+            <p class="journey-description">
+                I am a passionate <strong>Full-Stack Developer</strong> and <strong>UI/UX Designer</strong>.
+                Just like a tower built with precision, my work combines robust technical foundations
+                (Java, MySQL) with elegant design aesthetics.
+            </p>
+            <a href="about.html" class="magic-btn">Explore My Work</a>
+        </div>
+
+        <div class="journey-visual">
+            <div class="collage-frame">
+                <img src="assets/lib/images/image_97bfba.jpg" alt="Skills Collage" class="collage-img">
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    // Wand & Sparkle Logic
+    const wand = document.getElementById('magic-wand');
+
+    document.addEventListener('mousemove', (e) => {
+        wand.style.left = e.clientX + 'px';
+        wand.style.top = e.clientY + 'px';
+
+        if (Math.random() > 0.1) {
+            createSparkle(e.clientX, e.clientY);
+        }
+    });
+
+    function createSparkle(x, y) {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        s.style.left = (x + 5) + 'px';
+        s.style.top = (y + 5) + 'px';
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 1000);
+    }
+</script>
+</body>
+</html>
