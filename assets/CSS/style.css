@@ -2933,8 +2933,9 @@ footer {
     font-size: 1.1rem;
     line-height: 1.8;
     color: #1a1a1a;
-    text-align: left;
     margin-bottom: 30px;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 
@@ -2956,8 +2957,8 @@ footer {
 }
 
 .profile-circle-container {
-    width: 360px;
-    height: 360px;
+    width: 400px;
+    height: 400px;
     border-radius: 50%;
     overflow: hidden;
     background-color: #2D3436;
