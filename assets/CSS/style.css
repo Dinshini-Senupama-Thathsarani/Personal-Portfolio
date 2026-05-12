@@ -1014,7 +1014,7 @@ footer {
 /*
    HERO SECTION
 */
-
+.mobile-only { display: none; }
 .scrolling-container {
     width: 100%;
     background-color: #1a1014;
@@ -1230,95 +1230,56 @@ footer {
 /* ════════════════════════════════
    PHONE  (max 768px)
 ════════════════════════════════ */
+
 @media (max-width: 768px) {
+    .desktop-only { display: none !important; }
+    .mobile-only { display: block !important; }
 
     .hero {
-        flex-direction: column;
-        align-items: center;
-        /* ✅ FIX: padding-top accounts for fixed nav height */
-        padding-top: 75px;
-        min-height: 100svh;
-        /* ✅ FIX: overflow:hidden was clipping content on some phones */
-        overflow: visible;
+        flex-direction: column !important; /* Stack elements vertically */
+        align-items: center !important;
+        padding-top: 10px !important;
+        min-height: 100vh;
+        justify-content: flex-start !important;
     }
 
-    /* ✅ FIX: absolute positioning removed — tower flows naturally */
-    .hero-img-wrap {
-        position: relative;
-        width: 62%;
-        height: auto;
-        left: auto;
-        bottom: auto;
-        margin: 1rem auto 0;
-        /* ✅ FIX: height:90% on absolute parent caused 0px height on mobile */
-        height: auto;
+    /* New Mobile Image Container - Top */
+    .mobile-img-container {
+        width: 70%;
+        margin: 0 auto 20px;
+        order: 1; /* Make image appear first (top) */
     }
 
-    .hero-tower {
-        object-position: center;
-        /* ✅ FIX: height:100% with auto parent = 0px — use explicit auto */
-        height: auto;
+    .hero-rapunzel-mobile {
         width: 100%;
+        height: auto;
+        display: block;
     }
 
-    /* ✅ FIX: left:400px pushed content off screen on mobile */
+    /* Text Content - Bottom */
     .hero-content {
-        position: relative;
-        left: 0;
-        bottom: auto;
-        width: 100%;
-        padding: 1.5rem 1.5rem 3rem;
-        align-items: center;
-        text-align: center;
+        order: 2; /* Make text appear second (bottom) */
+        position: relative !important;
+        left: 0 !important;
+        bottom: auto !important;
+        padding: 1.5rem !important;
+        text-align: center !important;
+        align-items: center !important;
     }
 
     .hero-title {
-        font-size: clamp(1.8rem, 7vw, 3rem);
-        text-align: center;
+        font-size: clamp(1.8rem, 7vw, 2.8rem) !important;
+        text-align: center !important;
     }
 
-    /* ✅ hide inline bio — too cramped on phone */
-    .hero-inline-bio {
-        display: none;
-    }
+    .hero-inline-bio { display: none; } /* Too small for mobile */
 
     .hero-sub {
-        text-align: center;
-        font-size: 1.1rem;
-        /* ✅ FIX: margin-top:130px was pushing sub off screen */
-        margin-top: 1.2rem;
-        margin-left: 0;
-    }
-
-    .hero-sub-small {
-        font-size: 0.75rem;
+        margin-top: 1.5rem !important;
+        margin-left: 0 !important;
+        text-align: center !important;
     }
 }
-
-
-/* ════════════════════════════════
-   SMALL PHONE  (max 480px)
-════════════════════════════════ */
-@media (max-width: 480px) {
-
-    .hero-img-wrap {
-        width: 78%;
-    }
-
-    .hero-title {
-        font-size: clamp(1.5rem, 8vw, 2.4rem);
-    }
-
-    .hero-sub {
-        font-size: 0.95rem;
-    }
-
-    .hero-sub-small {
-        font-size: 0.7rem;
-    }
-}
-
-
 .toast {
     visibility: hidden;
     min-width: 150px; /* Size eka adu kara */

@@ -67,22 +67,17 @@
 
 
 
-
-
-
 <section class="hero" id="hero">
-
-    <!-- ✅ FIX: div ekata .hero-img-wrap class damma -->
-    <!-- before: > div:first-child selector use una — fragile -->
-    <div class="hero-img-wrap">
+    <div class="hero-img-wrap desktop-only">
         <img src="assets/lib/images/new%20tower.png" alt="Tower" class="hero-tower"/>
     </div>
 
-    <!-- text -->
+    <div class="mobile-only mobile-img-container">
+        <img src="assets/lib/images/erasebg-transformed (4) (1).png" alt="Rapunzel" class="hero-rapunzel-mobile">
+    </div>
+
     <div class="hero-content">
-
         <p class="hero-title fade-up">Welcome to the</p>
-
         <p class="hero-title fade-up">
             Tower of
             <span class="hero-inline-bio">
@@ -91,30 +86,23 @@
                 <span class="hero-bio-text">
                     Hi! I'm Dinshini Senupama — Frontend Developer &amp; Web Designer from
                     Sri Lanka, crafting seamless and engaging digital experiences.
-                    You can simply call me Dinshini.
                 </span>
                 <span class="hero-bracket">)</span>
                 <span class="hero-arrow" style="transform:scaleX(-1);display:inline-block;">&#8629;</span>
             </span>
         </p>
-
         <p class="hero-title fade-up">Dinshini Senupam&#257;</p>
 
         <div class="hero-sub fade-up">
             Web Developer &amp; UI/UX Designer
             <span class="hero-sub-small">turning ideas into golden experiences.</span>
         </div>
-
     </div>
 
     <div id="welcome-toast" class="toast">
         Hope your day is 10/10! ✨
     </div>
-
 </section>
-
-
-
 
 
 
