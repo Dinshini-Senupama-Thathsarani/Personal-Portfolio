@@ -3,203 +3,386 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tower of Dinshini | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <title>Editorial Section</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* --- GENERAL STYLES --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: none !important; /* Magic Wand එක සඳහා */
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
         }
 
-        body {
-            background-color: #fdfbff;
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
+        body{
+            font-family:'Inter',sans-serif;
+            background:#0f0b14;
+            overflow-x:hidden;
         }
 
-        /* --- 1. MAGIC WAND & SPARKLES --- */
-        #magic-wand {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            background-image: url('assets/lib/icons/magic-wand.png'); /* ඔයා එවපු යෂ්ටිය */
-            background-size: contain;
-            background-repeat: no-repeat;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-10px, -10px);
+        /* SECTION */
+
+        .editorial-section{
+            width:100%;
+            height:100vh;
+
+            padding:
+                    110px 25px 25px 25px;
+
+            background:
+                    rgba(166, 139, 175, 0.97);
         }
 
-        .sparkle {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            background: radial-gradient(circle, #fff 10%, #f1c40f 100%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            box-shadow: 0 0 8px #f1c40f, 0 0 15px #fff;
-            animation: sparkle-fall 1s linear forwards;
+        /* GRID */
+
+        .editorial-grid{
+
+            width:100%;
+            height:100%;
+
+            display:grid;
+
+            grid-template-columns:
+    1fr 1fr 1fr 1fr 1.2fr;
+
+            grid-template-rows:
+    1fr 1fr 1fr;
+
+            border-top:1px solid rgba(255,255,255,.25);
+            border-left:1px solid rgba(255,255,255,.25);
+
+            backdrop-filter:blur(10px);
         }
 
-        @keyframes sparkle-fall {
-            0% { transform: scale(1) translateY(0); opacity: 1; }
-            100% { transform: scale(0) translateY(30px); opacity: 0; }
+        /* BOX */
+
+        .box{
+
+            position:relative;
+
+            border-right:1px solid rgba(255,255,255,.25);
+            border-bottom:1px solid rgba(255,255,255,.25);
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            overflow:hidden;
+
+            transition:.4s ease;
+
+            background:
+                    rgba(255,255,255,.03);
+
         }
 
-        /* --- 2. HERO SECTION --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #ede9ff; /* ලාවට පෙනෙන background එකක් */
-            position: relative;
+        .box:hover{
+            background:
+                    rgba(255,255,255,.08);
         }
 
-        .hero-content {
-            text-align: center;
-            z-index: 2;
+        /* TEXT */
+
+        .box h2{
+
+            font-family:'Cormorant Garamond',serif;
+            font-size:3rem;
+            font-weight:600;
+
+            color:#f7f2fa;
+
+            transition:.4s;
         }
 
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            color: #1a1014;
+        .box:hover h2{
+            transform:scale(1.06);
+            letter-spacing:1px;
         }
 
-        /* --- 3. ALL-IN-ONE JOURNEY SECTION --- */
-        .magical-journey {
-            padding: 100px 8%;
-            background-color: #fdfbff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* SMALL LABEL */
+
+        .label{
+
+            position:absolute;
+
+            top:18px;
+            left:18px;
+
+            font-size:10px;
+            letter-spacing:2px;
+
+            text-transform:uppercase;
+
+            color:#f1dfff;
         }
 
-        .journey-container {
-            display: flex;
-            align-items: center;
-            gap: 80px;
-            max-width: 1300px;
+        /* IMAGE BOXES */
+
+        .image-box{
+            padding:22px;
         }
 
-        .journey-info { flex: 1; }
+        /* INNER IMAGE CARD */
 
-        .journey-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            color: #2d3436;
-            margin-bottom: 25px;
+        .image-card{
+
+            width:100%;
+            height:100%;
+
+            overflow:hidden;
+
+            position:relative;
+
+            background:#fff;
+
+            box-shadow:
+                    0 20px 40px rgba(0,0,0,.18);
         }
 
-        .journey-description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #636e72;
-            margin-bottom: 35px;
+        /* IMAGES */
+
+        .image-card img{
+
+            position:absolute;
+
+            width:100%;
+            height:100%;
+
+            object-fit:cover;
+
+            opacity:0;
+
+            transition:1s ease;
         }
 
-        /* Collage Frame */
-        .journey-visual { flex: 1; }
-
-        .collage-frame {
-            position: relative;
-            transform: rotate(2deg);
-            transition: 0.5s ease;
+        .image-card img.active{
+            opacity:1;
         }
 
-        .collage-frame:hover { transform: rotate(0deg) scale(1.02); }
+        /* LEFT IMAGE */
 
-        .collage-img {
-            width: 100%;
-            border-radius: 30px;
-            border: 8px solid white;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        .left-image{
+            grid-column:1 / 3;
+            grid-row:2 / 4;
         }
 
-        .magic-btn {
-            display: inline-block;
-            padding: 15px 35px;
-            background: #c084fc;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            box-shadow: 0 10px 20px rgba(192, 132, 252, 0.3);
-            transition: 0.3s;
+        /* RIGHT IMAGE */
+
+        .right-image{
+            grid-column:5 / 6;
+            grid-row:1 / 3;
         }
 
-        .magic-btn:hover {
-            transform: translateY(-5px);
-            background: #a855f7;
+        /* GLOW */
+
+        .box::before{
+
+            content:'';
+
+            position:absolute;
+            inset:0;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            rgba(255,255,255,.08),
+                            transparent
+                    );
+
+            opacity:0;
+
+            transition:.5s;
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .journey-container { flex-direction: column; text-align: center; }
-            .hero-content h1 { font-size: 3rem; }
+        .box:hover::before{
+            opacity:1;
         }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1100px){
+
+            .editorial-section{
+                height:auto;
+            }
+
+            .editorial-grid{
+
+                grid-template-columns:1fr 1fr;
+                grid-auto-rows:220px;
+            }
+
+            .left-image,
+            .right-image{
+                grid-column:auto;
+                grid-row:auto;
+            }
+
+        }
+
+        @media(max-width:700px){
+
+            .editorial-grid{
+                grid-template-columns:1fr;
+            }
+
+            .box h2{
+                font-size:2rem;
+            }
+
+        }
+
     </style>
 </head>
+
 <body>
 
-<div id="magic-wand"></div>
+<section class="editorial-section">
 
-<section class="hero">
-    <div class="hero-content">
-        <h1>Welcome To The <br> Tower Of Dinshini</h1>
-        <p>Web Developer & UI/UX Designer</p>
-    </div>
-</section>
+    <div class="editorial-grid">
 
-<section class="magical-journey">
-    <div class="journey-container">
+        <!-- TOP -->
 
-        <div class="journey-info">
-            <h2 class="journey-title">The Story Behind the Magic</h2>
-            <p class="journey-description">
-                I am a passionate <strong>Full-Stack Developer</strong> and <strong>UI/UX Designer</strong>.
-                Just like a tower built with precision, my work combines robust technical foundations
-                (Java, MySQL) with elegant design aesthetics.
-            </p>
-            <a href="about.html" class="magic-btn">Explore My Work</a>
+        <div class="box">
+            <span class="label">Frontend</span>
+            <h2>HTML</h2>
         </div>
 
-        <div class="journey-visual">
-            <div class="collage-frame">
-                <img src="assets/lib/images/image_97bfba.jpg" alt="Skills Collage" class="collage-img">
+        <div class="box">
+            <span class="label">Styling</span>
+            <h2>CSS</h2>
+        </div>
+
+        <div class="box">
+            <span class="label">Interactive</span>
+            <h2>JavaScript</h2>
+        </div>
+
+        <div class="box">
+            <span class="label">Framework</span>
+            <h2>React</h2>
+        </div>
+
+        <!-- RIGHT IMAGE -->
+
+        <div class="box image-box right-image">
+
+            <div class="image-card">
+
+                <img class="active"
+                     src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop">
+
+                <img
+                        src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=1200&auto=format&fit=crop">
+
+                <img
+                        src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop">
+
             </div>
+
+        </div>
+
+        <!-- LEFT IMAGE -->
+
+        <div class="box image-box left-image">
+
+            <div class="image-card">
+
+                <img class="active"
+                     src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop">
+
+                <img
+                        src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop">
+
+                <img
+                        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop">
+
+            </div>
+
+        </div>
+
+        <!-- BOTTOM -->
+
+        <div class="box">
+            <span class="label">Backend</span>
+            <h2>Java</h2>
+        </div>
+
+        <div class="box">
+            <span class="label">Database</span>
+            <h2>MySQL</h2>
+        </div>
+
+        <div class="box">
+            <span class="label">Design</span>
+            <h2>UI/UX</h2>
+        </div>
+
+        <div class="box">
+            <span class="label">Creative</span>
+            <h2>API</h2>
+        </div>
+
+        <div class="box">
+            <span class="label">Theme</span>
+            <h2>Rapunzel</h2>
+        </div>
+
+        <div class="box">
+            <span class="label">Aesthetic</span>
+            <h2>Dreamy</h2>
         </div>
 
     </div>
+
 </section>
 
 <script>
-    // Wand & Sparkle Logic
-    const wand = document.getElementById('magic-wand');
 
-    document.addEventListener('mousemove', (e) => {
-        wand.style.left = e.clientX + 'px';
-        wand.style.top = e.clientY + 'px';
+    /* RIGHT IMAGE SLIDER */
 
-        if (Math.random() > 0.1) {
-            createSparkle(e.clientX, e.clientY);
-        }
-    });
+    const rightImages =
+        document.querySelectorAll('.right-image img');
 
-    function createSparkle(x, y) {
-        const s = document.createElement('div');
-        s.className = 'sparkle';
-        s.style.left = (x + 5) + 'px';
-        s.style.top = (y + 5) + 'px';
-        document.body.appendChild(s);
-        setTimeout(() => s.remove(), 1000);
-    }
+    let rightIndex = 0;
+
+    setInterval(() => {
+
+        rightImages[rightIndex]
+            .classList.remove('active');
+
+        rightIndex =
+            (rightIndex + 1) % rightImages.length;
+
+        rightImages[rightIndex]
+            .classList.add('active');
+
+    }, 1700);
+
+    /* LEFT IMAGE SLIDER */
+
+    const leftImages =
+        document.querySelectorAll('.left-image img');
+
+    let leftIndex = 0;
+
+    setInterval(() => {
+
+        leftImages[leftIndex]
+            .classList.remove('active');
+
+        leftIndex =
+            (leftIndex + 1) % leftImages.length;
+
+        leftImages[leftIndex]
+            .classList.add('active');
+
+    }, 2000);
+
 </script>
+
 </body>
 </html>
