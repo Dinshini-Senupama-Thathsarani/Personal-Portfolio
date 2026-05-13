@@ -1288,11 +1288,11 @@ footer {
     color: #FFF5CC; /* Soft Gold text */
     text-align: center;
     border-radius: 50px; /* Capsule shape ekak dunna podiyata pennna */
-    padding: 8px 20px; /* Compact padding */
+    padding: 8px 5px; /* Compact padding */
     position: fixed;
     z-index: 2000;
     right: 20px;
-    top: 70px; /* Udin show wenna */
+    top: 85px; /* Udin show wenna */
     font-family: 'Poppins', sans-serif;
     font-size: 13px; /* Font eka podi kara */
     border: 1px solid rgba(241, 196, 15, 0.5); /* Gold border */
