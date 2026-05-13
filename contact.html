@@ -1449,6 +1449,90 @@
             .cm-icons { gap: 10px; }
         }
 
+
+
+        /* 1. Container eka lokuwata scroll image eka pennanna hadamu */
+        .contact-form-side {
+            position: relative;
+            /* Image path eka hariyata thiyeda balanna */
+            background: url('assets/lib/images/download (2).png') no-repeat center center !important;
+
+            /* Scroll eka stretch wenne nathuwa lokuwata pennanna cover use karanna puluwan */
+            background-size: 100% 100% !important;
+            background-color: transparent !important;
+
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important; /* Vertically center */
+            align-items: center !important;     /* Horizontally center */
+
+            /* Form eka madda hariyata ganna padding adu karamu */
+            padding: 120px 80px !important;
+            min-height: 650px; /* Section eke usa wadi kalaama image ekath loku wenawa */
+        }
+
+        /* 2. Text tika center karamu */
+        .contact-form-side h2 {
+            font-family: 'Cormorant Garamond', serif;
+            color: #4a3321 !important;
+            font-size: 2.8rem !important; /* Font size eka wadi kala */
+            margin-bottom: 5px !important;
+            text-align: center;
+            width: 100%;
+        }
+
+        .contact-form-side p {
+            color: #6d513a !important;
+            font-style: italic;
+            font-size: 1.1rem !important;
+            margin-bottom: 30px !important;
+            text-align: center;
+        }
+
+        /* 3. Form eke width eka wadi karamu scroll eka athule ida thiyena nisa */
+        .contact-form-side form {
+            width: 100%;
+            max-width: 400px; /* Form eka thawa tikak loku kala */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 4. Input fields lassanata scroll ekata match karamu */
+        .input-group {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            background: rgba(255, 255, 255, 0.4) !important; /* Lාවට විනිවිද පේන white එකක් */
+            border: 1px solid rgba(74, 51, 33, 0.3) !important;
+            border-radius: 6px !important;
+            color: #4a3321 !important;
+            padding: 15px !important; /* Input box loku kala */
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        /* 5. Button eka thawa lokuwata lassanata hadamu */
+        .send-btn {
+            background: #6d513a !important;
+            color: #fff !important;
+            border-radius: 6px !important;
+            width: 100%;
+            padding: 15px !important;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: #4a3321 !important;
+            transform: translateY(-2px); /* Podi hover effect ekak */
+        }
     </style>
 </head>
 
@@ -1585,21 +1669,22 @@
             <h2>Contact Me</h2>
             <p>Drop a message, let's create something magic.</p>
 
-            <form>
+            <form action="https://formspree.io/f/xpqbnbga" method="POST">
                 <div class="input-group">
-                    <input type="text" placeholder="Name">
+                    <input type="text" name="name" placeholder="Name" required>
                 </div>
                 <div class="input-group">
-                    <input type="email" placeholder="Email">
+                    <input type="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="input-group">
-                    <input type="text" placeholder="Phone">
+                    <input type="text" name="phone" placeholder="Phone">
                 </div>
                 <div class="input-group">
-                    <textarea rows="4" placeholder="Message"></textarea>
+                    <textarea name="message" rows="4" placeholder="Message" required></textarea>
                 </div>
-                <button type="button" class="send-btn">Send Message</button>
+                <button type="submit" class="send-btn">Send Message</button>
             </form>
+
         </div>
 
         <!-- Right Side: Canvas -->
@@ -1712,9 +1797,9 @@
 
         <div class="footer-mid">
             <nav class="footer-nav" aria-label="Footer navigation">
-                <a href="#">Work</a>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
+                <a href="work_2.html">Work</a>
+                <a href="about.html">About</a>
+                <a href="home.html">Home</a>
             </nav>
             <div class="footer-watermark" aria-hidden="true">DINSHINI SENUPAMA</div>
         </div>
@@ -1833,35 +1918,60 @@
         if(t) t.remove();
     }
 
-    function sendMsg(){
+    // --- Me functions deka witharak replace karanna ---
+
+    async function sendMsg() {
         const input = document.getElementById("msg-input");
         const text = input.value.trim();
 
-        if(!text) return;
+        if (!text) return;
 
-        addMsg(text,true);
+        addMsg(text, true);
         input.value = "";
 
-        showTyping();
-
-        setTimeout(()=>{
-            removeTyping();
-            addMsg(getReply(text),false);
-        },900);
-    }
-
-    function sendQuick(text){
-        addMsg(text,true);
+        // Formspree ekata message eka background eken yawanawa
+        sendToFormspree(text);
 
         showTyping();
 
-        setTimeout(()=>{
+        setTimeout(() => {
             removeTyping();
-            addMsg(getReply(text),false);
-        },800);
+            addMsg(getReply(text), false);
+        }, 900);
     }
 
+    function sendQuick(text) {
+        addMsg(text, true);
 
+        // Quick message ekath Formspree ekata background eken yawanawa
+        sendToFormspree(text);
+
+        showTyping();
+
+        setTimeout(() => {
+            removeTyping();
+            addMsg(getReply(text), false);
+        }, 800);
+    }
+
+    // Aluth function ekak: Data tika silent widiyata oyaage mail ekata yawanawa
+    async function sendToFormspree(messageContent) {
+        try {
+            await fetch("https://formspree.io/f/xykovvwb", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: messageContent,
+                    source: "Chatbot" // Mail eke chat ekenda awe kiyala wen karanna
+                })
+            });
+        } catch (error) {
+            console.error("Mail error:", error);
+        }
+    }
 
 
 
