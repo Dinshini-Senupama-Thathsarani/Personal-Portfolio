@@ -997,24 +997,6 @@ footer {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-   HERO SECTION
-*/
-.mobile-only { display: none; }
 .scrolling-container {
     width: 100%;
     background-color: #1a1014;
@@ -1054,6 +1036,24 @@ footer {
     margin-top: 0;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+   HERO SECTION
+*/
+.mobile-only { display: none; }
 
 /* ════════════════════════════════
    HERO — BASE (desktop)
@@ -1307,6 +1307,372 @@ footer {
     opacity: 1;
     transform: translateY(0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.editorial-section{
+    font-family:'Inter',sans-serif;
+    background:#0f0b14;
+    overflow-x:hidden;
+    width:100%;
+    height:100vh;
+
+    position: absolute;
+    top: 0;
+    left: 100%;
+
+    padding:
+            110px 25px 25px 25px;
+
+    background:
+            rgba(166, 139, 175, 0.97);
+    transform: translateY(-70px); /* -20px, -40px, -60px try karanna */
+
+    transition:
+            left 1.4s cubic-bezier(.77, 0, .18, 1),
+            transform 1.4s cubic-bezier(.77, 0, .18, 1);
+}
+
+/* Hero animate-out unama section eka enter wenawa */
+.hero.animate-out + .editorial-section {
+    left: 0;
+    transform: translateY(-70px);
+
+    background: rgba(166, 139, 175, 0.98);
+}
+
+
+/* GRID */
+
+.editorial-grid{
+
+    width:100%;
+    height:100%;
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr 1fr 1fr 1.2fr;
+
+    grid-template-rows:
+    1fr 1fr 1fr;
+
+    border-top:1px solid rgba(255,255,255,.25);
+    border-left:1px solid rgba(255,255,255,.25);
+
+
+}
+
+/* BOX */
+
+.box{
+
+    position:relative;
+
+    border-right:1px solid rgba(255,255,255,.25);
+    border-bottom:1px solid rgba(255,255,255,.25);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+
+    transition:.4s ease;
+
+    background:
+            rgba(255,255,255,.03);
+
+}
+
+.box:hover{
+    background:
+            rgba(255,255,255,.08);
+}
+
+/* TEXT */
+
+.box h2{
+
+    font-family:'Cormorant Garamond',serif;
+    font-size:3rem;
+    font-weight:600;
+
+    color:#f7f2fa;
+
+    transition:.4s;
+}
+
+.box:hover h2{
+    transform:scale(1.06);
+    letter-spacing:1px;
+}
+
+/* SMALL LABEL */
+
+.label{
+
+    position:absolute;
+
+    top:18px;
+    left:18px;
+
+    font-size:10px;
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    color:#f1dfff;
+}
+
+/* IMAGE BOXES */
+
+.image-box{
+    padding:22px;
+}
+
+/* INNER IMAGE CARD */
+.image-card{
+    width:100%;
+    height:100%;
+
+    position:relative;
+    overflow:hidden;
+
+    border-radius:6px;
+
+    background:#fff;
+
+    box-shadow:
+            0 20px 40px rgba(0,0,0,.18);
+}
+
+/* IMAGE */
+
+.image-card img{
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    opacity:0;
+
+    transition:
+            opacity .6s linear;
+
+    /* IMPORTANT */
+
+    transform:none !important;
+
+    filter:none !important;
+
+    image-rendering:auto !important;
+
+
+
+    backface-visibility:hidden;
+
+    -webkit-font-smoothing:antialiased;
+
+    will-change:auto;
+
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
+/* ACTIVE */
+
+.image-card img.active{
+    opacity:1;
+}
+
+/* LEFT IMAGE */
+
+.left-image{
+    grid-column:1 / 3;
+    grid-row:2 / 4;
+}
+
+/* RIGHT IMAGE */
+
+.right-image{
+    grid-column:5 / 6;
+    grid-row:1 / 3;
+}
+
+/* GLOW */
+
+.box::before{
+
+    content:'';
+
+    position:absolute;
+    inset:0;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    rgba(255,255,255,.08),
+                    transparent
+            );
+
+    opacity:0;
+
+    transition:.5s;
+}
+
+.box:hover::before{
+    opacity:1;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+    .editorial-section{
+        height:auto;
+    }
+
+    .editorial-grid{
+
+        grid-template-columns:1fr 1fr;
+        grid-auto-rows:220px;
+    }
+
+    .left-image,
+    .right-image{
+        grid-column:auto;
+        grid-row:auto;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .editorial-grid{
+        grid-template-columns:1fr;
+    }
+
+    .box h2{
+        font-size:2rem;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.page-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* ---------------- HERO SECTION ---------------- */
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    z-index: 2;
+    transition:
+            transform 1.4s cubic-bezier(.77, 0, .18, 1),
+            opacity 1.4s ease;
+}
+
+/* Hero content animate */
+.hero-content {
+    transition:
+            transform 1.4s cubic-bezier(.77, 0, .18, 1),
+            opacity 1.4s ease;
+}
+
+/* Hero left side ekata yai */
+.hero.animate-out {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+/* ---------------- EDITORIAL SECTION ---------------- */
+.editorial-section {
+    position: absolute;
+    top: 0;
+    left: 100%; /* mulin screen eken pitin */
+    width: 100%;
+    height: 100vh;
+    z-index: 3;
+
+    padding: 110px 25px 25px 25px;
+    background: rgba(166, 139, 175, 0.97);
+
+    transition:
+            left 1.4s cubic-bezier(.77, 0, .18, 1),
+            opacity 1.4s ease;
+
+    opacity: 1;
+}
+
+/* Hero animate-out unama editorial section enawa */
+.hero.animate-out + .editorial-section {
+    left: 0;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 1100px) {
+    .editorial-section {
+        height: auto;
+        min-height: 100vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero.animate-out {
+        transform: translateX(-100%);
+    }
+
+    .editorial-section {
+        padding: 80px 15px 20px;
+    }
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -2108,6 +2474,15 @@ footer {
 
 
 
+
+
+
+
+
+
+
+
+
 .workMain {
     background-color: #E3C6F0;
     font-family: 'Inter', sans-serif;
@@ -2184,14 +2559,14 @@ footer {
 
 .reverse { flex-direction: row-reverse; }
 
-.image-box {
+.image-box2 {
     width: 320px;
     height: 100%;
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    filter: saturate(0.5) blur(2px); /* Mulinma adu color + blur */
+    filter: saturate(0.5) blur(2px);/* Mulinma adu color + blur */
 }
 
 .image-box img {

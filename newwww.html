@@ -11,30 +11,312 @@
 
     <style>
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
+
+        /*
+           HERO SECTION
+        */
+        .mobile-only { display: none; }
+
+        /* ════════════════════════════════
+           HERO — BASE (desktop)
+        ════════════════════════════════ */
+
+        .hero {
+            min-height: 88vh;
+            width: 100%;
+            background-color: #e6e8fa;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            overflow: hidden;
+            padding-top: 80px;
         }
 
-        body{
+        /* Tower image wrapper */
+        .hero-img-wrap {
+            position: absolute;
+            left: 50px;
+            bottom: 30px;
+            height: 90%;
+            width: 50%;
+            z-index: 1;
+        }
+
+        /* ✅ FIX: was using > div:first-child which breaks when DOM order changes */
+        .hero-tower {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: bottom left;
+            animation: towerIn 1.2s ease forwards;
+        }
+
+        @keyframes towerIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Hero text content */
+        .hero-content {
+            position: relative;
+            left: 400px;
+            bottom: 2px;
+            z-index: 2;
+            width: 100%;
+            padding: 0 4rem 5rem 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end;
+        }
+
+        /* Main title */
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6.5vw, 6.5rem);
+            font-weight: 500;
+            line-height: 1.2;
+            color: #1a1014;
+            letter-spacing: -0.01em;
+            text-transform: capitalize;
+            margin: 0;
+        }
+
+        /* Inline bio wrapper */
+        .hero-inline-bio {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            vertical-align: middle;
+            margin: 0 0.4rem;
+        }
+
+        /* Curved arrows */
+        .hero-arrow {
+            display: inline-block;
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            color: #1a1014;
+            line-height: 1;
+        }
+
+        /* Brackets */
+        .hero-bracket {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            font-weight: 300;
+            color: #1a1014;
+            line-height: 1;
+        }
+
+        /* Bio paragraph text */
+        .hero-bio-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(0.72rem, 1vw, 0.92rem);
+            font-weight: 300;
+            font-style: italic;
+            color: #3a2040;
+            line-height: 1.55;
+            max-width: 475px;
+        }
+
+        /* Sub title */
+        .hero-sub {
+            margin-top: 130px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.2rem, 3vw, 1.9rem);
+            font-weight: 500;
+            color: #1a1014;
+            letter-spacing: 0.02em;
+            margin-left: clamp(0px, 8vw, 100px);
+        }
+
+        .hero-sub-small {
+            display: block;
+            font-family: 'DM Sans', sans-serif;
+            font-size: clamp(0.75rem, 0.9vw, 0.90rem);
+            font-weight: 400;
+            color: #5a4060;
+            letter-spacing: 0.05em;
+            margin-top: 0.25rem;
+        }
+
+        /* Fade-up animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(28px);
+            animation: fadeUp 0.9s ease forwards;
+        }
+
+        .fade-up:nth-child(1) { animation-delay: 0.15s; }
+        .fade-up:nth-child(2) { animation-delay: 0.35s; }
+        .fade-up:nth-child(3) { animation-delay: 0.55s; }
+        .fade-up:nth-child(4) { animation-delay: 0.72s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: none; }
+        }
+
+
+        /* ════════════════════════════════
+           TABLET  (max 1024px)
+        ════════════════════════════════ */
+        @media (max-width: 1024px) {
+
+            .hero-title {
+                font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+            }
+
+            .hero-img-wrap {
+                width: 38%;
+                left: 30px;
+            }
+
+            /* ✅ FIX: left:400px is too much on tablet — use vw instead */
+            .hero-content {
+                left: 32vw;
+                padding: 0 2.5rem 4rem 2rem;
+            }
+
+            .hero-bio-text {
+                font-size: 0.78rem;
+                max-width: 250px;
+            }
+
+            .hero-sub {
+                margin-top: 60px;
+            }
+        }
+
+
+        /* ════════════════════════════════
+           PHONE  (max 768px)
+        ════════════════════════════════ */
+
+        @media (max-width: 768px) {
+            .desktop-only { display: none !important; }
+            .mobile-only { display: block !important; }
+
+            .hero {
+                flex-direction: column !important; /* Stack elements vertically */
+                align-items: center !important;
+                padding-top: 10px !important;
+                min-height: 100vh;
+                justify-content: flex-start !important;
+            }
+
+            /* New Mobile Image Container - Top */
+            .mobile-img-container {
+                width: 70%;
+                margin: 0 auto 20px;
+                order: 1; /* Make image appear first (top) */
+            }
+
+            .hero-rapunzel-mobile {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
+            /* Text Content - Bottom */
+            .hero-content {
+                order: 2; /* Make text appear second (bottom) */
+                position: relative !important;
+                left: 0 !important;
+                bottom: auto !important;
+                padding: 1.5rem !important;
+                text-align: center !important;
+                align-items: center !important;
+            }
+
+            .hero-title {
+                font-size: clamp(1.8rem, 7vw, 2.8rem) !important;
+                text-align: center !important;
+            }
+
+            .hero-inline-bio { display: none; } /* Too small for mobile */
+
+            .hero-sub {
+                margin-top: 1.5rem !important;
+                margin-left: 0 !important;
+                text-align: center !important;
+            }
+        }
+        .toast {
+            visibility: hidden;
+            min-width: 150px; /* Size eka adu kara */
+            background-color: rgba(142, 68, 173, 0.8); /* Rapunzel Purple */
+            backdrop-filter: blur(8px);
+            color: #FFF5CC; /* Soft Gold text */
+            text-align: center;
+            border-radius: 50px; /* Capsule shape ekak dunna podiyata pennna */
+            padding: 8px 20px; /* Compact padding */
+            position: fixed;
+            z-index: 2000;
+            right: 20px;
+            top: 70px; /* Udin show wenna */
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px; /* Font eka podi kara */
+            border: 1px solid rgba(241, 196, 15, 0.5); /* Gold border */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: all 0.5s ease;
+            transform: translateY(-20px);
+        }
+
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .editorial-section{
             font-family:'Inter',sans-serif;
             background:#0f0b14;
             overflow-x:hidden;
-        }
-
-        /* SECTION */
-
-        .editorial-section{
             width:100%;
             height:100vh;
+
+            position: absolute;
+            top: 0;
+            left: 100%;
 
             padding:
                     110px 25px 25px 25px;
 
             background:
                     rgba(166, 139, 175, 0.97);
+            transform: translateY(-70px); /* -20px, -40px, -60px try karanna */
+
+            transition:
+                    left 1.4s cubic-bezier(.77, 0, .18, 1),
+                    transform 1.4s cubic-bezier(.77, 0, .18, 1);
         }
+
+        /* Hero animate-out unama section eka enter wenawa */
+        .hero.animate-out + .editorial-section {
+            left: 0;
+            transform: translateY(-70px);
+
+            background: rgba(166, 139, 175, 0.98);
+        }
+
 
         /* GRID */
 
@@ -54,7 +336,7 @@
             border-top:1px solid rgba(255,255,255,.25);
             border-left:1px solid rgba(255,255,255,.25);
 
-            backdrop-filter:blur(10px);
+
         }
 
         /* BOX */
@@ -126,15 +408,14 @@
         }
 
         /* INNER IMAGE CARD */
-
         .image-card{
-
             width:100%;
             height:100%;
 
+            position:relative;
             overflow:hidden;
 
-            position:relative;
+            border-radius:6px;
 
             background:#fff;
 
@@ -142,11 +423,14 @@
                     0 20px 40px rgba(0,0,0,.18);
         }
 
-        /* IMAGES */
+        /* IMAGE */
 
         .image-card img{
 
             position:absolute;
+
+            top:0;
+            left:0;
 
             width:100%;
             height:100%;
@@ -155,8 +439,27 @@
 
             opacity:0;
 
-            transition:1s ease;
+            transition:
+                    opacity .6s linear;
+
+            /* IMPORTANT */
+
+            transform:none !important;
+
+            filter:none !important;
+
+            image-rendering:auto !important;
+
+
+
+            backface-visibility:hidden;
+
+            -webkit-font-smoothing:antialiased;
+
+            will-change:auto;
         }
+
+        /* ACTIVE */
 
         .image-card img.active{
             opacity:1;
@@ -235,110 +538,275 @@
 
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .page-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* ---------------- HERO SECTION ---------------- */
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            z-index: 2;
+            transition:
+                    transform 1.4s cubic-bezier(.77, 0, .18, 1),
+                    opacity 1.4s ease;
+        }
+
+        /* Hero content animate */
+        .hero-content {
+            transition:
+                    transform 1.4s cubic-bezier(.77, 0, .18, 1),
+                    opacity 1.4s ease;
+        }
+
+        /* Hero left side ekata yai */
+        .hero.animate-out {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        /* ---------------- EDITORIAL SECTION ---------------- */
+        .editorial-section {
+            position: absolute;
+            top: 0;
+            left: 100%; /* mulin screen eken pitin */
+            width: 100%;
+            height: 100vh;
+            z-index: 3;
+
+            padding: 110px 25px 25px 25px;
+            background: rgba(166, 139, 175, 0.97);
+
+            transition:
+                    left 1.4s cubic-bezier(.77, 0, .18, 1),
+                    opacity 1.4s ease;
+
+            opacity: 1;
+        }
+
+        /* Hero animate-out unama editorial section enawa */
+        .hero.animate-out + .editorial-section {
+            left: 0;
+        }
+
+        /* ---------------- RESPONSIVE ---------------- */
+        @media (max-width: 1100px) {
+            .editorial-section {
+                height: auto;
+                min-height: 100vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero.animate-out {
+                transform: translateX(-100%);
+            }
+
+            .editorial-section {
+                padding: 80px 15px 20px;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </style>
 </head>
 
 <body>
 
-<section class="editorial-section">
 
-    <div class="editorial-grid">
+<div class="page-wrapper">
 
-        <!-- TOP -->
 
-        <div class="box">
-            <span class="label">Frontend</span>
-            <h2>HTML</h2>
+    <section class="hero" id="hero">
+        <div class="hero-img-wrap desktop-only">
+            <img src="assets/lib/images/new%20tower.png" alt="Tower" class="hero-tower"/>
         </div>
 
-        <div class="box">
-            <span class="label">Styling</span>
-            <h2>CSS</h2>
+        <div class="mobile-only mobile-img-container">
+            <img src="assets/lib/images/erasebg-transformed (4) (1).png" alt="Rapunzel" class="hero-rapunzel-mobile">
         </div>
 
-        <div class="box">
-            <span class="label">Interactive</span>
-            <h2>JavaScript</h2>
+        <div class="hero-content">
+            <p class="hero-title fade-up">Welcome to the</p>
+            <p class="hero-title fade-up">
+                Tower of
+                <span class="hero-inline-bio">
+                <span class="hero-arrow">&#8629;</span>
+                <span class="hero-bracket">(</span>
+                <span class="hero-bio-text">
+                    Hi! I'm Dinshini Senupama — Frontend Developer &amp; Web Designer from
+                    Sri Lanka, crafting seamless and engaging digital experiences.
+                </span>
+                <span class="hero-bracket">)</span>
+                <span class="hero-arrow" style="transform:scaleX(-1);display:inline-block;">&#8629;</span>
+            </span>
+            </p>
+            <p class="hero-title fade-up">Dinshini Senupam&#257;</p>
+
+            <div class="hero-sub fade-up">
+                Web Developer &amp; UI/UX Designer
+                <span class="hero-sub-small">turning ideas into golden experiences.</span>
+            </div>
         </div>
 
-        <div class="box">
-            <span class="label">Framework</span>
-            <h2>React</h2>
+        <div id="welcome-toast" class="toast">
+            Hope your day is 10/10! ✨
         </div>
+    </section>
 
-        <!-- RIGHT IMAGE -->
 
-        <div class="box image-box right-image">
 
-            <div class="image-card">
 
-                <img class="active"
-                     src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop">
 
-                <img
-                        src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=1200&auto=format&fit=crop">
 
-                <img
-                        src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop">
 
+
+    <section class="editorial-section">
+
+        <div class="editorial-grid">
+
+            <!-- TOP -->
+
+            <div class="box">
+                <span class="label">Frontend</span>
+                <h2>HTML</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Styling</span>
+                <h2>CSS</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Interactive</span>
+                <h2>JavaScript</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Framework</span>
+                <h2>React</h2>
+            </div>
+
+            <!-- RIGHT IMAGE -->
+
+            <div class="box image-box right-image">
+
+                <div class="image-card">
+
+                    <img class="active"
+                         src="assets/lib/images/me.jpeg">
+
+                    <img
+                            src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=1200&auto=format&fit=crop">
+
+                    <img
+                            src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop">
+
+                </div>
+
+            </div>
+
+            <!-- LEFT IMAGE -->
+
+            <div class="box image-box left-image">
+
+                <div class="image-card">
+
+                    <img class="active"
+                         src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop">
+
+                    <img
+                            src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop">
+
+                    <img
+                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop">
+
+                </div>
+
+            </div>
+
+            <!-- BOTTOM -->
+
+            <div class="box">
+                <span class="label">Backend</span>
+                <h2>Java</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Database</span>
+                <h2>MySQL</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Design</span>
+                <h2>UI/UX</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Creative</span>
+                <h2>API</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Theme</span>
+                <h2>Rapunzel</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Aesthetic</span>
+                <h2>Dreamy</h2>
             </div>
 
         </div>
 
-        <!-- LEFT IMAGE -->
+    </section>
 
-        <div class="box image-box left-image">
 
-            <div class="image-card">
 
-                <img class="active"
-                     src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop">
 
-                <img
-                        src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop">
 
-                <img
-                        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop">
+</div>
 
-            </div>
 
-        </div>
 
-        <!-- BOTTOM -->
-
-        <div class="box">
-            <span class="label">Backend</span>
-            <h2>Java</h2>
-        </div>
-
-        <div class="box">
-            <span class="label">Database</span>
-            <h2>MySQL</h2>
-        </div>
-
-        <div class="box">
-            <span class="label">Design</span>
-            <h2>UI/UX</h2>
-        </div>
-
-        <div class="box">
-            <span class="label">Creative</span>
-            <h2>API</h2>
-        </div>
-
-        <div class="box">
-            <span class="label">Theme</span>
-            <h2>Rapunzel</h2>
-        </div>
-
-        <div class="box">
-            <span class="label">Aesthetic</span>
-            <h2>Dreamy</h2>
-        </div>
-
-    </div>
-
-</section>
 
 <script>
 
@@ -381,6 +849,34 @@
             .classList.add('active');
 
     }, 2000);
+
+
+
+
+    window.onload = function() {
+        var toast = document.getElementById("welcome-toast");
+
+        setTimeout(function() {
+            toast.classList.add("show");
+        }, 500); // 0.5s delay ekakin msg eka enawa
+
+        setTimeout(function(){
+            toast.classList.remove("show");
+        }, 4500); // 4.5s walin ayeth hide wenawa
+    };
+
+
+
+
+
+
+    // Page load wela 2 seconds passe hero eka left side ekata yai
+    // saha editorial section eka right side idan enter wenawa
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.getElementById('hero').classList.add('animate-out');
+        }, 2000);
+    });
 
 </script>
 

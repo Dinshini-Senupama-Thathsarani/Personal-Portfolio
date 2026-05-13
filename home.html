@@ -9,6 +9,353 @@
     <link rel="stylesheet" href="assets/CSS/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <style>
+
+        .editorial-section{
+            font-family:'Inter',sans-serif;
+            background:#0f0b14;
+            overflow-x:hidden;
+            width:100%;
+            height:100vh;
+
+            position: absolute;
+            top: 0;
+            left: 100%;
+
+            padding:
+                    110px 25px 25px 25px;
+
+            background:
+                    rgba(166, 139, 175, 0.97);
+            transform: translateY(-70px); /* -20px, -40px, -60px try karanna */
+
+            transition:
+                    left 1.4s cubic-bezier(.77, 0, .18, 1),
+                    transform 1.4s cubic-bezier(.77, 0, .18, 1);
+        }
+
+        /* Hero animate-out unama section eka enter wenawa */
+        .hero.animate-out + .editorial-section {
+            left: 0;
+            transform: translateY(-70px);
+
+            background: rgba(166, 139, 175, 0.98);
+        }
+
+
+        /* GRID */
+
+        .editorial-grid{
+
+            width:100%;
+            height:100%;
+
+            display:grid;
+
+            grid-template-columns:
+    1fr 1fr 1fr 1fr 1.2fr;
+
+            grid-template-rows:
+    1fr 1fr 1fr;
+
+            border-top:1px solid rgba(255,255,255,.25);
+            border-left:1px solid rgba(255,255,255,.25);
+
+
+        }
+
+        /* BOX */
+
+        .box{
+
+            position:relative;
+
+            border-right:1px solid rgba(255,255,255,.25);
+            border-bottom:1px solid rgba(255,255,255,.25);
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            overflow:hidden;
+
+            transition:.4s ease;
+
+            background:
+                    rgba(255,255,255,.03);
+
+        }
+
+        .box:hover{
+            background:
+                    rgba(255,255,255,.08);
+        }
+
+        /* TEXT */
+
+        .box h2{
+
+            font-family:'Cormorant Garamond',serif;
+            font-size:3rem;
+            font-weight:600;
+
+            color:#f7f2fa;
+
+            transition:.4s;
+        }
+
+        .box:hover h2{
+            transform:scale(1.06);
+            letter-spacing:1px;
+        }
+
+        /* SMALL LABEL */
+
+        .label{
+
+            position:absolute;
+
+            top:18px;
+            left:18px;
+
+            font-size:10px;
+            letter-spacing:2px;
+
+            text-transform:uppercase;
+
+            color:#f1dfff;
+        }
+
+        /* IMAGE BOXES */
+
+        .image-box{
+            padding:22px;
+        }
+
+        /* INNER IMAGE CARD */
+        .image-card{
+            width:100%;
+            height:100%;
+
+            position:relative;
+            overflow:hidden;
+
+            border-radius:6px;
+
+            background:#fff;
+
+            box-shadow:
+                    0 20px 40px rgba(0,0,0,.18);
+        }
+
+        /* IMAGE */
+
+        .image-card img{
+
+            position:absolute;
+
+            top:0;
+            left:0;
+
+            width:100%;
+            height:100%;
+
+            object-fit:cover;
+
+            opacity:0;
+
+            transition:
+                    opacity .6s linear;
+
+            /* IMPORTANT */
+
+            transform:none !important;
+
+            filter:none !important;
+
+            image-rendering:auto !important;
+
+
+
+            backface-visibility:hidden;
+
+            -webkit-font-smoothing:antialiased;
+
+            will-change:auto;
+        }
+
+        /* ACTIVE */
+
+        .image-card img.active{
+            opacity:1;
+        }
+
+        /* LEFT IMAGE */
+
+        .left-image{
+            grid-column:1 / 3;
+            grid-row:2 / 4;
+        }
+
+        /* RIGHT IMAGE */
+
+        .right-image{
+            grid-column:5 / 6;
+            grid-row:1 / 3;
+        }
+
+        /* GLOW */
+
+        .box::before{
+
+            content:'';
+
+            position:absolute;
+            inset:0;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            rgba(255,255,255,.08),
+                            transparent
+                    );
+
+            opacity:0;
+
+            transition:.5s;
+        }
+
+        .box:hover::before{
+            opacity:1;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1100px){
+
+            .editorial-section{
+                height:auto;
+            }
+
+            .editorial-grid{
+
+                grid-template-columns:1fr 1fr;
+                grid-auto-rows:220px;
+            }
+
+            .left-image,
+            .right-image{
+                grid-column:auto;
+                grid-row:auto;
+            }
+
+        }
+
+        @media(max-width:700px){
+
+            .editorial-grid{
+                grid-template-columns:1fr;
+            }
+
+            .box h2{
+                font-size:2rem;
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .page-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* ---------------- HERO SECTION ---------------- */
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            z-index: 2;
+            transition:
+                    transform 1.4s cubic-bezier(.77, 0, .18, 1),
+                    opacity 1.4s ease;
+        }
+
+        /* Hero content animate */
+        .hero-content {
+            transition:
+                    transform 1.4s cubic-bezier(.77, 0, .18, 1),
+                    opacity 1.4s ease;
+        }
+
+        /* Hero left side ekata yai */
+        .hero.animate-out {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        /* ---------------- EDITORIAL SECTION ---------------- */
+        .editorial-section {
+            position: absolute;
+            top: 0;
+            left: 100%; /* mulin screen eken pitin */
+            width: 100%;
+            height: 100vh;
+            z-index: 3;
+
+            padding: 110px 25px 25px 25px;
+            background: rgba(166, 139, 175, 0.97);
+
+            transition:
+                    left 1.4s cubic-bezier(.77, 0, .18, 1),
+                    opacity 1.4s ease;
+
+            opacity: 1;
+        }
+
+        /* Hero animate-out unama editorial section enawa */
+        .hero.animate-out + .editorial-section {
+            left: 0;
+        }
+
+        /* ---------------- RESPONSIVE ---------------- */
+        @media (max-width: 1100px) {
+            .editorial-section {
+                height: auto;
+                min-height: 100vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero.animate-out {
+                transform: translateX(-100%);
+            }
+
+            .editorial-section {
+                padding: 80px 15px 20px;
+            }
+        }
+
+
+
+
+    </style>
 </head>
 <body>
 
@@ -67,20 +414,24 @@
 
 
 
-<section class="hero" id="hero">
-    <div class="hero-img-wrap desktop-only">
-        <img src="assets/lib/images/new%20tower.png" alt="Tower" class="hero-tower"/>
-    </div>
 
-    <div class="mobile-only mobile-img-container">
-        <img src="assets/lib/images/erasebg-transformed (4) (1).png" alt="Rapunzel" class="hero-rapunzel-mobile">
-    </div>
+<div class="page-wrapper">
 
-    <div class="hero-content">
-        <p class="hero-title fade-up">Welcome to the</p>
-        <p class="hero-title fade-up">
-            Tower of
-            <span class="hero-inline-bio">
+
+    <section class="hero" id="hero">
+        <div class="hero-img-wrap desktop-only">
+            <img src="assets/lib/images/new%20tower.png" alt="Tower" class="hero-tower"/>
+        </div>
+
+        <div class="mobile-only mobile-img-container">
+            <img src="assets/lib/images/erasebg-transformed (4) (1).png" alt="Rapunzel" class="hero-rapunzel-mobile">
+        </div>
+
+        <div class="hero-content">
+            <p class="hero-title fade-up">Welcome to the</p>
+            <p class="hero-title fade-up">
+                Tower of
+                <span class="hero-inline-bio">
                 <span class="hero-arrow">&#8629;</span>
                 <span class="hero-bracket">(</span>
                 <span class="hero-bio-text">
@@ -90,120 +441,139 @@
                 <span class="hero-bracket">)</span>
                 <span class="hero-arrow" style="transform:scaleX(-1);display:inline-block;">&#8629;</span>
             </span>
-        </p>
-        <p class="hero-title fade-up">Dinshini Senupam&#257;</p>
+            </p>
+            <p class="hero-title fade-up">Dinshini Senupam&#257;</p>
 
-        <div class="hero-sub fade-up">
-            Web Developer &amp; UI/UX Designer
-            <span class="hero-sub-small">turning ideas into golden experiences.</span>
-        </div>
-    </div>
-
-    <div id="welcome-toast" class="toast">
-        Hope your day is 10/10! ✨
-    </div>
-</section>
-
-
-<section class="editorial-section">
-
-    <div class="editorial-grid">
-
-        <!-- TOP -->
-
-        <div class="box">
-            <span class="label">Frontend</span>
-            <h2>HTML</h2>
+            <div class="hero-sub fade-up">
+                Web Developer &amp; UI/UX Designer
+                <span class="hero-sub-small">turning ideas into golden experiences.</span>
+            </div>
         </div>
 
-        <div class="box">
-            <span class="label">Styling</span>
-            <h2>CSS</h2>
+        <div id="welcome-toast" class="toast">
+            Hope your day is 10/10! ✨
         </div>
+    </section>
 
-        <div class="box">
-            <span class="label">Interactive</span>
-            <h2>JavaScript</h2>
-        </div>
 
-        <div class="box">
-            <span class="label">Framework</span>
-            <h2>React</h2>
-        </div>
 
-        <!-- RIGHT IMAGE -->
 
-        <div class="box image-box right-image">
 
-            <div class="image-card">
 
-                <img class="active"
-                     src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop">
 
-                <img
-                        src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=1200&auto=format&fit=crop">
 
-                <img
-                        src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop">
+    <section class="editorial-section">
 
+        <div class="editorial-grid">
+
+            <!-- TOP -->
+
+            <div class="box">
+                <span class="label">Frontend</span>
+                <h2>HTML</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Styling</span>
+                <h2>CSS</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Interactive</span>
+                <h2>JavaScript</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Framework</span>
+                <h2>React</h2>
+            </div>
+
+            <!-- RIGHT IMAGE -->
+
+            <div class="box image-box right-image">
+
+                <div class="image-card">
+
+                    <img class="active"
+                         src="assets/lib/images/me.jpeg">
+
+                    <img
+                            src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=1200&auto=format&fit=crop">
+
+                    <img
+                            src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop">
+
+                </div>
+
+            </div>
+
+            <!-- LEFT IMAGE -->
+
+            <div class="box image-box left-image">
+
+                <div class="image-card">
+
+                    <img class="active"
+                         src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop">
+
+                    <img
+                            src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop">
+
+                    <img
+                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop">
+
+                </div>
+
+            </div>
+
+            <!-- BOTTOM -->
+
+            <div class="box">
+                <span class="label">Backend</span>
+                <h2>Java</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Database</span>
+                <h2>MySQL</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Design</span>
+                <h2>UI/UX</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Creative</span>
+                <h2>API</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Theme</span>
+                <h2>Rapunzel</h2>
+            </div>
+
+            <div class="box">
+                <span class="label">Aesthetic</span>
+                <h2>Dreamy</h2>
             </div>
 
         </div>
 
-        <!-- LEFT IMAGE -->
+    </section>
 
-        <div class="box image-box left-image">
 
-            <div class="image-card">
 
-                <img class="active"
-                     src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop">
 
-                <img
-                        src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop">
 
-                <img
-                        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop">
+</div>
 
-            </div>
 
-        </div>
 
-        <!-- BOTTOM -->
 
-        <div class="box">
-            <span class="label">Backend</span>
-            <h2>Java</h2>
-        </div>
 
-        <div class="box">
-            <span class="label">Database</span>
-            <h2>MySQL</h2>
-        </div>
 
-        <div class="box">
-            <span class="label">Design</span>
-            <h2>UI/UX</h2>
-        </div>
 
-        <div class="box">
-            <span class="label">Creative</span>
-            <h2>API</h2>
-        </div>
-
-        <div class="box">
-            <span class="label">Theme</span>
-            <h2>Rapunzel</h2>
-        </div>
-
-        <div class="box">
-            <span class="label">Aesthetic</span>
-            <h2>Dreamy</h2>
-        </div>
-
-    </div>
-
-</section>
 
 
 
@@ -223,6 +593,10 @@
         </div>
     </div>
 </section>
+
+
+
+
 
 
 
@@ -592,6 +966,62 @@
             toast.classList.remove("show");
         }, 4500); // 4.5s walin ayeth hide wenawa
     };
+
+
+
+
+
+
+        // Page load wela 2 seconds passe hero eka left side ekata yai
+        // saha editorial section eka right side idan enter wenawa
+        window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.getElementById('hero').classList.add('animate-out');
+        }, 2000);
+    });
+
+
+
+
+
+    const rightImages =
+        document.querySelectorAll('.right-image img');
+
+    let rightIndex = 0;
+
+    setInterval(() => {
+
+        rightImages[rightIndex]
+            .classList.remove('active');
+
+        rightIndex =
+            (rightIndex + 1) % rightImages.length;
+
+        rightImages[rightIndex]
+            .classList.add('active');
+
+    }, 1700);
+
+    /* LEFT IMAGE SLIDER */
+
+    const leftImages =
+        document.querySelectorAll('.left-image img');
+
+    let leftIndex = 0;
+
+    setInterval(() => {
+
+        leftImages[leftIndex]
+            .classList.remove('active');
+
+        leftIndex =
+            (leftIndex + 1) % leftImages.length;
+
+        leftImages[leftIndex]
+            .classList.add('active');
+
+    }, 2000);
+
 </script>
 
 
