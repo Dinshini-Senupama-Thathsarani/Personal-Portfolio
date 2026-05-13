@@ -7,6 +7,134 @@
     <link rel="stylesheet" href="assets/CSS/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
+
+    <style>
+        .workMain {
+            background-color: #E3C6F0;
+            font-family: 'Inter', sans-serif;
+            width: 100vw;
+            height: 110vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+
+        }
+
+        .main-wrapper {
+            width: 90vw;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            padding: 16px 0;
+            box-sizing: border-box;
+        }
+
+        .section-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 30px;
+            cursor: pointer;
+            flex: 1;
+            max-height: 33%;
+        }
+
+        .reverse { flex-direction: row-reverse; }
+
+        .work-img-box {
+            width: 280px;
+            height: 120px;
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: saturate(0.5) blur(2px);
+            padding: 0;
+            background: none;
+            border: none;
+        }
+
+        .work-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
+        }
+
+        .title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .reverse .title { transform: translateX(30px); }
+
+        .section-item:hover .title {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .section-item:hover .work-img-box {
+            filter: saturate(1) blur(0px);
+            transform: scale(1.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 1024px) {
+            .title { font-size: 2.5rem; }
+            .work-img-box { width: 200px; height: 100px; }
+        }
+
+        @media (max-width: 768px) {
+            .workMain {
+                height: auto !important;
+                min-height: calc(100vh - var(--nav-h, 60px));
+                overflow-y: auto;
+                align-items: flex-start;
+                padding: 40px 0;
+            }
+            .main-wrapper {
+                width: 95vw;
+                height: auto;
+                gap: 20px;
+                padding: 0;
+            }
+            .section-item {
+                max-height: none;
+                flex-direction: column !important;
+                gap: 16px;
+                padding: 16px 0;
+                border-bottom: 1px solid rgba(0,0,0,0.08);
+            }
+            .work-img-box { width: 100%; height: 180px; }
+            .title {
+                font-size: 1.8rem;
+                opacity: 1;
+                transform: none;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title { font-size: 1.5rem; }
+            .work-img-box { height: 140px; }
+        }
+    </style>
+
 </head>
 <body>
 
@@ -62,26 +190,23 @@
 
 
 
-
 <section class="workMain">
-
-    <div class="main-wrapper" >
+    <div class="main-wrapper">
         <div class="section-item">
-            <div class="image-box"><img src="assets/lib/images/download%20(28).jpg" alt="Projects"></div>
+            <div class="work-img-box"><img src="assets/lib/images/download%20(28).jpg" alt="Projects"></div>
             <h2 class="title"><a href="work_2.html">| Projects</a></h2>
         </div>
 
         <div class="section-item reverse">
-            <div class="image-box2"><img src="assets/lib/images/ass.jpeg" alt="Assignments"></div>
+            <div class="work-img-box"><img src="assets/lib/images/ass.jpeg" alt="Assignments"></div>
             <h2 class="title"><a href="work_2.html#exercise">| Assignments</a></h2>
         </div>
 
         <div class="section-item">
-            <div class="image-box"><img src="assets/lib/images/ski.jpeg" alt="Skills"></div>
+            <div class="work-img-box"><img src="assets/lib/images/ski.jpeg" alt="Skills"></div>
             <h2 class="title"><a href="work_2.html#skills">| Skills</a></h2>
         </div>
     </div>
-
 </section>
 
 
@@ -219,6 +344,9 @@
 
 
 <script>
+
+
+
     const noBtn = document.getElementById('btn-no');
     const questionArea = document.getElementById('question-area');
     const successMsg = document.getElementById('success-msg');
