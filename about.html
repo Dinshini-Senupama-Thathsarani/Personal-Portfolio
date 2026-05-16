@@ -11,7 +11,7 @@
 
 
     <style>
-        /* --- Internal CSS --- */
+
         .story-wrapper {
             width: 100%;
             min-height: 100vh;
@@ -94,7 +94,7 @@
             color: #000;
         }
 
-        /* Desktop Hover Logic */
+
         @media (min-width: 769px) {
             .gallery-item:hover { flex: 3; transform: translateY(-10px); }
             .gallery-item:hover .item-visual { opacity: 1; }
@@ -118,7 +118,7 @@
             .gallery-item {
                 width: 100%;
                 max-width: 420px;
-                height: 68px; /* Collapsed */
+                height: 68px;
                 flex: none;
                 transition: height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             }
@@ -147,7 +147,7 @@
 
     <nav class="nav">
 
-        <!-- Left: logo + icon -->
+
         <div class="nav-leftSide">
             <a href="home.html">
                 <img src="assets/lib/icons/rapunzelicon.png" class="ico" alt="logo">
@@ -155,7 +155,7 @@
             <a href="home.html" class="logo">DS</a>
         </div>
 
-        <!-- Center: desktop links -->
+
         <ul class="nav-center">
             <li><a href="home.html">Home</a></li>
             <li><a href="about.html">About</a></li>
@@ -163,12 +163,12 @@
             <li><a href="contact.html">Contact</a></li>
         </ul>
 
-        <!-- Right: dark mode icon (desktop) + hamburger (mobile) -->
+
         <div class="nav-rightGroup">
             <div class="nav-rightSide">
                 <img src="assets/lib/icons/darkMode.png" class="nav-icon" alt="dark mode">
             </div>
-            <!-- hamburger — hidden on desktop, shown on mobile via CSS -->
+
             <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span>
                 <span></span>
@@ -178,7 +178,7 @@
 
     </nav>
 
-    <!-- Mobile dropdown — sits outside nav so it spans full width -->
+
     <div class="mobile-menu" id="mobileMenu">
         <a href="home.html"    onclick="closeMobileMenu()">Home</a>
         <a href="about.html"   onclick="closeMobileMenu()">About</a>

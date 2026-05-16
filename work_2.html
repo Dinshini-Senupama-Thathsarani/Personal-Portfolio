@@ -9,28 +9,28 @@
 
     <style>
         * {
-            cursor: none !important; /* සාමාන්‍ය Cursor එක සම්පූර්ණයෙන් අයින් කරයි */
+            cursor: none !important;
         }
 
         #magic-wand {
             position: fixed;
-            width: 50px; /* යෂ්ටියේ ප්‍රමාණය */
+            width: 50px;
             height: 50px;
-            background-image: url('assets/lib/images/magic-wand.png'); /* ඔයා එවපු පින්තූරය */
+            background-image: url('assets/lib/images/magic-wand.png');
             background-size: contain;
             background-repeat: no-repeat;
             pointer-events: none;
             z-index: 10000;
-            /* යෂ්ටිය අතට අහුුවෙන විදිහට පොඩ්ඩක් ඇල කරනවා */
+
             transform: translate(-10%, -10%) rotate(-15deg);
         }
 
-        /* --- 2. GOLDEN SPARKLES (දිලිසෙන කුඩු) --- */
+
         .sparkle {
             position: fixed;
             width: 8px;
             height: 8px;
-            background: radial-gradient(circle, #fff9c4 20%, #fbc02d 100%); /* රන්වන් පැහැය */
+            background: radial-gradient(circle, #fff9c4 20%, #fbc02d 100%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
@@ -208,7 +208,7 @@
             opacity: 0.6;
         }
 
-        /* Rapunzel-inspired soft but slightly richer gradients */
+
 
         body[data-theme="blue"] {
             background: linear-gradient(135deg, #dbeafe, #93c5fd) !important;
@@ -305,11 +305,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0.05; /* ලාවට පෙනීම */
+            opacity: 0.05;
             transition: opacity 0.6s ease-in-out, transform 0.4s ease;
             cursor: pointer;
 
-            /* Desktop Background - Landscape Image */
+
             background-image: url('assets/lib/images/image_dea5e1.jpg');
             background-size: 500% 200%;
             background-repeat: no-repeat;
@@ -389,7 +389,7 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* Responsive Logic */
+
         @media (max-width: 1024px) {
             .rectangle-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -400,7 +400,7 @@
                 /* Mobile Background - Portrait Image */
                 background-image: url('assets/lib/images/image_dcccfc.jpg');
                 background-size: 200% 500%;
-                opacity: 0.15; /* Mobile එකේදී පොඩ්ඩක් වැඩියෙන් පෙනීම හොඳයි */
+                opacity: 0.15;
             }
 
             .section-header h2 {
@@ -419,7 +419,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative; /* For absolutely positioning elements inside */
+            position: relative;
             overflow: hidden;
             font-family: 'Poppins', sans-serif;
             background-color: thistle;
@@ -429,7 +429,7 @@
             width: 90%;
             max-width: 1400px;
             margin-bottom: 50px;
-            text-align: left; /* Header on the left */
+            text-align: left;
         }
 
         .skills-header h2 {
@@ -439,7 +439,7 @@
             margin: 0;
         }
 
-        /* Container to center and control the size of the images */
+
         .skills-image-wrapper {
             width: 90%;
             display: flex;
@@ -448,7 +448,7 @@
             transition: all 0.4s ease;
         }
 
-        /* Common image styles to avoid code repetition */
+
         .skills-section .skills-img {
             width: 100%;
             height: auto;
@@ -457,71 +457,66 @@
             transition: all 0.4s ease;
         }
 
-        /* Hover effect on images */
+
         .skills-section .skills-img:hover {
             transform: scale(1.02);
             box-shadow: 0 20px 45px rgba(0,0,0,0.15);
         }
 
-        /* Magic wand (if global cursor is used) compatibility */
+
         #magicWand:hover + .skills-section .skills-img {
-            transform: scale(1.02) rotate(1deg); /* Slight rotate with wand */
+            transform: scale(1.02) rotate(1deg);
         }
 
-        /* ----------------------------------------------------------- */
-        /* 2. Desktop Specific Styles (min-width: 1025px)              */
-        /* ----------------------------------------------------------- */
+
         @media (min-width: 1025px) {
-            /* We show the desktop container and hide the phone container */
+
             #desktopSkillsContainer { display: block; }
             #phoneSkillsContainer { display: none; }
 
-            /* Desktop max-width for the image wrapper */
+
             .skills-image-wrapper { max-width: 1100px; }
 
-            /* The desktop image is the 16:9 landscape collage */
+
             #desktopSkillsContainer .desktop-img {
                 background-image: url('assets/lib/images/image_22.png');
             }
         }
 
-        /* ----------------------------------------------------------- */
-        /* 3. Phone Specific Styles (max-width: 1024px)               */
-        /* ----------------------------------------------------------- */
+
         @media (max-width: 1024px) {
-            /* We show the phone container and hide the desktop container */
+
             #desktopSkillsContainer { display: none; }
             #phoneSkillsContainer { display: block; }
 
-            /* Adjust header size for smaller screens */
+
             .skills-header h2 { font-size: 2.5rem; }
 
-            /* Limit max-width of phone image wrapper so it doesn't get too big on tablets */
+
             .skills-image-wrapper { max-width: 500px; }
 
-            /* The phone image is the portrait vintage collage */
+
             #phoneSkillsContainer .phone-img {
                 background-image: url('assets/lib/images/image_21.png');
             }
         }
 
-        /* Standard image element used within the containers */
-        /* We need a placeholder background or an <img> for this method */
+
         .skills-section .background-image-method {
             display: block;
             width: 100%;
             height: 0;
-            padding-bottom: 56.25%; /* Default for 16:9 aspect ratio */
+            padding-bottom: 56.25%;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             border-radius: 20px;
         }
 
-        /* Specific padding-bottom for the portrait image (approx. 9:16) */
+
         @media (max-width: 1024px) {
             .skills-section .background-image-method.phone-img {
-                padding-bottom: 177.77%; /* Approximately 16/9, adjust to your vertical image's ratio */
+                padding-bottom: 177.77%;
             }
         }
 
@@ -537,7 +532,7 @@
 
     <nav class="nav">
 
-        <!-- Left: logo + icon -->
+
         <div class="nav-leftSide">
             <a href="home.html">
                 <img src="assets/lib/icons/rapunzelicon.png" class="ico" alt="logo">
@@ -545,7 +540,7 @@
             <a href="home.html" class="logo">DS</a>
         </div>
 
-        <!-- Center: desktop links -->
+
         <ul class="nav-center">
             <li><a href="home.html">Home</a></li>
             <li><a href="about.html">About</a></li>
@@ -553,12 +548,12 @@
             <li><a href="contact.html">Contact</a></li>
         </ul>
 
-        <!-- Right: dark mode icon (desktop) + hamburger (mobile) -->
+
         <div class="nav-rightGroup">
             <div class="nav-rightSide">
                 <img src="assets/lib/icons/darkMode.png" class="nav-icon" alt="dark mode">
             </div>
-            <!-- hamburger — hidden on desktop, shown on mobile via CSS -->
+
             <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span>
                 <span></span>
@@ -568,7 +563,7 @@
 
     </nav>
 
-    <!-- Mobile dropdown — sits outside nav so it spans full width -->
+
     <div class="mobile-menu" id="mobileMenu">
         <a href="home.html"    onclick="closeMobileMenu()">Home</a>
         <a href="about.html"   onclick="closeMobileMenu()">About</a>
